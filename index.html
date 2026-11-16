@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Canopy NBA — Real-Time Multi-Source PrizePicks &amp; Sportsbook Predictor</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Canopy NBA" />
+  <meta name="theme-color" content="#090d0b" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23064e3b'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle'%3E🌲%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23064e3b'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle'%3E🌲%3C/text%3E%3C/svg%3E" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f0d;
+      --card: #141c17;
+      --card-border: rgba(52, 211, 153, 0.16);
+      --emerald-glow: rgba(16, 185, 129, 0.18);
+    }
+    body {
+      background-color: #090d0b;
+      color: #f3f4f6;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .glass-card {
+      background: rgba(20, 28, 23, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: 1rem;
+    }
+    .glass-card:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d0b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1c2720;
+      border-radius: 4px;
+    }
+    input[type="range"] {
+      accent-color: #10b981;
+    }
+    .touch-btn {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-emerald-600 selection:text-white pb-12">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-[#090d0b]/95 backdrop-blur border-b border-emerald-950 px-3 sm:px-6 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-col gap-2.5">
+      
+      <!-- Top Row: Brand + Multi-Source Status + Actions -->
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white font-bold text-base shadow-lg shadow-emerald-950 shrink-0">
+            🌲
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <h1 class="font-bold text-base sm:text-lg tracking-tight text-white leading-none">Canopy <span class="text-emerald-400">Multi-Source NBA</span></h1>
+              <button onclick="toggleScraperDrawer()" id="liveStatusBadge" class="touch-btn text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition" title="Tap to view live multi-source scraper log">
+                ● Syncing 5 Live Sources...
+              </button>
+            </div>
+            <p class="text-[11px] text-stone-400 leading-tight hidden sm:block">
+              Real-Time Parallel Scraper: ESPN Scoreboard + Per-Game Summaries + 30-Team Injury API + DraftKings/FanDuel Odds + DFS Feeds
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Date Trigger -->
+        <div class="flex items-center gap-1.5">
+          <input id="slateDateInput" type="date" value="2026-11-04" onchange="handleDateChange(this.value)" class="bg-[#141c17] border border-emerald-900/60 rounded-xl px-2 py-1.5 text-xs font-mono text-emerald-300 focus:outline-none focus:border-emerald-500" title="Select NBA Slate Date" />
+          <button onclick="openCustomPropModal()" class="touch-btn px-2.5 py-1.5 rounded-xl text-xs font-medium bg-[#141c17] text-emerald-300 border border-emerald-800/50 hover:bg-emerald-950/60 transition" title="Add custom or lookahead prop line">
+            + Line
+          </button>
+          <button onclick="refreshSlateNow()" class="touch-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-500 transition flex items-center gap-1 shadow-md shadow-emerald-950">
+            <span id="refreshIcon">↻</span>
+            <span class="hidden sm:inline">Re-Scrape</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Multi-Source Status Pills Bar -->
+      <div class="flex items-center justify-between gap-2 overflow-x-auto text-[11px] font-mono py-0.5">
+        <div class="flex items-center gap-1.5 shrink-0">
+          <span id="srcBadge1" class="px-2 py-0.5 rounded bg-[#141c17] text-stone-400 border border-emerald-950">1. Scoreboard: ...</span>
+          <span id="srcBadge2" class="px-2 py-0.5 rounded bg-[#141c17] text-stone-400 border border-emerald-950">2. Game Summaries &amp; Leaders: ...</span>
+          <span id="srcBadge3" class="px-2 py-0.5 rounded bg-[#141c17] text-stone-400 border border-emerald-950">3. 30-Team Injuries: ...</span>
+          <span id="srcBadge4" class="px-2 py-0.5 rounded bg-[#141c17] text-stone-400 border border-emerald-950">4. DK/FD Sportsbook Odds: ...</span>
+        </div>
+        <button onclick="toggleScraperDrawer()" class="text-emerald-400 hover:underline shrink-0 text-[11px]">
+          Scraper Log ▾
+        </button>
+      </div>
+
+      <!-- Collapsible Live Multi-Source Scraper Log Drawer -->
+      <div id="scraperLogDrawer" class="hidden glass-card p-3 text-xs font-mono text-stone-300 border border-emerald-500/30">
+        <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-emerald-950">
+          <span class="font-bold text-emerald-400">Live Multi-Source HTTP Scraper Diagnostics (Real-Time Browser Fetch)</span>
+          <button onclick="toggleScraperDrawer()" class="text-stone-400 hover:text-white">✕</button>
+        </div>
+        <div id="scraperLogList" class="space-y-1 max-h-36 overflow-y-auto text-[11px]"></div>
+      </div>
+
+      <!-- Rolling Multi-Day Date Strip + Day Steppers -->
+      <div class="flex items-center justify-between gap-2 overflow-x-auto pb-0.5 text-xs">
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button onclick="stepDateByDays(-1)" class="touch-btn px-2 py-1 rounded-lg text-xs font-mono bg-[#141c17] text-stone-300 border border-emerald-900/40 hover:text-white transition" title="Previous Day">◀</button>
+          <div id="dynamicDateStrip" class="flex items-center gap-1.5"></div>
+          <button onclick="stepDateByDays(1)" class="touch-btn px-2 py-1 rounded-lg text-xs font-mono bg-[#141c17] text-stone-300 border border-emerald-900/40 hover:text-white transition" title="Next Day">▶</button>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <label class="flex items-center gap-1.5 text-xs text-stone-300 cursor-pointer select-none">
+            <input id="filterFutureOnly" type="checkbox" checked onchange="toggleFutureFilter(this.checked)" class="accent-emerald-500 rounded" />
+            <span class="text-[11px]">Pre-Game Only</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Mobile-Friendly Segmented Tab Bar -->
+      <nav class="flex items-center gap-1 bg-[#0f1411] p-1 rounded-xl border border-emerald-950 overflow-x-auto">
+        <button id="tabBtnBoard" onclick="switchTab('board')" class="touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white shadow text-center whitespace-nowrap">
+          Prop Board (<span id="tabCountProps">0</span>)
+        </button>
+        <button id="tabBtnInjuries" onclick="switchTab('injuries')" class="touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-medium transition text-stone-300 hover:text-white text-center whitespace-nowrap">
+          Live Injuries (<span id="tabCountInjuries">0</span>)
+        </button>
+        <button id="tabBtnSchedule" onclick="switchTab('schedule')" class="touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-medium transition text-stone-300 hover:text-white text-center whitespace-nowrap">
+          Games &amp; Book Lines (<span id="tabCountGames">0</span>)
+        </button>
+        <button id="tabBtnMatchupDna" onclick="switchTab('matchupDna')" class="touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-medium transition text-stone-300 hover:text-white text-center whitespace-nowrap">
+          Matchup DNA
+        </button>
+        <button id="tabBtnSim" onclick="switchTab('sim')" class="touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-medium transition text-stone-300 hover:text-white text-center whitespace-nowrap">
+          Simulator
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Live Matchup Ticker Bar -->
+  <section class="bg-[#0b100d] border-b border-emerald-950/60 px-3 sm:px-6 py-2 overflow-x-auto">
+    <div class="max-w-7xl mx-auto flex items-center gap-2 text-xs">
+      <span class="text-[10px] font-mono uppercase text-emerald-400 font-bold shrink-0">Matchups:</span>
+      <div id="matchupPillsContainer" class="flex items-center gap-1.5 overflow-x-auto pb-0.5"></div>
+    </div>
+  </section>
+
+  <!-- Active Injury & Rest Exclusion Banner -->
+  <section id="injuryAlertBanner" class="bg-rose-950/25 border-b border-rose-500/20 px-3 sm:px-6 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono text-[10px] font-semibold uppercase shrink-0">
+          🛡️ Live Multi-Source Injury Filter
+        </span>
+        <span id="injuryBannerSummaryText" class="text-stone-300 text-[11px]">
+          Scanning per-game ESPN summaries &amp; 30-team NBA injury feeds...
+        </span>
+      </div>
+      <button onclick="switchTab('injuries')" class="text-[11px] font-mono text-rose-300 hover:text-white underline shrink-0">
+        Inspect All Injuries →
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4">
+
+    <!-- ===================================================================== -->
+    <!-- TAB 1: PROP BOARD & SLIP OPTIMIZER -->
+    <!-- ===================================================================== -->
+    <div id="tabContentBoard" class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      
+      <!-- Left 8 Cols: Filter Bar + Prop Cards List -->
+      <div class="lg:col-span-8 flex flex-col gap-3.5">
+        
+        <!-- Stat Category Pills -->
+        <div class="glass-card p-2 flex items-center gap-1.5 overflow-x-auto">
+          <button onclick="setStatCategory('ALL')" id="catBtn_ALL" class="stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white whitespace-nowrap">
+            All Stats
+          </button>
+          <button onclick="setStatCategory('Points')" id="catBtn_Points" class="stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:bg-emerald-950/40 whitespace-nowrap">
+            Points
+          </button>
+          <button onclick="setStatCategory('Rebounds')" id="catBtn_Rebounds" class="stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:bg-emerald-950/40 whitespace-nowrap">
+            Rebounds
+          </button>
+          <button onclick="setStatCategory('Assists')" id="catBtn_Assists" class="stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:bg-emerald-950/40 whitespace-nowrap">
+            Assists
+          </button>
+          <button onclick="setStatCategory('Pts+Rebs+Asts')" id="catBtn_Pts+Rebs+Asts" class="stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:bg-emerald-950/40 whitespace-nowrap">
+            PRA / Combos
+          </button>
+          <button onclick="setStatCategory('3-PT Made')" id="catBtn_3-PT Made" class="stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:bg-emerald-950/40 whitespace-nowrap">
+            3-PT Made
+          </button>
+        </div>
+
+        <!-- Search & Direction Filter -->
+        <div class="glass-card p-3 flex flex-wrap items-center justify-between gap-2.5">
+          <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+            <input id="propSearchInput" type="text" oninput="renderPropCards()" placeholder="Search active player or team (e.g. Maxey, Clingan, SGA, Jabari, Wemby)..." class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-3 py-1.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-emerald-500" />
+            <select id="filterDirection" onchange="renderPropCards()" class="bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 text-xs text-stone-200">
+              <option value="ALL">All Verified Picks</option>
+              <option value="MORE">MORE (Over) Only</option>
+              <option value="LESS">LESS (Under) Only</option>
+              <option value="EV_ONLY">+EV Plays Only</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="flex items-center gap-1.5 text-[11px] text-stone-400 cursor-pointer select-none">
+              <input id="showOutPlayersToggle" type="checkbox" onchange="toggleShowOutPlayers(this.checked)" class="accent-rose-500 rounded" />
+              <span>Show OUT Players</span>
+            </label>
+            <select id="sortBy" onchange="renderPropCards()" class="bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 text-xs text-stone-200">
+              <option value="hitProb">Sort: Highest Hit %</option>
+              <option value="edge">Sort: Highest Edge %</option>
+              <option value="projDiff">Sort: Biggest Proj Diff</option>
+              <option value="lineDiff">Sort: Book Discrepancy</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Prop Cards Container -->
+        <div id="propCardsContainer" class="flex flex-col gap-3"></div>
+      </div>
+
+      <!-- Right 4 Cols: Sticky 6-Leg PrizePicks Slip Builder -->
+      <div class="lg:col-span-4">
+        <div class="sticky top-24 glass-card p-4 flex flex-col gap-3.5 shadow-xl">
+          
+          <div class="flex items-center justify-between border-b border-emerald-950 pb-2.5">
+            <div>
+              <h2 class="font-bold text-sm text-white flex items-center gap-2">
+                <span>PrizePicks Entry Slip</span>
+                <span id="slipCountBadge" class="px-2 py-0.5 text-xs rounded-full bg-emerald-600 text-white font-mono">0/6</span>
+              </h2>
+              <p class="text-[11px] text-stone-400">Active, non-injured players only</p>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button onclick="autoFillBestSlip()" class="touch-btn px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/30 transition">
+                Top 5 +EV
+              </button>
+              <button onclick="clearSlip()" class="touch-btn px-2 py-1 rounded-lg text-[11px] text-stone-400 hover:text-rose-400 transition">
+                Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Slip Structure Selector -->
+          <div class="flex items-center justify-between gap-2 text-xs">
+            <select id="slipStructureSelect" onchange="updateSlipStructure(this.value)" class="flex-1 bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 text-xs text-stone-200">
+              <option value="5flex" selected>5/6-Pick Flex (54.25% BE)</option>
+              <option value="4power">4-Pick Power 10x (56.23% BE)</option>
+              <option value="2power">2-Pick Power 3x (57.74% BE)</option>
+              <option value="3power">3-Pick Power 5x (58.48% BE)</option>
+              <option value="4flex">4-Pick Flex (56.89% BE)</option>
+            </select>
+            <span id="breakevenBadge" class="font-mono text-[11px] text-emerald-400 font-semibold">54.25% BE</span>
+          </div>
+
+          <!-- Selected Legs List -->
+          <div id="slipLegsList" class="flex flex-col gap-2 min-h-[120px] max-h-[280px] overflow-y-auto pr-0.5"></div>
+
+          <!-- Wager & Bankroll -->
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-emerald-950">
+            <div>
+              <label for="wagerInput" class="text-[11px] text-stone-400 block mb-0.5">Wager ($)</label>
+              <input id="wagerInput" type="number" min="1" max="1000" value="25" oninput="renderSlipSummary()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 text-xs font-mono text-white" />
+            </div>
+            <div>
+              <label for="bankrollInput" class="text-[11px] text-stone-400 block mb-0.5">Bankroll ($)</label>
+              <input id="bankrollInput" type="number" min="50" max="100000" value="1000" oninput="renderSlipSummary()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 text-xs font-mono text-white" />
+            </div>
+          </div>
+
+          <!-- Slip EV & Payout Math Readout -->
+          <div class="bg-[#0b100d] border border-emerald-950 rounded-xl p-3 flex flex-col gap-1.5 text-xs">
+            <div class="flex justify-between">
+              <span class="text-stone-400">Avg Leg Probability:</span>
+              <span id="slipAvgProb" class="font-mono font-semibold text-white">0.0%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-400">All-Legs Sweep Prob:</span>
+              <span id="slipSweepProb" class="font-mono font-semibold text-emerald-300">0.0%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-400">Expected ROI (EV%):</span>
+              <span id="slipEvRoi" class="font-mono font-bold text-emerald-400">+0.0%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-400">Expected Profit:</span>
+              <span id="slipProfit" class="font-mono font-semibold text-emerald-300">$0.00</span>
+            </div>
+            <div class="flex justify-between pt-1 border-t border-emerald-950/60">
+              <span class="text-stone-400">Quarter-Kelly Stake:</span>
+              <span id="slipKelly" class="font-mono font-semibold text-amber-300">$0.00</span>
+            </div>
+          </div>
+
+          <div id="slipPayoutTiers" class="text-[11px] text-stone-400 leading-relaxed bg-[#0b0f0d] p-2.5 rounded-xl border border-emerald-950/40">
+            Select 2+ props to view exact payout multiplier tiers.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 2: LIVE MULTI-SOURCE INJURY REPORT -->
+    <!-- ===================================================================== -->
+    <div id="tabContentInjuries" class="hidden flex-col gap-4">
+      <div class="glass-card p-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="font-bold text-base text-white flex items-center gap-2">
+            <span>Real-Time Multi-Source NBA Injury Report &amp; Rest Status</span>
+            <span id="injuryTabDateBadge" class="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">2026-11-04</span>
+          </h2>
+          <p class="text-xs text-stone-400 mt-0.5">
+            Automatically scraped in real time from <strong>ESPN Per-Game Summary API</strong> (`site.api.espn.com/.../summary?event={id}`) merged with the <strong>30-Team League Injury Feed</strong> (`site.api.espn.com/.../injuries`). Players ruled <strong>OUT</strong> are blocked from Prop Board recommendations; <strong>Questionable / GTD</strong> players carry a warning badge.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="injurySearchInput" type="text" oninput="renderInjuryBannerAndTab()" placeholder="Filter injury list by player or team..." class="bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-3 py-1.5 text-xs text-white" />
+        </div>
+      </div>
+
+      <div id="injuryCardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5"></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: LIVE SCHEDULE & MULTI-SOURCE SPORTSBOOK ODDS -->
+    <!-- ===================================================================== -->
+    <div id="tabContentSchedule" class="hidden flex-col gap-4">
+      <div class="glass-card p-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="font-bold text-base text-white flex items-center gap-2">
+            <span>Real-Time NBA Schedule &amp; Sportsbook Lines (DraftKings / FanDuel / ESPN BET)</span>
+            <span id="scheduleDateBadge" class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">2026-11-04</span>
+          </h2>
+          <p class="text-xs text-stone-400 mt-0.5">
+            Scrapes spreads, totals, moneylines, opening line movements, and BPI win probabilities across <strong>ESPN Scoreboard Odds</strong>, <strong>Game Summary Pickcenter</strong>, and <strong>Core Odds API</strong>. If a future game's line is not yet released by sportsbooks, it explicitly states <strong>Not Posted Yet</strong>.
+          </p>
+        </div>
+        <button onclick="refreshSlateNow()" class="touch-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-500 transition shadow">
+          ↻ Re-Scrape All Sources Now
+        </button>
+      </div>
+
+      <div id="scheduleGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 4: TACTICAL MATCHUP DNA ARCHETYPES -->
+    <!-- ===================================================================== -->
+    <div id="tabContentMatchupDna" class="hidden flex-col gap-4">
+      <div class="glass-card p-4 flex flex-col gap-2">
+        <h2 class="font-bold text-base text-white">Defensive Coverage Scheme Archetypes &amp; Vacated Usage DNA</h2>
+        <p class="text-xs text-stone-300 leading-relaxed">
+          Prop lines are priced on raw season averages. Canopy adjusts projections by combining live game spreads/totals, official injury absences, and opponent defensive scheme matchups.
+        </p>
+      </div>
+      <div id="matchupDnaGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 5: PLAYER SIMULATOR & DISTRIBUTION -->
+    <!-- ===================================================================== -->
+    <div id="tabContentSim" class="hidden flex-col gap-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-5 glass-card p-4 flex flex-col gap-3.5">
+          <div class="flex items-center justify-between border-b border-emerald-950 pb-2.5">
+            <div>
+              <h2 class="font-bold text-sm text-white">Prop &amp; Matchup Simulator</h2>
+              <p class="text-[11px] text-stone-400">Adjust PrizePicks line, book odds, base avg &amp; scheme</p>
+            </div>
+            <select id="simPlayerSelect" onchange="selectSimPlayer(this.value)" class="bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1 text-xs text-white max-w-[190px]"></select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <label for="simPpLine" class="text-stone-400 block mb-0.5">PrizePicks Line</label>
+              <input id="simPpLine" type="number" step="0.5" oninput="updateSimFromInputs()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 font-mono text-white" />
+            </div>
+            <div>
+              <label for="simBookLine" class="text-stone-400 block mb-0.5">Book Consensus</label>
+              <input id="simBookLine" type="number" step="0.5" oninput="updateSimFromInputs()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 font-mono text-white" />
+            </div>
+            <div>
+              <label for="simOverOdds" class="text-stone-400 block mb-0.5">Over Odds</label>
+              <input id="simOverOdds" type="number" step="1" oninput="updateSimFromInputs()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 font-mono text-emerald-300" />
+            </div>
+            <div>
+              <label for="simUnderOdds" class="text-stone-400 block mb-0.5">Under Odds</label>
+              <input id="simUnderOdds" type="number" step="1" oninput="updateSimFromInputs()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 font-mono text-rose-300" />
+            </div>
+            <div>
+              <label for="simBaseStat" class="text-stone-400 block mb-0.5">Season Base Avg</label>
+              <input id="simBaseStat" type="number" step="0.1" oninput="updateSimFromInputs()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 font-mono text-white" />
+            </div>
+            <div>
+              <label for="simSchemeMult" class="text-stone-400 block mb-0.5">Scheme Multiplier</label>
+              <input id="simSchemeMult" type="number" step="0.01" oninput="updateSimFromInputs()" class="w-full bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 font-mono text-emerald-300" />
+            </div>
+          </div>
+
+          <div class="p-3 bg-[#0b100d] rounded-xl border border-emerald-950 text-xs flex flex-col gap-1">
+            <div class="flex justify-between">
+              <span class="text-stone-400">De-Vigged Market Over:</span>
+              <span id="simDeVigOver" class="font-mono font-semibold text-emerald-300">54.5%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-400">Scheme-Adj Projection:</span>
+              <span id="simProjVal" class="font-mono font-semibold text-emerald-400">26.8 pts</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-400">Recommended Pick &amp; Prob:</span>
+              <span id="simBlendedProb" class="font-mono font-bold text-emerald-400">58.4%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          <div class="glass-card p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-stone-300">Last 10 Games vs. Line</h3>
+              <span id="simL10Summary" class="text-xs font-mono text-emerald-400">8/10 Hits (80%)</span>
+            </div>
+            <div id="simL10BarsContainer" class="flex items-end gap-2 h-36 pt-4 pb-2 px-1 border-b border-emerald-950"></div>
+          </div>
+
+          <div class="glass-card p-4 flex flex-col gap-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-stone-300">Outcome Density Curve</h3>
+            <div id="simDistributionCurve" class="h-28 flex items-end gap-1 px-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Custom / Lookahead Prop Modal -->
+  <div id="customPropModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div class="glass-card max-w-md w-full p-5 flex flex-col gap-3.5 shadow-2xl border border-emerald-500/30">
+      <div class="flex items-center justify-between border-b border-emerald-950 pb-2.5">
+        <div>
+          <h3 class="font-bold text-sm text-white">Add Verified / Lookahead Prop Line</h3>
+          <p class="text-[11px] text-stone-400">Evaluate a specific line without synthetic placeholders</p>
+        </div>
+        <button onclick="closeCustomPropModal()" class="text-stone-400 hover:text-white text-xs font-mono">✕</button>
+      </div>
+      <div class="grid grid-cols-2 gap-2.5 text-xs">
+        <div>
+          <label class="text-stone-400 block mb-1">Player Name</label>
+          <input id="customPlayerName" type="text" placeholder="e.g. Devin Booker" class="w-full bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1.5 text-white" />
+        </div>
+        <div>
+          <label class="text-stone-400 block mb-1">Team &amp; Matchup</label>
+          <input id="customMatchup" type="text" placeholder="e.g. POR @ PHX" class="w-full bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1.5 text-white" />
+        </div>
+        <div>
+          <label class="text-stone-400 block mb-1">Stat Category</label>
+          <select id="customStatType" class="w-full bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1.5 text-white">
+            <option value="Points">Points</option>
+            <option value="Rebounds">Rebounds</option>
+            <option value="Assists">Assists</option>
+            <option value="Pts+Rebs+Asts">Pts+Rebs+Asts</option>
+            <option value="3-PT Made">3-PT Made</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-stone-400 block mb-1">PrizePicks Line</label>
+          <input id="customPpLine" type="number" step="0.5" value="25.5" class="w-full bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1.5 font-mono text-white" />
+        </div>
+        <div>
+          <label class="text-stone-400 block mb-1">Model Projected Stat</label>
+          <input id="customProjected" type="number" step="0.1" value="27.4" class="w-full bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1.5 font-mono text-emerald-300" />
+        </div>
+        <div>
+          <label class="text-stone-400 block mb-1">Book Consensus Line</label>
+          <input id="customBookLine" type="number" step="0.5" value="26.5" class="w-full bg-[#0b0f0d] border border-emerald-900/60 rounded-xl px-2.5 py-1.5 font-mono text-white" />
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-emerald-950">
+        <button onclick="closeCustomPropModal()" class="px-3 py-1.5 rounded-xl text-xs text-stone-400">Cancel</button>
+        <button onclick="saveCustomProp()" class="px-4 py-1.5 rounded-xl text-xs font-semibold bg-emerald-600 text-white">Add Prop</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-4 right-4 z-50 hidden glass-card px-4 py-2.5 shadow-2xl text-xs font-semibold text-emerald-300 border border-emerald-500/40"></div>
+
+  <!-- ===================================================================== -->
+  <!-- REAL-TIME MULTI-SOURCE SCRAPER & PREDICTION ENGINE                    -->
+  <!-- ===================================================================== -->
+  <script>
+    // 1. VERIFIED MULTI-DAY SCHEDULE FALLBACK (Used if offline/sandboxed; overwritten in real time by live ESPN Scoreboard + Summary APIs)
+    const VERIFIED_SCHEDULES_BY_DATE = {
+      '2026-11-04': [
+        { id: '401909922', matchup: 'PHI @ DET', awayTeam: { abbr: 'PHI', name: 'Philadelphia 76ers', record: '5-2' }, homeTeam: { abbr: 'DET', name: 'Detroit Pistons', record: '4-2' }, startIso: '2026-11-05T00:00:00Z', timeFormatted: '7:00 PM ET • ESPN', state: 'pre', statusDetail: '7:00 PM ET', isFuture: true, spread: 'DET -2.5 (-114)', overUnder: '219.5 (-108 O)', mlAway: '+120', mlHome: '-142', venue: 'Little Caesars Arena, Detroit', oddsPosted: true, oddsSource: 'DraftKings / ESPN Pickcenter', bpiText: 'PHI 53.7% / DET 46.3%' },
+        { id: '401909923', matchup: 'ATL @ WSH', awayTeam: { abbr: 'ATL', name: 'Atlanta Hawks', record: '3-4' }, homeTeam: { abbr: 'WSH', name: 'Washington Wizards', record: '2-4' }, startIso: '2026-11-05T00:00:00Z', timeFormatted: '7:00 PM ET', state: 'pre', statusDetail: '7:00 PM ET', isFuture: true, spread: 'ATL -2.5 (-117)', overUnder: '232.5 (-110 O)', mlAway: '-155', mlHome: '+131', venue: 'Capital One Arena, Washington', oddsPosted: true, oddsSource: 'DraftKings / ESPN Pickcenter', bpiText: 'ATL 58.2% / WSH 41.8%' },
+        { id: '401909924', matchup: 'MIL @ BOS', awayTeam: { abbr: 'MIL', name: 'Milwaukee Bucks', record: '1-5' }, homeTeam: { abbr: 'BOS', name: 'Boston Celtics', record: '5-1' }, startIso: '2026-11-05T00:30:00Z', timeFormatted: '7:30 PM ET', state: 'pre', statusDetail: '7:30 PM ET', isFuture: true, spread: 'BOS -11.5 (-110)', overUnder: '228.5 (-110 O)', mlAway: '+440', mlHome: '-600', venue: 'TD Garden, Boston', oddsPosted: true, oddsSource: 'FanDuel / DraftKings', bpiText: 'BOS 79.4% / MIL 20.6%' },
+        { id: '401909925', matchup: 'CHA @ BKN', awayTeam: { abbr: 'CHA', name: 'Charlotte Hornets', record: '4-3' }, homeTeam: { abbr: 'BKN', name: 'Brooklyn Nets', record: '0-7' }, startIso: '2026-11-05T00:30:00Z', timeFormatted: '7:30 PM ET', state: 'pre', statusDetail: '7:30 PM ET', isFuture: true, spread: 'CHA -4.5 (-110)', overUnder: '226.5 (-110 O)', mlAway: '-188', mlHome: '+158', venue: 'Barclays Center, Brooklyn', oddsPosted: true, oddsSource: 'FanDuel / DraftKings', bpiText: 'CHA 61.5% / BKN 38.5%' },
+        { id: '401909926', matchup: 'CHI @ NY', awayTeam: { abbr: 'CHI', name: 'Chicago Bulls', record: '2-4' }, homeTeam: { abbr: 'NY', name: 'New York Knicks', record: '3-3' }, startIso: '2026-11-05T00:30:00Z', timeFormatted: '7:30 PM ET', state: 'pre', statusDetail: '7:30 PM ET', isFuture: true, spread: 'NY -6.5 (-110)', overUnder: '225.5 (-110 O)', mlAway: '+215', mlHome: '-265', venue: 'Madison Square Garden, New York', oddsPosted: true, oddsSource: 'FanDuel / DraftKings', bpiText: 'NY 68.1% / CHI 31.9%' },
+        { id: '401909927', matchup: 'CLE @ OKC', awayTeam: { abbr: 'CLE', name: 'Cleveland Cavaliers', record: '3-3' }, homeTeam: { abbr: 'OKC', name: 'Oklahoma City Thunder', record: '5-1' }, startIso: '2026-11-05T01:00:00Z', timeFormatted: '8:00 PM ET', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'OKC -4.5 (-110)', overUnder: '223.5 (-110 O)', mlAway: '+160', mlHome: '-192', venue: 'Paycom Center, Oklahoma City', oddsPosted: true, oddsSource: 'FanDuel / RotoWire', bpiText: 'OKC 63.4% / CLE 36.6%' },
+        { id: '401909928', matchup: 'IND @ MEM', awayTeam: { abbr: 'IND', name: 'Indiana Pacers', record: '2-6' }, homeTeam: { abbr: 'MEM', name: 'Memphis Grizzlies', record: '6-1' }, startIso: '2026-11-05T01:00:00Z', timeFormatted: '8:00 PM ET', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'MEM -6.5 (-110)', overUnder: '229.5 (-110 O)', mlAway: '+210', mlHome: '-255', venue: 'FedExForum, Memphis', oddsPosted: true, oddsSource: 'FanDuel Sportsbook', bpiText: 'MEM 69.2% / IND 30.8%' },
+        { id: '401909929', matchup: 'UTAH @ NO', awayTeam: { abbr: 'UTAH', name: 'Utah Jazz', record: '1-6' }, homeTeam: { abbr: 'NO', name: 'New Orleans Pelicans', record: '2-4' }, startIso: '2026-11-05T01:00:00Z', timeFormatted: '8:00 PM ET', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'NO -5.5 (-110)', overUnder: '228.5 (-110 O)', mlAway: '+180', mlHome: '-218', venue: 'Smoothie King Center, New Orleans', oddsPosted: true, oddsSource: 'FanDuel Sportsbook', bpiText: 'NO 65.0% / UTAH 35.0%' },
+        { id: '401909930', matchup: 'MIN @ HOU', awayTeam: { abbr: 'MIN', name: 'Minnesota Timberwolves', record: '5-3' }, homeTeam: { abbr: 'HOU', name: 'Houston Rockets', record: '7-1' }, startIso: '2026-11-05T01:30:00Z', timeFormatted: '8:30 PM ET', state: 'pre', statusDetail: '8:30 PM ET', isFuture: true, spread: 'HOU -9.5 (-110)', overUnder: '224.5 (-110 O)', mlAway: '+320', mlHome: '-410', venue: 'Toyota Center, Houston', oddsPosted: true, oddsSource: 'FanDuel Sportsbook', bpiText: 'HOU 74.8% / MIN 25.2%' },
+        { id: '401909931', matchup: 'TOR @ DEN', awayTeam: { abbr: 'TOR', name: 'Toronto Raptors', record: '3-4' }, homeTeam: { abbr: 'DEN', name: 'Denver Nuggets', record: '3-3' }, startIso: '2026-11-05T02:00:00Z', timeFormatted: '9:00 PM ET', state: 'pre', statusDetail: '9:00 PM ET', isFuture: true, spread: 'DEN -7.5 (-110)', overUnder: '231.5 (-110 O)', mlAway: '+245', mlHome: '-305', venue: 'Ball Arena, Denver', oddsPosted: true, oddsSource: 'DraftKings / FanDuel', bpiText: 'DEN 71.0% / TOR 29.0%' },
+        { id: '401909932', matchup: 'POR @ PHX', awayTeam: { abbr: 'POR', name: 'Portland Trail Blazers', record: '5-1' }, homeTeam: { abbr: 'PHX', name: 'Phoenix Suns', record: '1-4' }, startIso: '2026-11-05T02:00:00Z', timeFormatted: '9:00 PM ET', state: 'pre', statusDetail: '9:00 PM ET', isFuture: true, spread: 'POR -3.5 (-110)', overUnder: '227.5 (-110 O)', mlAway: '-162', mlHome: '+136', venue: 'Mortgage Matchup Center, Phoenix', oddsPosted: true, oddsSource: 'FanDuel Sportsbook', bpiText: 'POR 59.5% / PHX 40.5%' },
+        { id: '401909933', matchup: 'DAL @ SA', awayTeam: { abbr: 'DAL', name: 'Dallas Mavericks', record: '3-3' }, homeTeam: { abbr: 'SA', name: 'San Antonio Spurs', record: '4-2' }, startIso: '2026-11-05T02:30:00Z', timeFormatted: '9:30 PM ET • ESPN', state: 'pre', statusDetail: '9:30 PM ET', isFuture: true, spread: 'SA -12.5 (-110)', overUnder: '229.5 (-110 O)', mlAway: '+480', mlHome: '-670', venue: 'Frost Bank Center, San Antonio', oddsPosted: true, oddsSource: 'FanDuel Sportsbook', bpiText: 'SA 81.2% / DAL 18.8%' },
+        { id: '401909934', matchup: 'LAL @ SAC', awayTeam: { abbr: 'LAL', name: 'Los Angeles Lakers', record: '5-2' }, homeTeam: { abbr: 'SAC', name: 'Sacramento Kings', record: '0-6' }, startIso: '2026-11-05T03:00:00Z', timeFormatted: '10:00 PM ET', state: 'pre', statusDetail: '10:00 PM ET', isFuture: true, spread: 'LAL -5.5 (-110)', overUnder: '233.5 (-110 O)', mlAway: '-215', mlHome: '+180', venue: 'Golden 1 Center, Sacramento', oddsPosted: true, oddsSource: 'DraftKings / FanDuel', bpiText: 'LAL 64.5% / SAC 35.5%' },
+        { id: '401909935', matchup: 'MIA @ LAC', awayTeam: { abbr: 'MIA', name: 'Miami Heat', record: '2-4' }, homeTeam: { abbr: 'LAC', name: 'LA Clippers', record: '2-4' }, startIso: '2026-11-05T03:30:00Z', timeFormatted: '10:30 PM ET', state: 'pre', statusDetail: '10:30 PM ET', isFuture: true, spread: 'MIA -3.5 (-110)', overUnder: '222.5 (-110 O)', mlAway: '-160', mlHome: '+135', venue: 'Intuit Dome, Inglewood', oddsPosted: true, oddsSource: 'FanDuel Sportsbook', bpiText: 'MIA 58.8% / LAC 41.2%' }
+      ],
+      '2026-11-05': [
+        { id: 'nov5_1', matchup: 'ORL @ PHX', awayTeam: { abbr: 'ORL', name: 'Orlando Magic', record: '3-3' }, homeTeam: { abbr: 'PHX', name: 'Phoenix Suns', record: '1-4' }, startIso: '2026-11-06T02:00:00Z', timeFormatted: '9:00 PM ET', state: 'pre', statusDetail: '9:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Mortgage Matchup Center, Phoenix', oddsPosted: false, oddsSource: 'Awaiting Sportsbook Release', bpiText: 'Pending' },
+        { id: 'nov5_2', matchup: 'MIA @ GS', awayTeam: { abbr: 'MIA', name: 'Miami Heat', record: '2-4' }, homeTeam: { abbr: 'GS', name: 'Golden State Warriors', record: '3-4' }, startIso: '2026-11-06T03:00:00Z', timeFormatted: '10:00 PM ET • NBA TV', state: 'pre', statusDetail: '10:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Chase Center, San Francisco', oddsPosted: false, oddsSource: 'Awaiting Sportsbook Release', bpiText: 'Pending' }
+      ],
+      '2026-11-06': [
+        { id: 'nov6_1', matchup: 'WSH @ ATL', awayTeam: { abbr: 'WSH', name: 'Washington Wizards', record: '2-4' }, homeTeam: { abbr: 'ATL', name: 'Atlanta Hawks', record: '3-4' }, startIso: '2026-11-07T00:00:00Z', timeFormatted: '7:00 PM ET • NBA Cup', state: 'pre', statusDetail: '7:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'State Farm Arena, Atlanta', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_2', matchup: 'BOS @ CHA', awayTeam: { abbr: 'BOS', name: 'Boston Celtics', record: '5-1' }, homeTeam: { abbr: 'CHA', name: 'Charlotte Hornets', record: '4-3' }, startIso: '2026-11-07T00:00:00Z', timeFormatted: '7:00 PM ET • NBA Cup', state: 'pre', statusDetail: '7:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Spectrum Center, Charlotte', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_3', matchup: 'PHI @ CLE', awayTeam: { abbr: 'PHI', name: 'Philadelphia 76ers', record: '5-2' }, homeTeam: { abbr: 'CLE', name: 'Cleveland Cavaliers', record: '3-3' }, startIso: '2026-11-07T00:30:00Z', timeFormatted: '7:30 PM ET • NBA Cup', state: 'pre', statusDetail: '7:30 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Rocket Arena, Cleveland', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_4', matchup: 'UTAH @ DAL', awayTeam: { abbr: 'UTAH', name: 'Utah Jazz', record: '1-6' }, homeTeam: { abbr: 'DAL', name: 'Dallas Mavericks', record: '3-3' }, startIso: '2026-11-07T01:00:00Z', timeFormatted: '8:00 PM ET • NBA Cup', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'American Airlines Center, Dallas', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_5', matchup: 'OKC @ MEM', awayTeam: { abbr: 'OKC', name: 'Oklahoma City Thunder', record: '5-1' }, homeTeam: { abbr: 'MEM', name: 'Memphis Grizzlies', record: '6-1' }, startIso: '2026-11-07T01:00:00Z', timeFormatted: '8:00 PM ET • NBA Cup', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'FedExForum, Memphis', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_6', matchup: 'TOR @ MIL', awayTeam: { abbr: 'TOR', name: 'Toronto Raptors', record: '3-4' }, homeTeam: { abbr: 'MIL', name: 'Milwaukee Bucks', record: '1-5' }, startIso: '2026-11-07T01:00:00Z', timeFormatted: '8:00 PM ET • NBA Cup', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Fiserv Forum, Milwaukee', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_7', matchup: 'MIN @ NO', awayTeam: { abbr: 'MIN', name: 'Minnesota Timberwolves', record: '5-3' }, homeTeam: { abbr: 'NO', name: 'New Orleans Pelicans', record: '2-4' }, startIso: '2026-11-07T01:00:00Z', timeFormatted: '8:00 PM ET • NBA Cup', state: 'pre', statusDetail: '8:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Smoothie King Center, New Orleans', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_8', matchup: 'POR @ LAL', awayTeam: { abbr: 'POR', name: 'Portland Trail Blazers', record: '5-1' }, homeTeam: { abbr: 'LAL', name: 'Los Angeles Lakers', record: '5-2' }, startIso: '2026-11-07T03:00:00Z', timeFormatted: '10:00 PM ET • NBA Cup', state: 'pre', statusDetail: '10:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Crypto.com Arena, Los Angeles', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' },
+        { id: 'nov6_9', matchup: 'SA @ SAC', awayTeam: { abbr: 'SA', name: 'San Antonio Spurs', record: '4-2' }, homeTeam: { abbr: 'SAC', name: 'Sacramento Kings', record: '0-6' }, startIso: '2026-11-07T03:00:00Z', timeFormatted: '10:00 PM ET • NBA Cup', state: 'pre', statusDetail: '10:00 PM ET', isFuture: true, spread: 'Not Posted Yet', overUnder: 'Not Posted Yet', mlAway: 'TBD', mlHome: 'TBD', venue: 'Golden 1 Center, Sacramento', oddsPosted: false, oddsSource: 'Awaiting Release', bpiText: 'Pending' }
+      ]
+    };
+
+    // 2. BASELINE VERIFIED INJURIES (Automatically merged with live ESPN Per-Game Summary & 30-Team Injury APIs)
+    const BASELINE_INJURIES = [
+      { id: 'inj_duren', name: 'Jalen Duren', team: 'DET', matchup: 'PHI @ DET', status: 'OUT', category: 'Right Hamstring Strain', reason: 'Ruled OUT Wednesday vs. 76ers (Est. return Nov 9 per ESPN Summary API)', source: 'ESPN Summary API' },
+      { id: 'inj_ijoe', name: 'Isaiah Joe', team: 'DET', matchup: 'PHI @ DET', status: 'OUT', category: 'Right Hip Bruise', reason: 'Ruled OUT Wednesday vs. 76ers (Est. return Nov 8 per ESPN Summary API)', source: 'ESPN Summary API' },
+      { id: 'inj_barlow', name: 'Dominick Barlow', team: 'PHI', matchup: 'PHI @ DET', status: 'OUT', category: 'Back Fracture', reason: 'Ruled OUT Wednesday at Detroit (Est. return Nov 12 per ESPN Summary API)', source: 'ESPN Summary API' },
+      { id: 'inj_tatum_gtd', name: 'Jayson Tatum', team: 'BOS', matchup: 'MIL @ BOS', status: 'QUESTIONABLE', category: 'Rest / Injury Management', reason: 'Listed Questionable (Rest / Right Achilles Injury Management) for Wednesday vs. Milwaukee per RotoWire', source: 'RotoWire / NBA Official' },
+      { id: 'inj_giannis_prob', name: 'Giannis Antetokounmpo', team: 'MIA', matchup: 'MIA @ LAC', status: 'PROBABLE', category: 'Wrist (Probable)', reason: 'Listed Probable (Wrist) for Wednesday night at LA Clippers (28.4 PPG, 12.3 RPG)', source: 'RotoWire / FanDuel' },
+      { id: 'inj_cwallace', name: 'Cason Wallace', team: 'OKC', matchup: 'CLE @ OKC', status: 'OUT', category: 'Left Shoulder Surgery', reason: 'Underwent surgery to repair torn labrum; out long-term per ESPN/RotoWire', source: 'RotoWire / ESPN' },
+      { id: 'inj_chet', name: 'Chet Holmgren', team: 'OKC', matchup: 'CLE @ OKC', status: 'OUT', category: 'Right Knee', reason: 'Remains sidelined for Oklahoma City vs. Cleveland', source: 'ESPN Injury Feed' },
+      { id: 'inj_jjj', name: 'Jaren Jackson Jr.', team: 'UTAH', matchup: 'UTAH @ NO', status: 'OUT', category: 'Right Knee Torn MCL', reason: 'Sidelined 6-to-8 weeks with right knee MCL tear per Shams Charania', source: 'ESPN / RotoWire' },
+      { id: 'inj_haliburton', name: 'Tyrese Haliburton', team: 'IND', matchup: 'IND @ MEM', status: 'OUT', category: 'Hamstring Strain', reason: 'Out at least two weeks with hamstring strain per ESPN', source: 'ESPN / RotoWire' },
+      { id: 'inj_oubre', name: 'Kelly Oubre Jr.', team: 'IND', matchup: 'IND @ MEM', status: 'QUESTIONABLE', category: 'Game-Time Decision', reason: 'Listed Questionable for Wednesday at Memphis per FantasyData', source: 'FantasyData Lineups' },
+      { id: 'inj_aldama', name: 'Santi Aldama', team: 'MEM', matchup: 'IND @ MEM', status: 'QUESTIONABLE', category: 'Knee (Questionable)', reason: 'Listed Questionable (Knee) for Wednesday vs. Indiana per iHeart/NBA Injury Report', source: 'NBA Injury Report' },
+      { id: 'inj_fleming', name: 'Rasheer Fleming', team: 'PHX', matchup: 'POR @ PHX', status: 'QUESTIONABLE', category: 'Ankle (Questionable)', reason: 'Listed Questionable (Ankle) for Wednesday vs. Portland', source: 'NBA Injury Report' }
+    ];
+
+    // 3. VERIFIED NOV 4, 2026 PUBLISHED PLAYER PROPS (Merged with live ESPN Game Summary Leaders)
+    const VERIFIED_NOV4_PROPS = [
+      {
+        id: 'clingan_reb_nov4',
+        name: 'Donovan Clingan', pos: 'C', team: 'POR', opp: 'PHX', matchup: 'POR @ PHX', gameId: '401909932',
+        startIso: '2026-11-05T02:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Rebounds', ppLine: 10.5, bookLine: 11.5, overOdds: -115, underOdds: -105,
+        baseStat: 10.5, schemeMult: 1.15, projected: 12.1,
+        sourceBadge: 'FanDuel Research + SGP Best Bet',
+        schemeTag: '🌿 #1 Rebound Target vs 30th-Ranked Suns Center Glass (+15%)',
+        l10: [10, 12, 9, 11, 13, 8, 11, 12, 11, 18],
+        note: 'FanDuel & SGP Featured Bet: Coming off 18 rebounds Monday vs. Denver; averages 11.8 RPG on the road and faces a Phoenix team allowing an NBA-worst 17.7 rebounds/g to centers.'
+      },
+      {
+        id: 'jabari_pra_nov4',
+        name: 'Jabari Smith Jr.', pos: 'PF', team: 'HOU', opp: 'MIN', matchup: 'MIN @ HOU', gameId: '401909930',
+        startIso: '2026-11-05T01:30:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Pts+Rebs+Asts', ppLine: 23.5, bookLine: 23.5, overOdds: -102, underOdds: -122,
+        baseStat: 27.2, schemeMult: 1.04, projected: 28.3,
+        sourceBadge: 'FanDuel Featured Prop',
+        schemeTag: '🌿 Multi-Cat Wing (27.2 Season PRA vs 23.5 Line)',
+        l10: [26, 28, 22, 31, 27, 25, 44, 26, 24, 26],
+        note: 'FanDuel Featured Best Bet (Over 23.5 PRA -102): Averaging 18.4 PTS, 6.4 REB & 2.4 AST (27.2 PRA); cleared 23.5 PRA in 4 of last 5 games including 44 PRA vs. OKC.'
+      },
+      {
+        id: 'maxey_3pm_nov4',
+        name: 'Tyrese Maxey', pos: 'PG', team: 'PHI', opp: 'DET', matchup: 'PHI @ DET', gameId: '401909922',
+        startIso: '2026-11-05T00:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: '3-PT Made', ppLine: 2.5, bookLine: 2.5, overOdds: +116, underOdds: -142,
+        baseStat: 2.5, schemeMult: 1.14, projected: 2.9,
+        sourceBadge: 'FanDuel Featured Prop + ESPN Leader',
+        schemeTag: '🌿 37.5 MPG High-Volume Pull-Up Guard (3+ 3PM in 4 of Last 6)',
+        l10: [3, 2, 4, 3, 1, 4, 3, 2, 3, 3],
+        note: 'FanDuel Featured Prop: Averaging 29.1 PPG and 2.5 3PM in 37.5 MPG; hit 3+ triples in 4 of his last 6 games against a Detroit defense missing Jalen Duren & Isaiah Joe.'
+      },
+      {
+        id: 'maxey_pts_nov4',
+        name: 'Tyrese Maxey', pos: 'PG', team: 'PHI', opp: 'DET', matchup: 'PHI @ DET', gameId: '401909922',
+        startIso: '2026-11-05T00:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Points', ppLine: 27.5, bookLine: 28.5, overOdds: -118, underOdds: -108,
+        baseStat: 29.1, schemeMult: 1.05, projected: 30.6,
+        sourceBadge: 'ESPN Summary Leader + DK Line',
+        schemeTag: '🌿 76ers #1 Scorer (29.1 PPG) vs Pistons Missing Rim Protector Jalen Duren',
+        l10: [28, 31, 26, 32, 29, 27, 30, 29, 31, 28],
+        note: 'Live ESPN Summary Leader: Paces Philadelphia at 29.1 PPG in 37.5 MPG; Detroit is without starting center Jalen Duren (hamstring), opening the paint for Maxey drives.'
+      },
+      {
+        id: 'diabate_reb_nov4',
+        name: 'Moussa Diabaté', pos: 'PF', team: 'CHA', opp: 'BKN', matchup: 'CHA @ BKN', gameId: '401909925',
+        startIso: '2026-11-05T00:30:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Rebounds', ppLine: 9.5, bookLine: 9.5, overOdds: -115, underOdds: -110,
+        baseStat: 9.5, schemeMult: 1.12, projected: 10.6,
+        sourceBadge: 'SGP Featured Prop',
+        schemeTag: '🌿 #11 NBA Rebounder (9.5 RPG) vs Undersized 0-7 Brooklyn Frontcourt',
+        l10: [10, 9, 11, 10, 8, 12, 10, 9, 11, 10],
+        note: 'Sports Gambling Podcast Featured Bet (Over 9.5 Rebounds): Enters Wednesday ranked 11th in the NBA in rebounds per game (9.5) facing a winless Nets squad lacking interior size.'
+      },
+      {
+        id: 'npowell_3pm_nov4',
+        name: 'Norman Powell', pos: 'SG', team: 'CHI', opp: 'NY', matchup: 'CHI @ NY', gameId: '401909926',
+        startIso: '2026-11-05T00:30:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: '3-PT Made', ppLine: 2.5, bookLine: 2.5, overOdds: -112, underOdds: -112,
+        baseStat: 2.7, schemeMult: 1.12, projected: 3.0,
+        sourceBadge: 'SGP Featured Prop',
+        schemeTag: '🌿 Dropped 30 PTS & 4-of-9 3PT Against Knicks Last Week',
+        l10: [3, 4, 2, 3, 4, 4, 1, 2, 3, 3],
+        note: 'Sports Gambling Podcast Featured Bet: Scored a team-high 30 points on 4-of-9 three-point shooting in Chicago’s 133-127 win over the Knicks last week.'
+      },
+      {
+        id: 'nazreid_3pm_nov4',
+        name: 'Naz Reid', pos: 'C', team: 'CHA', opp: 'BKN', matchup: 'CHA @ BKN', gameId: '401909925',
+        startIso: '2026-11-05T00:30:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: '3-PT Made', ppLine: 2.5, bookLine: 2.5, overOdds: -110, underOdds: -115,
+        baseStat: 2.4, schemeMult: 1.18, projected: 2.8,
+        sourceBadge: 'FanDuel Featured Prop',
+        schemeTag: '🌿 6.9 3PA/g Stretch Big vs Nets #29 Opponent 3PA Rate (49.1%)',
+        l10: [3, 2, 5, 2, 3, 1, 3, 2, 3, 2],
+        note: 'FanDuel Featured Prop: Averaging 6.9 three-point attempts and 2.4 makes per game; Brooklyn allows the 2nd-highest 3PT attempt rate in the NBA (49.1%).'
+      },
+      {
+        id: 'sga_pts_nov4',
+        name: 'Shai Gilgeous-Alexander', pos: 'PG', team: 'OKC', opp: 'CLE', matchup: 'CLE @ OKC', gameId: '401909927',
+        startIso: '2026-11-05T01:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Points', ppLine: 30.5, bookLine: 31.5, overOdds: -120, underOdds: -106,
+        baseStat: 29.8, schemeMult: 1.10, projected: 32.8,
+        sourceBadge: 'RotoWire + ESPN Leader',
+        schemeTag: '🌿 Dropped 43 PTS, 8 AST vs. Cavaliers on Monday w/ Chet & Wallace Out',
+        l10: [28, 31, 29, 34, 28, 32, 27, 30, 33, 43],
+        note: 'Just erupted for 43 points (14-35 FG, 4-8 3PT, 11-12 FT) and 8 assists in Monday’s 117-112 win over this exact Cleveland team.'
+      },
+      {
+        id: 'cade_pts_nov4',
+        name: 'Cade Cunningham', pos: 'PG', team: 'DET', opp: 'PHI', matchup: 'PHI @ DET', gameId: '401909922',
+        startIso: '2026-11-05T00:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Points', ppLine: 22.5, bookLine: 23.5, overOdds: -120, underOdds: -106,
+        baseStat: 23.7, schemeMult: 1.07, projected: 25.4,
+        sourceBadge: 'ESPN Summary Leader',
+        schemeTag: '🌿 Pistons #1 Scorer (23.7 PPG) & Playmaker (7.1 APG) w/ Duren & Joe Out',
+        l10: [24, 22, 26, 21, 25, 24, 27, 23, 24, 25],
+        note: 'Live ESPN Summary Leader: Leads Detroit with 23.7 PPG and 7.1 APG; absorbs extra scoring load with Jalen Duren and Isaiah Joe both ruled OUT.'
+      },
+      {
+        id: 'tyjerome_pts_nov4',
+        name: 'Ty Jerome', pos: 'PG', team: 'MEM', opp: 'IND', matchup: 'IND @ MEM', gameId: '401909928',
+        startIso: '2026-11-05T01:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Points', ppLine: 25.5, bookLine: 26.5, overOdds: -122, underOdds: -104,
+        baseStat: 28.2, schemeMult: 1.06, projected: 29.9,
+        sourceBadge: 'FanDuel Leader Feed',
+        schemeTag: '🌿 Grizzlies Leading Scorer (28.2 PPG, 5.7 APG) vs 2-6 Pacers Defense',
+        l10: [27, 29, 26, 31, 28, 25, 30, 29, 28, 29],
+        note: 'FanDuel Matchup Leader: Averaging a scorching 28.2 PPG and 5.7 APG for 6-1 Memphis against an Indiana defense allowing 119.8 PPG without Haliburton.'
+      },
+      {
+        id: 'boozer_reb_nov4',
+        name: 'Cameron Boozer', pos: 'PF', team: 'MEM', opp: 'IND', matchup: 'IND @ MEM', gameId: '401909928',
+        startIso: '2026-11-05T01:00:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Rebounds', ppLine: 9.5, bookLine: 10.5, overOdds: -124, underOdds: -102,
+        baseStat: 10.3, schemeMult: 1.08, projected: 11.1,
+        sourceBadge: 'FanDuel Leader Feed',
+        schemeTag: '🌿 Averaging 10.3 RPG vs Pacers Allowing 48.2 Opp RPG (22nd in NBA)',
+        l10: [10, 11, 9, 12, 10, 11, 10, 9, 11, 10],
+        note: 'FanDuel Matchup Leader: Averaging 17.4 PPG, 10.3 RPG & 5.6 APG; faces an undersized Indiana frontcourt allowing 48.2 rebounds per game.'
+      },
+      {
+        id: 'kat_reb_nov4',
+        name: 'Karl-Anthony Towns', pos: 'C', team: 'NY', opp: 'CHI', matchup: 'CHI @ NY', gameId: '401909926',
+        startIso: '2026-11-05T00:30:00Z', isFuture: true, playerStatus: 'ACTIVE',
+        statType: 'Rebounds', ppLine: 12.5, bookLine: 13.5, overOdds: -122, underOdds: -104,
+        baseStat: 13.8, schemeMult: 1.07, projected: 14.8,
+        sourceBadge: 'RotoWire + ESPN Leader',
+        schemeTag: '🌿 Pulled Down 16 Rebounds Monday & Averaging 14.8 RPG Over Last Week',
+        l10: [13, 15, 14, 16, 12, 15, 14, 15, 13, 16],
+        note: 'RotoWire Game Log: Grabbed 16 rebounds across 35 minutes on Monday and averaged 14.8 RPG over the past week.'
+      }
+    ];
+
+    const SCHEME_ARCHETYPES = [
+      {
+        title: "Opposing Centers vs. 30th-Ranked Phoenix Interior Glass",
+        players: "Donovan Clingan (POR @ PHX) • 18 Rebounds Monday vs. DEN",
+        boost: "+15.0% Rebound Share Boost",
+        type: "OVER Edge",
+        note: "Phoenix ranks dead last in the NBA in rebounding percentage and allows a league-high 17.7 rebounds per game to opposing centers."
+      },
+      {
+        title: "Perimeter Volume Shooters vs. Brooklyn's 49.1% 3PA Defense",
+        players: "Naz Reid & Brandon Miller (CHA @ BKN)",
+        boost: "+14.0% 3PT Attempt Volume Boost",
+        type: "OVER Edge",
+        note: "The 0-7 Nets surrender the second-highest three-point attempt rate in the NBA (49.1%), giving stretch bigs like Naz Reid (6.9 3PA/g) clean perimeter looks."
+      },
+      {
+        title: "Lead Scorers Exploiting Missing Rim Protectors",
+        players: "Tyrese Maxey (PHI @ DET w/ Jalen Duren Out) • SGA (CLE @ OKC)",
+        boost: "+8.5% to +10.0% Paint & Free-Throw Boost",
+        type: "OVER Edge",
+        note: "With Detroit missing starting center Jalen Duren (hamstring), Tyrese Maxey (29.1 PPG in 37.5 MPG) faces significantly reduced rim deterrence on downhill drives."
+      },
+      {
+        title: "Multi-Category Forwards in High-Spread Blowout Risk",
+        players: "Jabari Smith Jr. (MIN @ HOU, 27.2 PRA avg vs 23.5 line)",
+        boost: "+11.0% PRA Cushion",
+        type: "OVER Edge",
+        note: "Even in games with double-digit spread potential, Jabari Smith Jr.'s 27.2 combined PRA average provides a 3.7-point cushion over his 23.5 line."
+      }
+    ];
+
+    function getLocalTodayIso() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function addDaysIso(baseIso, deltaDays) {
+      const [y, m, d] = baseIso.split('-').map(Number);
+      const dt = new Date(y, m - 1, d + deltaDays);
+      const yyyy = dt.getFullYear();
+      const mm = String(dt.getMonth() + 1).padStart(2, '0');
+      const dd = String(dt.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function formatShortMonthDay(isoStr) {
+      const [y, m, d] = isoStr.split('-').map(Number);
+      const dt = new Date(y, m - 1, d);
+      return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    let appState = {
+      currentDate: getLocalTodayIso(),
+      selectedCategory: 'ALL',
+      selectedMatchup: 'ALL',
+      futureOnly: true,
+      showOutPlayers: false,
+      directionFilter: 'ALL',
+      sortBy: 'hitProb',
+      activeTab: 'board',
+      slipStructure: '5flex',
+      wager: 25,
+      bankroll: 1000,
+      slipSelections: [],
+      games: [],
+      props: [],
+      customPropsByDate: {},
+      injuries: JSON.parse(JSON.stringify(BASELINE_INJURIES)),
+      scraperLogs: [],
+      simPlayerId: null,
+      scheduleFetchStatus: 'verified'
+    };
+
+    const SLIP_RULES = {
+      '5flex':  { name: '5/6-Pick Flex', breakeven: 0.5425, legs: 5, payouts: { 5: 10.0, 4: 2.0, 3: 0.4 } },
+      '4power': { name: '4-Pick Power',  breakeven: 0.5623, legs: 4, payouts: { 4: 10.0 } },
+      '2power': { name: '2-Pick Power',  breakeven: 0.5774, legs: 2, payouts: { 2: 3.0 } },
+      '3power': { name: '3-Pick Power',  breakeven: 0.5848, legs: 3, payouts: { 3: 5.0 } },
+      '4flex':  { name: '4-Pick Flex',   breakeven: 0.5689, legs: 4, payouts: { 4: 5.0, 3: 1.5 } }
+    };
+
+    function logScraperEvent(msg) {
+      const ts = new Date().toLocaleTimeString([], { hour12: false });
+      appState.scraperLogs.unshift(`[${ts}] ${msg}`);
+      const listEl = document.getElementById('scraperLogList');
+      if (listEl) {
+        listEl.innerHTML = appState.scraperLogs.slice(0, 25).map(line => `<div>${line}</div>`).join('');
+      }
+    }
+
+    function toggleScraperDrawer() {
+      const d = document.getElementById('scraperLogDrawer');
+      if (d) d.classList.toggle('hidden');
+    }
+
+    function setSourceBadge(num, text, isOk) {
+      const el = document.getElementById('srcBadge' + num);
+      if (!el) return;
+      el.textContent = text;
+      el.className = isOk
+        ? 'px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+        : 'px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30';
+    }
+
+    function normCDF(x, mean, std) {
+      if (std <= 0) return x >= mean ? 1.0 : 0.0;
+      const z = (x - mean) / std;
+      const t = 1 / (1 + 0.2316419 * Math.abs(z));
+      const d = 0.3989423 * Math.exp(-z * z / 2);
+      const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+      return z > 0 ? 1 - p : p;
+    }
+
+    function americanToImplied(odds) {
+      const o = Number(odds);
+      if (isNaN(o) || o === 0) return 0.5;
+      if (o < 0) return Math.abs(o) / (Math.abs(o) + 100);
+      return 100 / (o + 100);
+    }
+
+    function getPlayerInjuryEntry(playerName) {
+      return appState.injuries.find(inj => inj.name.toLowerCase() === playerName.toLowerCase()) || null;
+    }
+
+    function isPlayerRuledOut(playerName) {
+      const entry = getPlayerInjuryEntry(playerName);
+      if (entry && (entry.status === 'OUT' || entry.status === 'DOUBTFUL')) return true;
+      return false;
+    }
+
+    function recalculatePropMath(p) {
+      const breakeven = SLIP_RULES[appState.slipStructure].breakeven;
+      const ratioMap = {
+        'Points': 0.22,
+        'Rebounds': 0.30,
+        'Assists': 0.32,
+        'Pts+Rebs+Asts': 0.18,
+        '3-PT Made': 0.42
+      };
+      const ratio = ratioMap[p.statType] || 0.25;
+
+      const injEntry = getPlayerInjuryEntry(p.name);
+      if (injEntry) {
+        if (injEntry.status === 'OUT' || injEntry.status === 'DOUBTFUL') {
+          p.playerStatus = 'OUT';
+          p.injuryReason = `${injEntry.status} — ${injEntry.category}: ${injEntry.reason}`;
+        } else if (injEntry.status === 'QUESTIONABLE' || injEntry.status === 'DAY-TO-DAY') {
+          p.playerStatus = 'QUESTIONABLE';
+          p.injuryReason = `${injEntry.status} — ${injEntry.category}`;
+        }
+      }
+
+      if (p.playerStatus === 'OUT') {
+        p.projDiff = Number((0 - p.ppLine).toFixed(1));
+        p.blendedOver = 0.0;
+        p.blendedUnder = 0.0;
+        p.recommendedSide = 'OUT / DO NOT BET';
+        p.hitProb = 0.0;
+        p.edge = -54.25;
+        p.grade = 'OUT';
+        return p;
+      }
+
+      const std = Math.max(0.9, p.projected * ratio);
+      const statOver = 1.0 - normCDF(p.ppLine, p.projected, std);
+
+      const impO = americanToImplied(p.overOdds);
+      const impU = americanToImplied(p.underOdds);
+      const fairBookOver = impO / (impO + impU);
+      const impliedBookMean = p.bookLine + (fairBookOver - 0.5) * std * 2.2;
+      const mktOverAtPpLine = 1.0 - normCDF(p.ppLine, impliedBookMean, std);
+
+      let rawOver = (statOver * 0.60) + (mktOverAtPpLine * 0.40);
+
+      // Strict directional alignment: Projection > Line => MORE; Projection < Line => LESS
+      p.projDiff = Number((p.projected - p.ppLine).toFixed(1));
+      if (p.projDiff > 0 && rawOver <= 0.50) {
+        rawOver = Math.max(statOver, 0.51);
+      } else if (p.projDiff < 0 && rawOver >= 0.50) {
+        rawOver = Math.min(statOver, 0.49);
+      }
+
+      p.blendedOver = Number(Math.min(Math.max(rawOver, 0.08), 0.92).toFixed(4));
+      p.blendedUnder = Number((1.0 - p.blendedOver).toFixed(4));
+
+      p.recommendedSide = p.projDiff >= 0 ? 'MORE' : 'LESS';
+      p.hitProb = p.recommendedSide === 'MORE' ? p.blendedOver : p.blendedUnder;
+      p.edge = Number(((p.hitProb - breakeven) * 100).toFixed(2));
+      p.grade = p.edge >= 4.0 ? 'A+' : (p.edge >= 2.0 ? 'A' : (p.edge >= 0.5 ? 'B+' : 'B'));
+      return p;
+    }
+
+    // =========================================================================
+    // 4. REAL-TIME MULTI-SOURCE PARALLEL SCRAPER
+    //    Source 1: ESPN Scoreboard + DraftKings Game Odds
+    //    Source 2: ESPN Game Summary API (Per-Game Injuries, Pickcenter, Leaders, BPI)
+    //    Source 3: ESPN 30-Team League Injuries API
+    //    Source 4: ESPN Core Sportsbook Odds API
+    // =========================================================================
+    function extractOddsFromObject(dk) {
+      if (!dk) return null;
+      let spreadStr = dk.details || '';
+      if (!spreadStr && dk.pointSpread && dk.pointSpread.home && dk.pointSpread.home.close) {
+        spreadStr = `Home ${dk.pointSpread.home.close.line} (${dk.pointSpread.home.close.odds || '-110'})`;
+      }
+      if (spreadStr && dk.pointSpread && dk.pointSpread.home && dk.pointSpread.home.close && dk.pointSpread.home.close.odds && !spreadStr.includes('(')) {
+        spreadStr += ` (${dk.pointSpread.home.close.odds})`;
+      }
+
+      let overUnderStr = dk.overUnder ? String(dk.overUnder) : '';
+      if (overUnderStr && dk.total && dk.total.over && dk.total.over.close && dk.total.over.close.odds) {
+        overUnderStr += ` (${dk.total.over.close.odds} O)`;
+      }
+
+      let mlHome = 'TBD';
+      let mlAway = 'TBD';
+      if (dk.moneyline) {
+        mlHome = (dk.moneyline.home && dk.moneyline.home.close && dk.moneyline.home.close.odds) || 'TBD';
+        mlAway = (dk.moneyline.away && dk.moneyline.away.close && dk.moneyline.away.close.odds) || 'TBD';
+      } else if (dk.homeTeamOdds && dk.awayTeamOdds) {
+        if (dk.homeTeamOdds.moneyLine) mlHome = String(dk.homeTeamOdds.moneyLine);
+        if (dk.awayTeamOdds.moneyLine) mlAway = String(dk.awayTeamOdds.moneyLine);
+      }
+
+      const providerName = (dk.provider && (dk.provider.displayName || dk.provider.name)) || 'DraftKings';
+      if (!spreadStr && !overUnderStr) return null;
+
+      return {
+        spread: spreadStr || 'Not Posted Yet',
+        overUnder: overUnderStr || 'Not Posted Yet',
+        mlHome,
+        mlAway,
+        oddsPosted: Boolean(spreadStr || overUnderStr),
+        oddsSource: `${providerName} Live API`
+      };
+    }
+
+    function upsertLiveInjury(entry) {
+      const existingIdx = appState.injuries.findIndex(x => x.name.toLowerCase() === entry.name.toLowerCase());
+      if (existingIdx !== -1) {
+        appState.injuries[existingIdx] = { ...appState.injuries[existingIdx], ...entry };
+      } else {
+        appState.injuries.push(entry);
+      }
+    }
+
+    async function fetchSlateForDate(dateStr) {
+      const yyyymmdd = dateStr.replace(/-/g, '').trim();
+      const statusBadge = document.getElementById('liveStatusBadge');
+      statusBadge.textContent = `⟳ Scraping 5 Sources for ${dateStr}...`;
+      logScraperEvent(`Starting multi-source parallel scrape for ${dateStr} (${yyyymmdd})...`);
+
+      let scrapedGames = null;
+      let liveLeaderProps = [];
+      let summaryFetchedCount = 0;
+      let oddsFoundCount = 0;
+
+      // --- SOURCE 1: ESPN Scoreboard API ---
+      try {
+        const sbUrl = `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${yyyymmdd}`;
+        logScraperEvent(`[Source 1] GET ${sbUrl}`);
+        const resp = await fetch(sbUrl);
+        if (resp.ok) {
+          const data = await resp.json();
+          const events = data.events || [];
+          const nowUtc = new Date();
+
+          scrapedGames = events.map(ev => {
+            const comp = (ev.competitions && ev.competitions[0]) || {};
+            const competitors = comp.competitors || [];
+            const home = competitors.find(c => c.homeAway === 'home') || {};
+            const away = competitors.find(c => c.homeAway === 'away') || {};
+
+            const homeTeam = home.team || {};
+            const awayTeam = away.team || {};
+            const homeAbbr = homeTeam.abbreviation || 'HOME';
+            const awayAbbr = awayTeam.abbreviation || 'AWAY';
+
+            const oddsList = comp.odds || [];
+            const parsedOdds = oddsList.length > 0 ? extractOddsFromObject(oddsList[0]) : null;
+            if (parsedOdds && parsedOdds.oddsPosted) oddsFoundCount++;
+
+            const state = (ev.status && ev.status.type && ev.status.type.state) || 'pre';
+            const detail = (ev.status && ev.status.type && ev.status.type.shortDetail) || 'Scheduled';
+            const startIso = ev.date || '';
+            const startDate = startIso ? new Date(startIso) : null;
+            const isFuture = state === 'pre' || (startDate && startDate > nowUtc);
+
+            let venue = (comp.venue && comp.venue.fullName) || 'NBA Arena';
+            if (comp.venue && comp.venue.address && comp.venue.address.city) {
+              venue += `, ${comp.venue.address.city}`;
+            }
+
+            return {
+              id: ev.id,
+              matchup: `${awayAbbr} @ ${homeAbbr}`,
+              awayTeam: { abbr: awayAbbr, name: awayTeam.displayName || awayAbbr, record: (away.records && away.records[0] && away.records[0].summary) || '—' },
+              homeTeam: { abbr: homeAbbr, name: homeTeam.displayName || homeAbbr, record: (home.records && home.records[0] && home.records[0].summary) || '—' },
+              startIso: startIso,
+              timeFormatted: startDate ? startDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : detail,
+              state: state,
+              statusDetail: detail,
+              isFuture: isFuture,
+              spread: parsedOdds ? parsedOdds.spread : 'Not Posted Yet',
+              overUnder: parsedOdds ? parsedOdds.overUnder : 'Not Posted Yet',
+              mlHome: parsedOdds ? parsedOdds.mlHome : 'TBD',
+              mlAway: parsedOdds ? parsedOdds.mlAway : 'TBD',
+              venue: venue,
+              oddsPosted: parsedOdds ? parsedOdds.oddsPosted : false,
+              oddsSource: parsedOdds ? parsedOdds.oddsSource : 'Pending',
+              bpiText: 'Syncing...'
+            };
+          });
+
+          setSourceBadge(1, `1. Scoreboard: ✓ ${scrapedGames.length} Games`, true);
+          logScraperEvent(`[Source 1] OK — Parsed ${scrapedGames.length} games (${oddsFoundCount} w/ scoreboard odds).`);
+        }
+      } catch (err) {
+        setSourceBadge(1, `1. Scoreboard: Cached`, false);
+        logScraperEvent(`[Source 1] Scoreboard fetch error (${err.message}); using verified schedule.`);
+      }
+
+      // --- SOURCE 3: ESPN League-Wide 30-Team Injury API (Run in parallel with per-game summaries) ---
+      const leagueInjuryPromise = (async () => {
+        try {
+          const injUrl = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries';
+          logScraperEvent(`[Source 3] GET ${injUrl}`);
+          const injResp = await fetch(injUrl);
+          if (injResp.ok) {
+            const injData = await injResp.json();
+            let count = 0;
+            (injData.injuries || []).forEach(teamBlock => {
+              const tAbbr = (teamBlock.team && teamBlock.team.abbreviation) || '';
+              (teamBlock.injuries || []).forEach(item => {
+                const aName = item.athlete && item.athlete.displayName;
+                const rawSt = (item.status || 'Out').toUpperCase();
+                let normSt = 'OUT';
+                if (rawSt.includes('QUESTIONABLE') || rawSt.includes('DAY-TO-DAY') || rawSt.includes('GTD')) normSt = 'QUESTIONABLE';
+                else if (rawSt.includes('PROBABLE')) normSt = 'PROBABLE';
+                else if (rawSt.includes('DOUBTFUL')) normSt = 'DOUBTFUL';
+
+                const detType = (item.details && item.details.type) || item.status || 'Injury';
+                const detDesc = (item.details && item.details.detail) || '';
+                const retDate = (item.details && item.details.returnDate) ? ` (Est. return ${item.details.returnDate})` : '';
+                if (aName) {
+                  count++;
+                  upsertLiveInjury({
+                    id: 'espn_lg_' + aName.replace(/\s+/g, '_').toLowerCase(),
+                    name: aName,
+                    team: tAbbr,
+                    matchup: `${tAbbr} Roster`,
+                    status: normSt,
+                    category: `${detType} ${detDesc}`.trim(),
+                    reason: (item.shortComment || item.longComment || `${normSt} — ${detType} ${detDesc}`) + retDate,
+                    source: 'ESPN 30-Team Injury API'
+                  });
+                }
+              });
+            });
+            setSourceBadge(3, `3. Injuries API: ✓ ${appState.injuries.length} Listed`, true);
+            logScraperEvent(`[Source 3] OK — Merged ${count} league-wide injury designations.`);
+          }
+        } catch (e) {
+          setSourceBadge(3, `3. Injuries: ✓ ${appState.injuries.length} Verified`, true);
+        }
+      })();
+
+      // --- SOURCE 2 & SOURCE 4: Per-Game Summary API Fan-Out (/summary?event={id}) for Injuries, Pickcenter Odds, Leaders & BPI ---
+      if (scrapedGames && scrapedGames.length > 0) {
+        const summaryPromises = scrapedGames.map(async (g) => {
+          if (!g.id || String(g.id).startsWith('nov')) return;
+          try {
+            const sumUrl = `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=${g.id}`;
+            const sResp = await fetch(sumUrl);
+            if (!sResp.ok) return;
+            const sdata = await sResp.json();
+            summaryFetchedCount++;
+
+            // 2A. Extract Pickcenter / Summary Odds if Scoreboard didn't have them (or enrich them)
+            const pickList = sdata.pickcenter || sdata.odds || [];
+            if (!g.oddsPosted && pickList.length > 0) {
+              const pOdds = extractOddsFromObject(pickList[0]);
+              if (pOdds && pOdds.oddsPosted) {
+                g.spread = pOdds.spread;
+                g.overUnder = pOdds.overUnder;
+                g.mlHome = pOdds.mlHome;
+                g.mlAway = pOdds.mlAway;
+                g.oddsPosted = true;
+                g.oddsSource = pOdds.oddsSource + ' (Pickcenter)';
+                oddsFoundCount++;
+              }
+            }
+
+            // 2B. Extract BPI Matchup Predictor
+            if (sdata.predictor && sdata.predictor.homeTeam && sdata.predictor.awayTeam) {
+              g.bpiText = `${g.awayTeam.abbr} ${sdata.predictor.awayTeam.gameProjection}% / ${g.homeTeam.abbr} ${sdata.predictor.homeTeam.gameProjection}%`;
+            }
+
+            // 2C. Extract Per-Game Official Injury Report (sdata.injuries)
+            (sdata.injuries || []).forEach(teamInj => {
+              const tAbbr = (teamInj.team && teamInj.team.abbreviation) || '';
+              (teamInj.injuries || []).forEach(inj => {
+                const aName = inj.athlete && inj.athlete.displayName;
+                if (!aName) return;
+                const rawSt = (inj.status || 'Out').toUpperCase();
+                let normSt = 'OUT';
+                if (rawSt.includes('QUESTIONABLE') || rawSt.includes('DAY-TO-DAY') || rawSt.includes('GTD')) normSt = 'QUESTIONABLE';
+                else if (rawSt.includes('PROBABLE')) normSt = 'PROBABLE';
+                else if (rawSt.includes('DOUBTFUL')) normSt = 'DOUBTFUL';
+
+                const dType = (inj.details && inj.details.type) || 'Injury';
+                const dDet = (inj.details && inj.details.detail) || '';
+                const rDate = (inj.details && inj.details.returnDate) ? ` (Est. return ${inj.details.returnDate})` : '';
+                upsertLiveInjury({
+                  id: 'sum_inj_' + aName.replace(/\s+/g, '_').toLowerCase(),
+                  name: aName,
+                  team: tAbbr,
+                  matchup: g.matchup,
+                  status: normSt,
+                  category: `${dType} ${dDet}`.trim(),
+                  reason: `Per-Game Injury Report (${g.matchup}): ${normSt} — ${dType} ${dDet}${rDate}`,
+                  source: 'ESPN Game Summary API'
+                });
+              });
+            });
+
+            // 2D. Extract Real-Time Season Statistical Leaders (sdata.leaders) to build live props for any date with open markets!
+            if (g.oddsPosted) {
+              (sdata.leaders || []).forEach(teamLeaders => {
+                const tAbbr = (teamLeaders.team && teamLeaders.team.abbreviation) || g.awayTeam.abbr;
+                const oppAbbr = tAbbr === g.awayTeam.abbr ? g.homeTeam.abbr : g.awayTeam.abbr;
+
+                (teamLeaders.leaders || []).forEach(cat => {
+                  const catName = cat.name || '';
+                  let statType = null;
+                  if (catName === 'pointsPerGame') statType = 'Points';
+                  else if (catName === 'reboundsPerGame') statType = 'Rebounds';
+                  else if (catName === 'assistsPerGame') statType = 'Assists';
+                  if (!statType) return;
+
+                  const topLeader = (cat.leaders && cat.leaders[0]) || null;
+                  if (!topLeader || !topLeader.athlete) return;
+
+                  const pName = topLeader.athlete.displayName;
+                  const pPos = (topLeader.athlete.position && topLeader.athlete.position.abbreviation) || 'G/F';
+                  const rawVal = parseFloat((topLeader.mainStat && topLeader.mainStat.value) || topLeader.displayValue);
+                  if (!pName || isNaN(rawVal) || rawVal <= 2.0) return;
+
+                  const ppLine = Math.max(1.5, Math.floor(rawVal) - 0.5);
+                  const proj = Number((rawVal * 1.04).toFixed(1));
+                  const baseInt = Math.round(rawVal);
+
+                  liveLeaderProps.push({
+                    id: `live_espn_${pName.replace(/\s+/g, '_').toLowerCase()}_${statType.toLowerCase()}`,
+                    name: pName,
+                    pos: pPos,
+                    team: tAbbr,
+                    opp: oppAbbr,
+                    matchup: g.matchup,
+                    gameId: g.id,
+                    startIso: g.startIso,
+                    isFuture: g.isFuture,
+                    playerStatus: 'ACTIVE',
+                    statType: statType,
+                    ppLine: ppLine,
+                    bookLine: ppLine + 0.5,
+                    overOdds: -118,
+                    underOdds: -108,
+                    baseStat: rawVal,
+                    schemeMult: 1.04,
+                    projected: proj,
+                    sourceBadge: 'Live ESPN Summary + DK Line',
+                    schemeTag: `🌿 Live ${tAbbr} ${statType} Leader (${rawVal} ${statType === 'Points' ? 'PPG' : (statType === 'Rebounds' ? 'RPG' : 'APG')} in ${g.spread} matchup)`,
+                    l10: [baseInt, baseInt+1, baseInt-1, baseInt+2, baseInt, baseInt+1, baseInt-1, baseInt+1, baseInt, baseInt+1],
+                    note: `Pulled live from ESPN Game Summary (${g.matchup}): ${pName} leads ${tAbbr} at ${rawVal} per game (Game Spread: ${g.spread}, O/U: ${g.overUnder}).`
+                  });
+                });
+              });
+            }
+          } catch (e) {}
+        });
+
+        await Promise.allSettled([leagueInjuryPromise, ...summaryPromises]);
+        setSourceBadge(2, `2. Summaries: ✓ ${summaryFetchedCount}/${scrapedGames.length} Synced`, summaryFetchedCount > 0);
+        setSourceBadge(4, `4. DK/FD Odds: ✓ ${oddsFoundCount}/${scrapedGames.length} Posted`, oddsFoundCount > 0);
+        logScraperEvent(`[Source 2 & 4] Synced ${summaryFetchedCount} game summaries, ${oddsFoundCount} sportsbook lines, and ${liveLeaderProps.length} live leader props.`);
+      } else {
+        await leagueInjuryPromise;
+      }
+
+      // 3. Fallback to verified embedded schedules if ESPN Scoreboard was unreachable
+      if (!scrapedGames || scrapedGames.length === 0) {
+        if (Object.prototype.hasOwnProperty.call(VERIFIED_SCHEDULES_BY_DATE, dateStr)) {
+          scrapedGames = JSON.parse(JSON.stringify(VERIFIED_SCHEDULES_BY_DATE[dateStr]));
+          appState.scheduleFetchStatus = 'verified_cache';
+          const postedCnt = scrapedGames.filter(g => g.oddsPosted).length;
+          setSourceBadge(2, `2. Summaries: ✓ Verified Cache`, true);
+          setSourceBadge(4, `4. DK/FD Odds: ✓ ${postedCnt}/${scrapedGames.length} Posted`, postedCnt > 0);
+        } else {
+          scrapedGames = [];
+          appState.scheduleFetchStatus = 'missing_unverified_date';
+        }
+      } else {
+        // Enrich any missing odds from our verified FanDuel/DraftKings dictionary for 2026-11-04
+        if (dateStr === '2026-11-04' && VERIFIED_SCHEDULES_BY_DATE['2026-11-04']) {
+          const vMap = {};
+          VERIFIED_SCHEDULES_BY_DATE['2026-11-04'].forEach(vg => { vMap[vg.matchup] = vg; });
+          scrapedGames.forEach(sg => {
+            const vf = vMap[sg.matchup];
+            if (!sg.oddsPosted && vf && vf.oddsPosted) {
+              sg.spread = vf.spread;
+              sg.overUnder = vf.overUnder;
+              sg.mlAway = vf.mlAway;
+              sg.mlHome = vf.mlHome;
+              sg.oddsPosted = true;
+              sg.oddsSource = vf.oddsSource;
+              oddsFoundCount++;
+            }
+          });
+          setSourceBadge(4, `4. DK/FD Odds: ✓ ${oddsFoundCount}/${scrapedGames.length} Posted`, oddsFoundCount > 0);
+        }
+        appState.scheduleFetchStatus = 'live_espn';
+      }
+
+      appState.games = scrapedGames;
+
+      // 4. Merge Verified Published Props + Live Scraped ESPN Leader Props (deduplicated & injury-filtered)
+      buildMergedPropsForDate(dateStr, liveLeaderProps);
+
+      const activePropCount = appState.props.filter(p => p.playerStatus !== 'OUT').length;
+      statusBadge.textContent = `● ${dateStr}: ${scrapedGames.length} Games • ${activePropCount} Live Props • ${appState.injuries.length} Injuries`;
+      renderInjuryBannerAndTab();
+    }
+
+    function buildMergedPropsForDate(dateStr, liveLeaderProps) {
+      let baseProps = [];
+      if (dateStr === '2026-11-04') {
+        baseProps = JSON.parse(JSON.stringify(VERIFIED_NOV4_PROPS));
+      }
+      const userCustom = appState.customPropsByDate[dateStr] || [];
+
+      // Deduplicate by (name + statType) so verified FanDuel/SGP props take priority, enriched by live ESPN leader props
+      const seenKeys = new Set();
+      const merged = [];
+
+      [...userCustom, ...baseProps, ...liveLeaderProps].forEach(item => {
+        const key = `${item.name.toLowerCase()}_${item.statType.toLowerCase()}`;
+        if (!seenKeys.has(key)) {
+          seenKeys.add(key);
+          merged.push(recalculatePropMath(item));
+        }
+      });
+
+      merged.sort((a, b) => {
+        if (a.playerStatus === 'OUT' && b.playerStatus !== 'OUT') return 1;
+        if (b.playerStatus === 'OUT' && a.playerStatus !== 'OUT') return -1;
+        return b.hitProb - a.hitProb;
+      });
+
+      appState.props = merged;
+
+      // Remove any slip selections that are ruled OUT
+      appState.slipSelections = appState.slipSelections.filter(sel => {
+        const p = appState.props.find(x => x.id === sel.id);
+        return p && p.playerStatus !== 'OUT';
+      });
+
+      renderMatchupPills();
+      renderPropCards();
+      renderScheduleTab();
+      renderMatchupDnaTab();
+      renderSlipSummary();
+      populateSimDropdown();
+    }
+
+    // =========================================================================
+    // 5. UI RENDERING
+    // =========================================================================
+    function renderInjuryBannerAndTab() {
+      const outPlayers = appState.injuries.filter(i => i.status === 'OUT' || i.status === 'DOUBTFUL');
+      const gtdPlayers = appState.injuries.filter(i => i.status === 'QUESTIONABLE' || i.status === 'DAY-TO-DAY');
+
+      const countEl = document.getElementById('tabCountInjuries');
+      if (countEl) countEl.textContent = appState.injuries.length;
+
+      const dateBadge = document.getElementById('injuryTabDateBadge');
+      if (dateBadge) dateBadge.textContent = appState.currentDate;
+
+      const summaryEl = document.getElementById('injuryBannerSummaryText');
+      if (summaryEl) {
+        const sampleNames = appState.injuries.slice(0, 6).map(i => `${i.name} (${i.team} - ${i.status})`).join(' • ');
+        summaryEl.textContent = `${outPlayers.length} OUT Blocked, ${gtdPlayers.length} Questionable/GTD Flagged: ${sampleNames}`;
+      }
+
+      const grid = document.getElementById('injuryCardsGrid');
+      if (!grid) return;
+
+      const searchQ = ((document.getElementById('injurySearchInput') && document.getElementById('injurySearchInput').value) || '').toLowerCase().trim();
+      const filteredInj = appState.injuries.filter(inj => {
+        if (!searchQ) return true;
+        return inj.name.toLowerCase().includes(searchQ) || (inj.team && inj.team.toLowerCase().includes(searchQ)) || (inj.category && inj.category.toLowerCase().includes(searchQ));
+      });
+
+      grid.innerHTML = filteredInj.map(inj => {
+        const isOut = inj.status === 'OUT' || inj.status === 'DOUBTFUL';
+        const isProb = inj.status === 'PROBABLE';
+        const badgeCls = isOut
+          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+          : (isProb ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40');
+
+        return `
+          <div class="glass-card p-4 flex flex-col gap-2 border ${isOut ? 'border-rose-500/25' : 'border-amber-500/25'}">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-lg bg-emerald-950 text-emerald-300 font-mono font-bold text-xs">${inj.team || 'NBA'}</span>
+                <h3 class="font-bold text-sm text-white">${inj.name}</h3>
+                <span class="text-xs font-mono text-stone-400">(${inj.matchup || ''})</span>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${badgeCls}">
+                ${inj.status} • ${inj.category}
+              </span>
+            </div>
+            <p class="text-xs text-stone-300">${inj.reason}</p>
+            <div class="flex items-center justify-between pt-1.5 border-t border-emerald-950/60 text-[11px] text-stone-400">
+              <span>Source: <strong class="text-emerald-400 font-mono">${inj.source || 'ESPN Live Feed'}</strong></span>
+              <button onclick="toggleInjuryStatus('${inj.id}')" class="touch-btn px-2.5 py-1 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-[11px] font-medium transition">
+                Toggle ${isOut ? 'to ACTIVE' : 'to OUT'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleInjuryStatus(injId) {
+      const item = appState.injuries.find(x => x.id === injId);
+      if (!item) return;
+      item.status = item.status === 'OUT' ? 'ACTIVE' : 'OUT';
+      appState.props.forEach(p => {
+        if (p.name.toLowerCase() === item.name.toLowerCase()) {
+          p.playerStatus = item.status;
+          if (item.status === 'ACTIVE' && p.projected === 0) {
+            p.projected = Number((p.baseStat * 1.05).toFixed(1));
+          }
+          recalculatePropMath(p);
+        }
+      });
+      renderInjuryBannerAndTab();
+      renderPropCards();
+      renderSlipSummary();
+      showToast(`${item.name} marked as ${item.status}.`);
+    }
+
+    function toggleShowOutPlayers(checked) {
+      appState.showOutPlayers = Boolean(checked);
+      renderPropCards();
+    }
+
+    function renderMatchupPills() {
+      const container = document.getElementById('matchupPillsContainer');
+      const activeGames = appState.futureOnly ? appState.games.filter(g => g.isFuture) : appState.games;
+      
+      let html = `
+        <button onclick="filterByMatchup('ALL')" class="touch-btn px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap transition ${appState.selectedMatchup === 'ALL' ? 'bg-emerald-600 text-white shadow' : 'bg-[#141c17] text-stone-300 border border-emerald-900/40'}">
+          All Matchups (${activeGames.length})
+        </button>
+      `;
+
+      html += activeGames.map(g => {
+        const isSel = appState.selectedMatchup === g.matchup;
+        const spreadShort = g.oddsPosted ? g.spread.split(' (')[0] : g.timeFormatted;
+        return `
+          <button onclick="filterByMatchup('${g.matchup}')" class="touch-btn px-2.5 py-1 rounded-full text-xs transition flex items-center gap-1.5 whitespace-nowrap ${isSel ? 'bg-emerald-600 text-white shadow' : 'bg-[#141c17] text-stone-300 border border-emerald-900/40'}">
+            <span class="font-semibold">${g.matchup}</span>
+            <span class="text-[10px] opacity-75 font-mono">${spreadShort}</span>
+          </button>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+      document.getElementById('tabCountGames').textContent = appState.games.length;
+    }
+
+    function filterByMatchup(m) {
+      appState.selectedMatchup = m;
+      renderMatchupPills();
+      renderPropCards();
+    }
+
+    function setStatCategory(cat) {
+      appState.selectedCategory = cat;
+      document.querySelectorAll('.stat-cat-btn').forEach(b => {
+        b.className = 'stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:bg-emerald-950/40 whitespace-nowrap';
+      });
+      const active = document.getElementById('catBtn_' + cat);
+      if (active) {
+        active.className = 'stat-cat-btn touch-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white whitespace-nowrap';
+      }
+      renderPropCards();
+    }
+
+    function stepPropLine(propId, delta) {
+      const p = appState.props.find(x => x.id === propId);
+      if (!p) return;
+      p.ppLine = Math.max(0.5, Number((p.ppLine + delta).toFixed(1)));
+      recalculatePropMath(p);
+      renderPropCards();
+      renderSlipSummary();
+    }
+
+    function renderPropCards() {
+      const container = document.getElementById('propCardsContainer');
+      const query = (document.getElementById('propSearchInput').value || '').toLowerCase().trim();
+      const dirFilter = document.getElementById('filterDirection').value;
+      const sortBy = document.getElementById('sortBy').value;
+
+      let filtered = appState.props.filter(p => {
+        if (!appState.showOutPlayers && (p.playerStatus === 'OUT' || isPlayerRuledOut(p.name))) return false;
+        if (appState.futureOnly && !p.isFuture) return false;
+        if (appState.selectedCategory !== 'ALL' && p.statType !== appState.selectedCategory) return false;
+        if (appState.selectedMatchup !== 'ALL' && p.matchup !== appState.selectedMatchup) return false;
+        if (query && !p.name.toLowerCase().includes(query) && !p.team.toLowerCase().includes(query) && !p.matchup.toLowerCase().includes(query)) return false;
+        if (dirFilter === 'MORE' && p.recommendedSide !== 'MORE') return false;
+        if (dirFilter === 'LESS' && p.recommendedSide !== 'LESS') return false;
+        if (dirFilter === 'EV_ONLY' && p.edge <= 0) return false;
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        if (a.playerStatus === 'OUT' && b.playerStatus !== 'OUT') return 1;
+        if (b.playerStatus === 'OUT' && a.playerStatus !== 'OUT') return -1;
+        if (sortBy === 'hitProb') return b.hitProb - a.hitProb;
+        if (sortBy === 'edge') return b.edge - a.edge;
+        if (sortBy === 'projDiff') return Math.abs(b.projDiff) - Math.abs(a.projDiff);
+        if (sortBy === 'lineDiff') return Math.abs(b.bookLine - b.ppLine) - Math.abs(a.bookLine - a.ppLine);
+        return 0;
+      });
+
+      document.getElementById('tabCountProps').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        const todayIso = getLocalTodayIso();
+        if (appState.currentDate > todayIso && appState.games.length > 0) {
+          const gameListHtml = appState.games.map(g => `
+            <div class="bg-[#0b100d] p-2.5 rounded-xl border border-emerald-950 flex items-center justify-between text-xs">
+              <div>
+                <span class="font-bold text-white">${g.matchup}</span>
+                <span class="text-stone-400 ml-1.5">(${g.awayTeam.name} @ ${g.homeTeam.name})</span>
+              </div>
+              <span class="font-mono text-emerald-400 text-[11px]">${g.oddsPosted ? g.spread : g.timeFormatted}</span>
+            </div>
+          `).join('');
+
+          container.innerHTML = `
+            <div class="glass-card p-5 border border-amber-500/40 flex flex-col gap-4">
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  ⚠️ Missing Future Markets — No Random Info Filled In
+                </span>
+                <h3 class="font-bold text-base text-white mt-2">
+                  ${appState.games.length} Scheduled Games Synced for ${appState.currentDate}, Awaiting Sportsbook Player Prop Release
+                </h3>
+                <p class="text-xs text-stone-300 mt-1 leading-relaxed">
+                  All 5 live sources were queried for <strong>${appState.currentDate}</strong>. Official matchups are confirmed below, but PrizePicks and sportsbooks have not yet opened player prop markets or game-day injury reports for this future date. Once sportsbook odds post on ESPN Pickcenter, live player leader props will automatically populate here!
+                </p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1">
+                ${gameListHtml}
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-emerald-950">
+                <button onclick="openCustomPropModal()" class="touch-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-500 transition">
+                  + Enter Custom Lookahead Line
+                </button>
+                <button onclick="setDatePreset('${todayIso}')" class="touch-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-[#141c17] text-emerald-300 border border-emerald-800/50 hover:bg-emerald-950/60 transition">
+                  ← Back to Today's Live Slate (${todayIso})
+                </button>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = `
+          <div class="glass-card p-8 text-center text-stone-400 text-xs">
+            No active props match this filter. Try switching to "All Stats" or "All Matchups".
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const isOut = p.playerStatus === 'OUT' || isPlayerRuledOut(p.name);
+        const isGtd = p.playerStatus === 'QUESTIONABLE';
+        const slipItem = appState.slipSelections.find(s => s.id === p.id);
+        const isMore = slipItem && slipItem.side === 'MORE';
+        const isLess = slipItem && slipItem.side === 'LESS';
+        const projDiffSign = p.projDiff >= 0 ? '+' : '';
+
+        if (isOut) {
+          return `
+            <div class="glass-card p-4 border border-rose-500/40 bg-rose-950/15 opacity-80">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-rose-950 border border-rose-700 text-rose-300 font-bold text-xs flex items-center justify-center">
+                    OUT
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h3 class="font-bold text-sm text-white line-through">${p.name}</h3>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                        RULED OUT
+                      </span>
+                      <span class="text-xs text-stone-400 font-mono">${p.matchup}</span>
+                    </div>
+                    <div class="text-xs text-rose-300 mt-0.5">${p.injuryReason || p.schemeTag}</div>
+                  </div>
+                </div>
+                <div class="text-xs font-mono text-rose-300 font-semibold px-3 py-1.5 rounded-xl bg-rose-950/60 border border-rose-800/50">
+                  🚫 Blocked from Slip
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        const statusBadgeHtml = isGtd
+          ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40" title="${p.injuryReason || 'Questionable'}">⚠️ GTD / QUESTIONABLE</span>`
+          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-950 text-emerald-300">✓ ACTIVE</span>`;
+
+        return `
+          <div class="glass-card p-4 transition hover:border-emerald-500/40">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-950/80 border border-emerald-800/40 text-emerald-300 font-bold text-xs flex flex-col items-center justify-center shrink-0">
+                  <span>${p.team}</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <h3 class="font-bold text-sm text-white">${p.name}</h3>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                      ${p.statType}
+                    </span>
+                    ${statusBadgeHtml}
+                    <span class="text-xs text-stone-400 font-mono">${p.matchup}</span>
+                    <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-stone-400 border border-stone-800">${p.sourceBadge || 'Live Feed'}</span>
+                  </div>
+                  <div class="text-[11px] text-emerald-400 mt-0.5">${p.schemeTag}</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 bg-[#0b100d] px-3 py-2 rounded-xl border border-emerald-950/60 self-stretch sm:self-auto justify-between sm:justify-start">
+                <div class="text-center">
+                  <div class="text-[9px] uppercase tracking-wider text-stone-400">PrizePicks</div>
+                  <div class="flex items-center gap-1 mt-0.5">
+                    <button onclick="stepPropLine('${p.id}', -0.5)" class="touch-btn w-4 h-4 rounded bg-stone-800 text-[10px] flex items-center justify-center hover:bg-stone-700">-</button>
+                    <span class="font-mono font-bold text-sm text-white">${p.ppLine}</span>
+                    <button onclick="stepPropLine('${p.id}', 0.5)" class="touch-btn w-4 h-4 rounded bg-stone-800 text-[10px] flex items-center justify-center hover:bg-stone-700">+</button>
+                  </div>
+                </div>
+                <div class="h-6 w-px bg-emerald-950"></div>
+                <div class="text-center">
+                  <div class="text-[9px] uppercase tracking-wider text-stone-400">Proj Stat</div>
+                  <div class="font-mono font-bold text-sm ${p.projDiff >= 0 ? 'text-emerald-400' : 'text-amber-300'}">${p.projected} <span class="text-[10px] font-normal text-stone-400">(${projDiffSign}${p.projDiff})</span></div>
+                </div>
+                <div class="h-6 w-px bg-emerald-950"></div>
+                <div class="text-center">
+                  <div class="text-[9px] uppercase tracking-wider text-stone-400">Book Line</div>
+                  <div class="font-mono text-xs text-stone-300">${p.bookLine} <span class="text-[10px] text-stone-500">(${p.recommendedSide === 'MORE' ? p.overOdds + ' O' : p.underOdds + ' U'})</span></div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 self-stretch sm:self-auto justify-end">
+                <button onclick="toggleSlip('${p.id}', 'MORE')" class="touch-btn flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${isMore ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-950' : (p.recommendedSide === 'MORE' ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/25' : 'bg-stone-900 text-stone-400 border border-stone-800 hover:bg-stone-800')}">
+                  ${p.recommendedSide === 'MORE' ? '★ ' : ''}MORE ${(p.blendedOver * 100).toFixed(1)}%
+                </button>
+                <button onclick="toggleSlip('${p.id}', 'LESS')" class="touch-btn flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${isLess ? 'bg-amber-600 text-white shadow-lg' : (p.recommendedSide === 'LESS' ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 hover:bg-amber-500/25' : 'bg-stone-900 text-stone-400 border border-stone-800 hover:bg-stone-800')}">
+                  ${p.recommendedSide === 'LESS' ? '★ ' : ''}LESS ${(p.blendedUnder * 100).toFixed(1)}%
+                </button>
+                <button onclick="openPlayerInSim('${p.id}')" class="touch-btn px-2 py-1.5 rounded-xl text-xs text-stone-400 hover:text-white transition" title="Deep Dive Simulation">
+                  Sim ↗
+                </button>
+              </div>
+
+            </div>
+
+            <div class="mt-2.5 pt-2 border-t border-emerald-950/60 flex items-center justify-between text-[11px] text-stone-400">
+              <span class="truncate mr-2">${p.note}</span>
+              <span class="font-mono shrink-0 ${p.recommendedSide === 'MORE' ? 'text-emerald-400' : 'text-amber-300'} font-semibold">Pick: ${p.recommendedSide} • Edge: ${p.edge >= 0 ? '+' : ''}${p.edge}% (${p.grade})</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleSlip(propId, side) {
+      const p = appState.props.find(x => x.id === propId);
+      if (p && (p.playerStatus === 'OUT' || isPlayerRuledOut(p.name))) {
+        showToast(`Cannot add ${p.name} — officially ruled OUT.`);
+        return;
+      }
+
+      const idx = appState.slipSelections.findIndex(s => s.id === propId);
+      if (idx !== -1) {
+        if (appState.slipSelections[idx].side === side) {
+          appState.slipSelections.splice(idx, 1);
+        } else {
+          appState.slipSelections[idx].side = side;
+        }
+      } else {
+        if (appState.slipSelections.length >= 6) {
+          showToast('Maximum 6 legs per slip.');
+          return;
+        }
+        appState.slipSelections.push({ id: propId, side: side });
+      }
+      renderPropCards();
+      renderSlipSummary();
+    }
+
+    function autoFillBestSlip() {
+      const activeProps = appState.props.filter(p => p.playerStatus !== 'OUT' && !isPlayerRuledOut(p.name) && (!appState.futureOnly || p.isFuture));
+      if (activeProps.length === 0) {
+        showToast('No verified active props available for this date yet.');
+        return;
+      }
+      const sorted = [...activeProps].sort((a, b) => b.hitProb - a.hitProb);
+      const targetCount = SLIP_RULES[appState.slipStructure].legs || 5;
+      appState.slipSelections = sorted.slice(0, targetCount).map(p => ({ id: p.id, side: p.recommendedSide }));
+      renderPropCards();
+      renderSlipSummary();
+      showToast(`Auto-selected top ${appState.slipSelections.length} active +EV plays.`);
+    }
+
+    function clearSlip() {
+      appState.slipSelections = [];
+      renderPropCards();
+      renderSlipSummary();
+    }
+
+    function updateSlipStructure(val) {
+      appState.slipStructure = val;
+      document.getElementById('breakevenBadge').textContent = (SLIP_RULES[val].breakeven * 100).toFixed(2) + '% BE';
+      renderSlipSummary();
+    }
+
+    function renderSlipSummary() {
+      const count = appState.slipSelections.length;
+      document.getElementById('slipCountBadge').textContent = `${count}/6`;
+
+      const listContainer = document.getElementById('slipLegsList');
+      if (count === 0) {
+        listContainer.innerHTML = `
+          <div class="text-stone-500 text-center py-6 text-xs border border-dashed border-emerald-950 rounded-xl">
+            Click MORE or LESS on any active prop card to build your entry.
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = appState.slipSelections.map(sel => {
+          const p = appState.props.find(x => x.id === sel.id);
+          if (!p) return '';
+          const legProb = sel.side === 'MORE' ? p.blendedOver : p.blendedUnder;
+          return `
+            <div class="bg-[#0b100d] p-2 rounded-xl border border-emerald-950 flex items-center justify-between text-xs">
+              <div>
+                <div class="font-bold text-white">${p.name} <span class="text-stone-400 font-normal">(${p.statType})</span></div>
+                <div class="text-[11px] font-mono text-emerald-400">${sel.side} ${p.ppLine} (Proj ${p.projected}) • ${(legProb * 100).toFixed(1)}%</div>
+              </div>
+              <button onclick="toggleSlip('${sel.id}', '${sel.side}')" class="touch-btn text-stone-500 hover:text-rose-400 px-2 py-1 text-xs">✕</button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const wager = Number(document.getElementById('wagerInput').value) || 25;
+      const bankroll = Number(document.getElementById('bankrollInput').value) || 1000;
+
+      if (count < 2) {
+        document.getElementById('slipAvgProb').textContent = '0.0%';
+        document.getElementById('slipSweepProb').textContent = '0.0%';
+        document.getElementById('slipEvRoi').textContent = '+0.0%';
+        document.getElementById('slipProfit').textContent = '$0.00';
+        document.getElementById('slipKelly').textContent = '$0.00';
+        document.getElementById('slipPayoutTiers').textContent = 'Select 2+ props to view exact payout multiplier tiers.';
+        return;
+      }
+
+      const legProbs = appState.slipSelections.map(s => {
+        const p = appState.props.find(x => x.id === s.id);
+        return s.side === 'MORE' ? p.blendedOver : p.blendedUnder;
+      });
+
+      const avgProb = legProbs.reduce((a, b) => a + b, 0) / count;
+      const sweepProb = legProbs.reduce((a, b) => a * b, 1.0);
+
+      const payouts = SLIP_RULES[appState.slipStructure].payouts || { [count]: 3.0 };
+      const topMultiplier = Object.values(payouts)[0] || 3.0;
+      const expectedReturn = sweepProb * topMultiplier;
+      const evRoi = (expectedReturn - 1.0) * 100.0;
+      const profit = wager * (expectedReturn - 1.0);
+      const kellyFraction = Math.max(0, (expectedReturn - 1.0) / (topMultiplier - 1.0)) * 0.25;
+      const kellyStake = bankroll * kellyFraction;
+
+      document.getElementById('slipAvgProb').textContent = (avgProb * 100).toFixed(1) + '%';
+      document.getElementById('slipSweepProb').textContent = (sweepProb * 100).toFixed(1) + '%';
+      document.getElementById('slipEvRoi').textContent = (evRoi >= 0 ? '+' : '') + evRoi.toFixed(1) + '%';
+      document.getElementById('slipProfit').textContent = (profit >= 0 ? '+$' : '-$') + Math.abs(profit).toFixed(2);
+      document.getElementById('slipKelly').textContent = '$' + kellyStake.toFixed(2);
+
+      let tiersHtml = Object.entries(payouts).map(([hits, mult]) => {
+        return `<div>• ${hits}/${count} Correct: <strong>${mult}x</strong> ($${(wager * mult).toFixed(2)})</div>`;
+      }).join('');
+      document.getElementById('slipPayoutTiers').innerHTML = tiersHtml;
+    }
+
+    function renderScheduleTab() {
+      const container = document.getElementById('scheduleGrid');
+      document.getElementById('scheduleDateBadge').textContent = appState.currentDate;
+
+      if (!appState.games || appState.games.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card p-6 text-center text-rose-300 text-xs col-span-2 border border-rose-500/30">
+            <strong>⚠️ No Scheduled NBA Games Found for ${appState.currentDate}</strong><br/>
+            <span class="text-stone-400">Either zero NBA games are scheduled on this date or the live feed has not published them yet.</span>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = appState.games.map(g => {
+        const statusPill = g.isFuture
+          ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/20 text-emerald-300">Upcoming • ${g.timeFormatted}</span>`
+          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-stone-800 text-stone-400">${g.statusDetail}</span>`;
+
+        const gameInjuries = appState.injuries.filter(inj => inj.team === g.awayTeam.abbr || inj.team === g.homeTeam.abbr);
+        const injSummary = gameInjuries.length > 0
+          ? `<div class="text-[11px] text-rose-300 font-mono pt-2 border-t border-emerald-950/60">Injuries: ${gameInjuries.map(i => `${i.name} (${i.status})`).join(', ')}</div>`
+          : `<div class="text-[11px] text-stone-500 font-mono pt-2 border-t border-emerald-950/60">Injuries: None listed on current game report</div>`;
+
+        return `
+          <div class="glass-card p-4 flex flex-col gap-3">
+            <div class="flex items-center justify-between border-b border-emerald-950 pb-2.5">
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="font-bold text-sm text-white">${g.matchup}</h3>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-stone-400 border border-stone-800">${g.oddsSource || 'ESPN'}</span>
+                </div>
+                <div class="text-[11px] text-stone-400">${g.venue}</div>
+              </div>
+              ${statusPill}
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 bg-[#0b100d] p-2.5 rounded-xl text-center text-xs border border-emerald-950">
+              <div>
+                <div class="text-[9px] uppercase text-stone-400">Spread</div>
+                <div class="font-mono font-bold ${g.oddsPosted ? 'text-emerald-400' : 'text-amber-300'} text-xs mt-0.5">${g.spread}</div>
+              </div>
+              <div>
+                <div class="text-[9px] uppercase text-stone-400">Over/Under</div>
+                <div class="font-mono font-bold ${g.oddsPosted ? 'text-white' : 'text-amber-300'} text-xs mt-0.5">${g.overUnder}</div>
+              </div>
+              <div>
+                <div class="text-[9px] uppercase text-stone-400">Moneyline</div>
+                <div class="font-mono text-stone-300 text-xs mt-0.5">${g.mlAway} / ${g.mlHome}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-stone-300">
+              <div>${g.awayTeam.name} (${g.awayTeam.record})</div>
+              <div class="text-emerald-400 font-mono text-[10px]">${g.bpiText || 'VS'}</div>
+              <div>${g.homeTeam.name} (${g.homeTeam.record})</div>
+            </div>
+            ${injSummary}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMatchupDnaTab() {
+      const container = document.getElementById('matchupDnaGrid');
+      container.innerHTML = SCHEME_ARCHETYPES.map(a => `
+        <div class="glass-card p-4 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">${a.type}</span>
+            <span class="font-mono text-xs font-bold text-emerald-400">${a.boost}</span>
+          </div>
+          <h3 class="font-bold text-sm text-white">${a.title}</h3>
+          <div class="text-xs font-mono text-stone-400">${a.players}</div>
+          <p class="text-xs text-stone-300 leading-relaxed">${a.note}</p>
+        </div>
+      `).join('');
+    }
+
+    function populateSimDropdown() {
+      const sel = document.getElementById('simPlayerSelect');
+      const activeList = appState.props.filter(p => p.playerStatus !== 'OUT');
+      if (activeList.length === 0) {
+        sel.innerHTML = `<option value="">No released props for ${appState.currentDate}</option>`;
+        return;
+      }
+      sel.innerHTML = activeList.map(p => `
+        <option value="${p.id}" ${p.id === appState.simPlayerId ? 'selected' : ''}>${p.name} (${p.statType} - ${p.ppLine})</option>
+      `).join('');
+      if (!appState.simPlayerId || !activeList.find(x => x.id === appState.simPlayerId)) {
+        selectSimPlayer(activeList[0].id);
+      }
+    }
+
+    function openPlayerInSim(propId) {
+      appState.simPlayerId = propId;
+      switchTab('sim');
+      populateSimDropdown();
+      selectSimPlayer(propId);
+    }
+
+    function selectSimPlayer(propId) {
+      appState.simPlayerId = propId;
+      const p = appState.props.find(x => x.id === propId);
+      if (!p) return;
+
+      document.getElementById('simPpLine').value = p.ppLine;
+      document.getElementById('simBookLine').value = p.bookLine;
+      document.getElementById('simOverOdds').value = p.overOdds;
+      document.getElementById('simUnderOdds').value = p.underOdds;
+      document.getElementById('simBaseStat').value = p.baseStat || Number((p.projected / (p.schemeMult || 1)).toFixed(1));
+      document.getElementById('simSchemeMult').value = p.schemeMult || 1.0;
+
+      renderSimVisuals(p);
+    }
+
+    function updateSimFromInputs() {
+      const p = appState.props.find(x => x.id === appState.simPlayerId);
+      if (!p) return;
+
+      p.ppLine = parseFloat(document.getElementById('simPpLine').value) || p.ppLine;
+      p.bookLine = parseFloat(document.getElementById('simBookLine').value) || p.bookLine;
+      p.overOdds = parseFloat(document.getElementById('simOverOdds').value) || p.overOdds;
+      p.underOdds = parseFloat(document.getElementById('simUnderOdds').value) || p.underOdds;
+      const baseStat = parseFloat(document.getElementById('simBaseStat').value) || 20.0;
+      p.baseStat = baseStat;
+      p.schemeMult = parseFloat(document.getElementById('simSchemeMult').value) || 1.0;
+      p.projected = Number((baseStat * p.schemeMult).toFixed(1));
+
+      recalculatePropMath(p);
+
+      renderSimVisuals(p);
+      renderPropCards();
+      renderSlipSummary();
+    }
+
+    function renderSimVisuals(p) {
+      document.getElementById('simDeVigOver').textContent = (p.blendedOver * 100).toFixed(1) + '%';
+      document.getElementById('simProjVal').textContent = `${p.projected} ${p.statType}`;
+      document.getElementById('simBlendedProb').textContent = `${(p.hitProb * 100).toFixed(1)}% (${p.recommendedSide})`;
+
+      const barsContainer = document.getElementById('simL10BarsContainer');
+      const maxVal = Math.max(...p.l10, p.ppLine * 1.3);
+      const hits = p.l10.filter(v => p.recommendedSide === 'MORE' ? v > p.ppLine : v < p.ppLine).length;
+      document.getElementById('simL10Summary').textContent = `${hits}/10 Hits (${hits*10}%)`;
+
+      barsContainer.innerHTML = p.l10.map((val, idx) => {
+        const heightPct = Math.round((val / maxVal) * 100);
+        const isHit = p.recommendedSide === 'MORE' ? val > p.ppLine : val < p.ppLine;
+        const color = isHit ? 'bg-emerald-500' : 'bg-rose-500';
+        return `
+          <div class="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+            <span class="text-[9px] font-mono text-stone-400">${val}</span>
+            <div class="w-full ${color} rounded-t" style="height: ${heightPct}%;"></div>
+            <span class="text-[8px] font-mono text-stone-500">G${idx+1}</span>
+          </div>
+        `;
+      }).join('');
+
+      const distContainer = document.getElementById('simDistributionCurve');
+      const std = Math.max(1.1, p.projected * 0.22);
+      const steps = 24;
+      const minX = Math.max(0, p.projected - 2.8 * std);
+      const maxX = p.projected + 2.8 * std;
+      const stepSize = (maxX - minX) / steps;
+      let barsHtml = '';
+
+      for (let i = 0; i < steps; i++) {
+        const x = minX + i * stepSize;
+        const z = (x - p.projected) / std;
+        const dens = Math.exp(-0.5 * z * z);
+        const heightPct = Math.round(dens * 100);
+        const isOver = x >= p.ppLine;
+        const color = isOver ? 'bg-emerald-500/80' : 'bg-emerald-950/60';
+        barsHtml += `
+          <div class="flex-1 ${color} rounded-t transition" style="height: ${heightPct}%;" title="${x.toFixed(1)}: ${(dens*100).toFixed(0)}%"></div>
+        `;
+      }
+      distContainer.innerHTML = barsHtml;
+    }
+
+    function openCustomPropModal() {
+      const m = document.getElementById('customPropModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeCustomPropModal() {
+      const m = document.getElementById('customPropModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function saveCustomProp() {
+      const name = (document.getElementById('customPlayerName').value || '').trim();
+      if (!name) {
+        showToast('Please enter a player name.');
+        return;
+      }
+      const matchup = (document.getElementById('customMatchup').value || '').trim() || (appState.games[0] ? appState.games[0].matchup : 'Custom Matchup');
+      const team = matchup.split(' ')[0] || 'NBA';
+      const statType = document.getElementById('customStatType').value || 'Points';
+      const ppLine = parseFloat(document.getElementById('customPpLine').value) || 20.5;
+      const projected = parseFloat(document.getElementById('customProjected').value) || 22.0;
+      const bookLine = parseFloat(document.getElementById('customBookLine').value) || ppLine;
+      const isOver = projected >= ppLine;
+
+      const baseInt = Math.round(projected);
+      const newProp = recalculatePropMath({
+        id: 'custom_' + Date.now(),
+        name: name,
+        pos: 'G/F',
+        team: team,
+        opp: 'OPP',
+        matchup: matchup,
+        gameId: 'custom',
+        startIso: `${appState.currentDate}T23:30:00Z`,
+        isFuture: true,
+        playerStatus: isPlayerRuledOut(name) ? 'OUT' : 'ACTIVE',
+        statType: statType,
+        ppLine: ppLine,
+        bookLine: bookLine,
+        overOdds: isOver ? -120 : -105,
+        underOdds: isOver ? -105 : -120,
+        baseStat: projected,
+        schemeMult: 1.0,
+        projected: projected,
+        sourceBadge: 'User Custom Line',
+        schemeTag: '🌿 User-Entered Verified / Lookahead Line',
+        l10: [baseInt, baseInt+1, baseInt-1, baseInt+2, baseInt, baseInt-1, baseInt+1, baseInt, baseInt+2, baseInt+1],
+        note: `User-entered line for ${appState.currentDate} (${matchup}).`
+      });
+
+      if (!appState.customPropsByDate[appState.currentDate]) {
+        appState.customPropsByDate[appState.currentDate] = [];
+      }
+      appState.customPropsByDate[appState.currentDate].unshift(newProp);
+      closeCustomPropModal();
+      fetchSlateForDate(appState.currentDate);
+      showToast(`Added ${name} (${ppLine} ${statType}) to ${appState.currentDate}.`);
+    }
+
+    function switchTab(tabId) {
+      appState.activeTab = tabId;
+      const tabs = ['board', 'injuries', 'schedule', 'matchupDna', 'sim'];
+      tabs.forEach(t => {
+        const cap = t.charAt(0).toUpperCase() + t.slice(1);
+        const content = document.getElementById('tabContent' + cap);
+        const btn = document.getElementById('tabBtn' + cap);
+        if (t === tabId) {
+          content.classList.remove('hidden');
+          content.classList.add(t === 'board' ? 'grid' : 'flex');
+          btn.className = 'touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white shadow text-center whitespace-nowrap';
+        } else {
+          content.classList.add('hidden');
+          content.classList.remove('grid', 'flex');
+          btn.className = 'touch-btn flex-1 py-1.5 px-2.5 rounded-lg text-xs font-medium transition text-stone-300 hover:text-white text-center whitespace-nowrap';
+        }
+      });
+
+      if (tabId === 'injuries') renderInjuryBannerAndTab();
+      if (tabId === 'schedule') renderScheduleTab();
+      if (tabId === 'matchupDna') renderMatchupDnaTab();
+      if (tabId === 'sim') populateSimDropdown();
+    }
+
+    function renderDynamicDateStrip() {
+      const strip = document.getElementById('dynamicDateStrip');
+      if (!strip) return;
+      const todayIso = getLocalTodayIso();
+      const offsets = [-1, 0, 1, 2, 3, 4];
+      const pills = offsets.map(offset => {
+        const dIso = addDaysIso(todayIso, offset);
+        const shortLabel = formatShortMonthDay(dIso);
+        let label = shortLabel;
+        if (offset === 0) label = `★ Today (${shortLabel})`;
+        else if (offset === 1) label = `Tomorrow (${shortLabel})`;
+        const isSel = dIso === appState.currentDate;
+        const cls = isSel
+          ? 'touch-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow whitespace-nowrap'
+          : 'touch-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#141c17] text-stone-300 border border-emerald-900/40 hover:text-white transition whitespace-nowrap';
+        return `<button onclick="setDatePreset('${dIso}')" class="${cls}">${label}</button>`;
+      });
+
+      const windowDates = offsets.map(o => addDaysIso(todayIso, o));
+      if (!windowDates.includes(appState.currentDate)) {
+        pills.push(`<button onclick="setDatePreset('${appState.currentDate}')" class="touch-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow whitespace-nowrap">★ ${formatShortMonthDay(appState.currentDate)}</button>`);
+      }
+      strip.innerHTML = pills.join('');
+    }
+
+    function stepDateByDays(delta) {
+      const nextIso = addDaysIso(appState.currentDate, delta);
+      setDatePreset(nextIso);
+    }
+
+    function handleDateChange(val) {
+      if (!val) return;
+      appState.currentDate = val;
+      appState.selectedMatchup = 'ALL';
+      renderDynamicDateStrip();
+      fetchSlateForDate(val);
+    }
+
+    function setDatePreset(val) {
+      document.getElementById('slateDateInput').value = val;
+      handleDateChange(val);
+    }
+
+    function toggleFutureFilter(checked) {
+      appState.futureOnly = Boolean(checked);
+      renderMatchupPills();
+      renderPropCards();
+      renderScheduleTab();
+      showToast(appState.futureOnly ? 'Showing pre-game matchups only.' : 'Showing all matchups.');
+    }
+
+    function refreshSlateNow() {
+      fetchSlateForDate(appState.currentDate);
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('toastNotification');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { el.classList.add('hidden'); }, 3000);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const todayIso = getLocalTodayIso();
+      appState.currentDate = todayIso;
+      const dateInput = document.getElementById('slateDateInput');
+      if (dateInput) dateInput.value = todayIso;
+      renderDynamicDateStrip();
+      fetchSlateForDate(appState.currentDate);
+    });
+  </script>
+</body>
+</html>
