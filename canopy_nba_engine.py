@@ -164,6 +164,46 @@ def normal_cdf(x: float, mean: float, std_dev: float) -> float:
     return 0.5 * (1.0 + math.erf((x - mean) / (std_dev * math.sqrt(2.0))))
 
 
+def fetch_prizepicks_standard_lines() -> Dict[str, Dict[str, Any]]:
+    """
+    Fetches live NBA projections from PrizePicks public API and filters strictly to
+    standard 50/50 lines (excluding Green Goblins and Red Demons).
+    Returns map keyed by (player_name_lower, stat_type_normalized).
+    """
+    url = "https://api.prizepicks.com/projections?league_id=7&per_page=250&single_stat=true"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        "Accept": "application/json"
+    }
+    standard_map: Dict[str, Dict[str, Any]] = {}
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            payload = json.loads(resp.read().decode("utf-8"))
+            included = { (item.get("type"), item.get("id")): item for item in payload.get("included", []) }
+            for proj in payload.get("data", []):
+                attrs = proj.get("attributes", {})
+                odds_type = (attrs.get("odds_type") or "standard").lower()
+                # Skip Green Goblins and Red Demons from standard 50/50 EV calculations
+                if odds_type in ("goblin", "demon"):
+                    continue
+                stat_type = attrs.get("stat_type", "")
+                line_score = attrs.get("line_score")
+                rel_player = proj.get("relationships", {}).get("new_player", {}).get("data", {})
+                p_obj = included.get(("new_player", rel_player.get("id")), {}).get("attributes", {})
+                p_name = p_obj.get("display_name") or p_obj.get("name") or ""
+                if p_name and stat_type and line_score is not None:
+                    key = f"{p_name.lower()}::{stat_type.lower()}"
+                    standard_map[key] = {
+                        "line": float(line_score),
+                        "odds_type": odds_type,
+                        "team": p_obj.get("team", "")
+                    }
+    except Exception:
+        pass
+    return standard_map
+
+
 def fetch_espn_schedule(date_str: str) -> List[Dict[str, Any]]:
     """
     Fetches official live NBA games and DraftKings lines for ANY date.
@@ -303,10 +343,17 @@ def generate_props_for_slate(date_str: str) -> Dict[str, Any]:
                     if base_stat <= 1.0 and stat_name == "3-PT Made":
                         continue  # Skip for non-shooters
 
-                    # Establish PP Line & Sharp Book Line
-                    pp_line = round((base_stat - 0.5) * 2) / 2
-                    if pp_line <= 0.5:
-                        pp_line = 1.5
+                    # Use live PrizePicks standard line if available; otherwise price at nearest .5 (never Goblin-discounted)
+                    pp_live_map = fetch_prizepicks_standard_lines() if "pp_live_map" not in locals() else pp_live_map
+                    live_entry = pp_live_map.get(f"{p_name.lower()}::{stat_name.lower()}")
+                    if live_entry:
+                        pp_line = live_entry["line"]
+                        line_type = live_entry.get("odds_type", "standard")
+                    else:
+                        frac = base_stat - math.floor(base_stat)
+                        pp_line = math.floor(base_stat) + 0.5 if frac >= 0.25 else math.floor(base_stat) - 0.5
+                        pp_line = max(1.5, pp_line)
+                        line_type = "standard"
 
                     # Book consensus line with slight discrepancy
                     book_line = pp_line + (0.5 if stat_name in ("Points", "Pts+Rebs+Asts") else 0.0)
@@ -359,6 +406,7 @@ def generate_props_for_slate(date_str: str) -> Dict[str, Any]:
                         "start_time_iso": g["start_time_iso"],
                         "game_state": g["status_state"],
                         "is_pregame": is_pre,
+                        "line_type": line_type,
                         "stat_type": stat_name,
                         "pp_line": pp_line,
                         "book_line": book_line,
