@@ -1156,11 +1156,27 @@
                   const rawVal = parseFloat((topLeader.mainStat && topLeader.mainStat.value) || topLeader.displayValue);
                   if (!pName || isNaN(rawVal) || rawVal <= 2.0) return;
 
-                  // Price standard line at nearest .5 to actual season average (never undercut by -1.0 like a Goblin)
+                  // Price standard line using sportsbook .5 hook:
+                  // - .00 to .74 decimal (e.g. 5.2 APG for Jeremiah Fears) -> Math.floor(val) + 0.5 = 5.5
+                  // - .75 to .99 decimal (e.g. 5.8 APG for James Harden)   -> Math.floor(val) + 1.5 = 6.5
                   const frac = rawVal - Math.floor(rawVal);
-                  const ppLine = Math.max(1.5, frac >= 0.25 ? Math.floor(rawVal) + 0.5 : Math.floor(rawVal) - 0.5);
-                  const proj = Number((rawVal * 1.03).toFixed(1));
+                  const ppLine = Math.max(1.5, frac >= 0.75 ? Math.floor(rawVal) + 1.5 : Math.floor(rawVal) + 0.5);
+
+                  // Dynamic Game-Environment Adjustment (Pace/Total + Blowout Risk, zero artificial upward bias)
+                  const spreadMatch = String(g.spread || '').match(/-?\d+(\.\d+)?/);
+                  const absSpread = spreadMatch ? Math.abs(parseFloat(spreadMatch[0])) : 5.0;
+                  const ouMatch = String(g.overUnder || '').match(/\d{3}(\.\d+)?/);
+                  const gameTotal = ouMatch ? parseFloat(ouMatch[0]) : 227.5;
+
+                  const paceAdj = ((gameTotal - 227.5) / 227.5) * 0.70;
+                  const blowoutAdj = absSpread >= 8.5 ? -0.045 : (absSpread <= 4.0 ? 0.022 : -0.008);
+                  const envMult = Number((1.0 + paceAdj + blowoutAdj).toFixed(3));
+                  const proj = Number((rawVal * envMult).toFixed(1));
                   const baseInt = Math.round(rawVal);
+                  const leansOver = proj >= ppLine;
+                  const envReason = absSpread >= 8.5
+                    ? `Blowout Risk (${g.spread})`
+                    : (gameTotal >= 230 ? `High-Pace Shootout (O/U ${gameTotal})` : (gameTotal <= 222 ? `Low-Total Grind (O/U ${gameTotal})` : `Balanced Pace (O/U ${gameTotal})`));
 
                   liveLeaderProps.push({
                     id: `live_espn_${pName.replace(/\s+/g, '_').toLowerCase()}_${statType.toLowerCase()}`,
@@ -1177,15 +1193,15 @@
                     statType: statType,
                     ppLine: ppLine,
                     bookLine: ppLine,
-                    overOdds: -115,
-                    underOdds: -110,
+                    overOdds: leansOver ? -118 : -106,
+                    underOdds: leansOver ? -106 : -118,
                     baseStat: rawVal,
-                    schemeMult: 1.03,
+                    schemeMult: envMult,
                     projected: proj,
                     sourceBadge: 'Est. Standard Line (ESPN Leader)',
-                    schemeTag: `🌿 Live ${tAbbr} ${statType} Leader (${rawVal} ${statType === 'Points' ? 'PPG' : (statType === 'Rebounds' ? 'RPG' : 'APG')} in ${g.spread} matchup)`,
+                    schemeTag: `${leansOver ? '🌿' : '🛡️'} ${envReason} • Avg ${rawVal} ${statType === 'Points' ? 'PPG' : (statType === 'Rebounds' ? 'RPG' : 'APG')}`,
                     l10: [baseInt, baseInt+1, baseInt-1, baseInt+2, baseInt, baseInt+1, baseInt-1, baseInt+1, baseInt, baseInt+1],
-                    note: `Pulled live from ESPN Game Summary (${g.matchup}): ${pName} averages ${rawVal} ${statType} (Spread: ${g.spread}, O/U: ${g.overUnder}).`
+                    note: `Live ESPN Summary (${g.matchup}): ${pName} averages ${rawVal} ${statType}; ${envReason} adjusts projection to ${proj}.`
                   });
                 });
               });

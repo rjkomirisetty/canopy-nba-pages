@@ -355,10 +355,20 @@ def generate_props_for_slate(date_str: str) -> Dict[str, Any]:
                         pp_line = max(1.5, pp_line)
                         line_type = "standard"
 
-                    # Book consensus line with slight discrepancy
-                    book_line = pp_line + (0.5 if stat_name in ("Points", "Pts+Rebs+Asts") else 0.0)
-                    over_odds = -120 if pp_line <= base_stat else -105
-                    under_odds = -105 if pp_line <= base_stat else -120
+                    # Parse game spread & total for unbiased pace + blowout adjustment
+                    import re as _re
+                    sp_m = _re.search(r"-?\d+(?:\.\d+)?", str(g.get("spread", "")))
+                    abs_sp = abs(float(sp_m.group(0))) if sp_m else 5.0
+                    ou_val = float(g.get("over_under") or 227.5)
+                    pace_adj = ((ou_val - 227.5) / 227.5) * 0.70
+                    blowout_adj = -0.045 if abs_sp >= 8.5 else (0.022 if abs_sp <= 4.0 else -0.008)
+                    scheme_mult = round(1.0 + pace_adj + blowout_adj, 3)
+                    projected = base_stat * scheme_mult
+
+                    book_line = pp_line
+                    leans_over = projected >= pp_line
+                    over_odds = -118 if leans_over else -106
+                    under_odds = -106 if leans_over else -118
 
                     # 1. Market De-Vig
                     raw_o = american_to_implied(over_odds)
@@ -366,10 +376,6 @@ def generate_props_for_slate(date_str: str) -> Dict[str, Any]:
                     fair_o = raw_o / (raw_o + raw_u)
                     line_diff = book_line - pp_line
                     adj_mkt_over = fair_o + (line_diff * 0.04)
-
-                    # 2. Scheme & Statistical Projection
-                    scheme_mult = p_info.get("scheme_mult", 1.05)
-                    projected = base_stat * scheme_mult
                     std_dev = max(1.1, projected * STAT_META[stat_name]["sd_ratio"])
 
                     stat_prob_over = 1.0 - normal_cdf(pp_line, projected, std_dev)
