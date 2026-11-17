@@ -572,7 +572,14 @@
     // 2. BASELINE VERIFIED INJURIES (Automatically merged with live ESPN Per-Game Summary & 30-Team Injury APIs)
     const BASELINE_INJURIES = [
       { id: 'inj_mobley', name: 'Evan Mobley', team: 'CLE', matchup: 'CHI @ CLE', status: 'OUT', category: 'Toe Sprain', reason: 'Listed OUT on official NBA injury report vs. Chicago; Jarrett Allen absorbs interior minutes.', source: 'NBA Official / FTN' },
-      { id: 'inj_duren', name: 'Jalen Duren', team: 'DET', matchup: 'DET @ SA', status: 'OUT', category: 'Right Hamstring Strain', reason: 'Out until at least Nov 24 (re-evaluated in two weeks); Paul Reed starts at center for Detroit.', source: 'ESPN / Statz AI' },
+      { id: 'inj_curry', name: 'Stephen Curry', team: 'GS', matchup: 'GS @ NO', status: 'OUT', category: 'Oblique Abdominal Tear', reason: 'Ruled OUT (est. return Dec 12); Yaxel Lendeborg & Brandin Podziemski lead Golden State offense.', source: 'Statz AI / ESPN' },
+      { id: 'inj_ant', name: 'Anthony Edwards', team: 'MIN', matchup: 'POR @ MIN', status: 'OUT', category: 'Right Knee Arthroscopy', reason: 'Out until Dec 21 after knee procedure; LaMelo Ball (19.7 proj PTS) & Ayo Dosunmu (17.5 proj PTS) lead Minnesota.', source: 'Statz AI / ESPN' },
+      { id: 'inj_ddv', name: 'Donte DiVincenzo', team: 'MIN', matchup: 'POR @ MIN', status: 'OUT', category: 'Achilles Rehab', reason: 'Sidelined for Minnesota; Jaden McDaniels & Ayo Dosunmu absorb wing minutes.', source: 'Statz AI / ESPN' },
+      { id: 'inj_ja', name: 'Ja Morant', team: 'POR', matchup: 'POR @ MIN', status: 'OUT', category: 'Left Hamstring Strain', reason: 'Out until Dec 1 for Portland; Deni Avdija (21.5 proj PTS, 5.6 AST) & Damian Lillard run the Blazers offense.', source: 'Statz AI / ESPN' },
+      { id: 'inj_ssharpe', name: 'Shaedon Sharpe', team: 'POR', matchup: 'POR @ MIN', status: 'OUT', category: 'Knee Surgery', reason: 'Out for Portland; Toumani Camara & Sidy Cissoko start on the wing.', source: 'Statz AI / ESPN' },
+      { id: 'inj_paolo', name: 'Paolo Banchero', team: 'ORL', matchup: 'ORL @ BOS', status: 'OUT', category: 'High-Ankle Sprain', reason: 'Out until Nov 22 for Orlando; Franz Wagner (21.7 proj PTS), Desmond Bane & Anthony Black carry usage.', source: 'Statz AI / ESPN' },
+      { id: 'inj_capela', name: 'Clint Capela', team: 'HOU', matchup: 'HOU @ MIA', status: 'OUT', category: 'Right Ankle Sprain', reason: 'Listed OUT for Houston at Miami; Alperen Sengun (35.6 proj min) & Kevin Durant anchor the frontcourt.', source: 'Statz AI / ESPN' },
+      { id: 'inj_duren', name: 'Jalen Duren', team: 'DET', matchup: 'DET @ SA', status: 'OUT', category: 'Right Hamstring Strain', reason: 'Out until Nov 24; Paul Reed starts at center (11.9 proj PTS, 8.3 REB) for Detroit.', source: 'ESPN / Statz AI' },
       { id: 'inj_ijoe', name: 'Isaiah Joe', team: 'DET', matchup: 'DET @ SA', status: 'OUT', category: 'Right Hip Bruise', reason: 'Ruled OUT for Detroit at San Antonio.', source: 'ESPN Injury API' },
       { id: 'inj_drobinson', name: 'Duncan Robinson', team: 'DET', matchup: 'DET @ SA', status: 'QUESTIONABLE', category: 'Thigh (Day-to-Day)', reason: 'Listed Day-to-Day / Questionable after exiting Saturday at Miami.', source: 'Statz AI / ESPN' },
       { id: 'inj_dfox', name: 'De\'Aaron Fox', team: 'SA', matchup: 'DET @ SA', status: 'QUESTIONABLE', category: 'Left Hip Tightness (GTD)', reason: 'Listed Questionable/GTD for Tuesday vs. Detroit; Stephon Castle & Dylan Harper absorb primary ball-handling.', source: 'Statz AI / ESPN' },
@@ -588,8 +595,7 @@
       { id: 'inj_bingram_lac', name: 'Brandon Ingram', team: 'LAC', matchup: 'UTAH @ LAC', status: 'OUT', category: 'Achilles Rehab', reason: 'Nearing season debut but ruled OUT; Rui Hachimura & Derrick Jones Jr. start at forward.', source: 'Statz AI / ESPN' },
       { id: 'inj_schroder', name: 'Dennis Schroder', team: 'CHA', matchup: 'CHA @ LAL', status: 'OUT', category: 'Backcourt Injury', reason: 'Ruled OUT at LA Lakers; Brandon Miller & Grayson Allen carry perimeter creation.', source: 'Statz AI / ESPN' },
       { id: 'inj_knueppel', name: 'Kon Knueppel', team: 'CHA', matchup: 'CHA @ LAL', status: 'OUT', category: 'Guard Injury', reason: 'Ruled OUT for Charlotte at LA Lakers.', source: 'Statz AI / ESPN' },
-      { id: 'inj_herro_gtd', name: 'Tyler Herro', team: 'MIA', matchup: 'HOU @ MIA', status: 'QUESTIONABLE', category: 'Game-Time Decision', reason: 'Listed Questionable for Miami vs. Houston.', source: 'VSiN / NBA Injury Report' },
-      { id: 'inj_amen_gtd', name: 'Amen Thompson', team: 'HOU', matchup: 'HOU @ MIA', status: 'QUESTIONABLE', category: 'Knee (Questionable)', reason: 'Listed Questionable (Knee) for Houston at Miami.', source: 'ESPN / FantasyLabs' }
+      { id: 'inj_lively', name: 'Dereck Lively II', team: 'DAL', matchup: 'DAL Roster', status: 'OUT', category: 'Right Foot Surgery', reason: 'Out until Nov 18; Daniel Gafford & P.J. Washington anchor Dallas frontcourt.', source: 'Statz AI / ESPN' }
     ];
 
     // 3. VERIFIED NOV 4, 2026 PUBLISHED PLAYER PROPS (Merged with live ESPN Game Summary Leaders)
@@ -731,133 +737,127 @@
     
     // 3B. COMPLETE 30-TEAM NBA ROTATION DATABASE (Generates full Points, Rebounds, Assists, PRA & 3-PT Made board for EVERY game on ANY date)
     const NBA_30_TEAM_ROTATIONS = {
+      'HOU': [
+        { name: 'Kevin Durant', pos: 'PF', ppg: 21.5, rpg: 5.1, apg: 4.2, tpm: 2.2, pra: 30.8, scheme: '🌿 Rockets Star Forward (Proj 21.5 PTS / 5.1 REB / 4.2 AST in 33.3 Min)' },
+        { name: 'Alperen Sengun', pos: 'C', ppg: 21.5, rpg: 10.4, apg: 6.4, tpm: 0.7, pra: 38.3, scheme: '🌿 FanDuel Featured Over 9.5 Rebounds (+110) & 6.4 APG Hub' },
+        { name: 'Jabari Smith Jr.', pos: 'SF', ppg: 17.8, rpg: 6.4, apg: 2.2, tpm: 2.3, pra: 26.4, scheme: '🌿 Stretch Wing Spacer (34.4 Proj Min, 2.3 3PM/g)' },
+        { name: 'Amen Thompson', pos: 'PG', ppg: 15.1, rpg: 5.8, apg: 3.8, tpm: 0.6, pra: 24.7, scheme: '🌿 Starting Lead Guard & Transition Slasher (32.9 Proj Min)' },
+        { name: 'Fred VanVleet', pos: 'PG', ppg: 14.8, rpg: 3.8, apg: 6.4, tpm: 2.6, pra: 25.0, scheme: '🌿 RotoBaller Featured Over 13.5 Points (+100)' },
+        { name: 'Tari Eason', pos: 'SG', ppg: 11.4, rpg: 5.6, apg: 1.8, tpm: 1.4, pra: 18.8, scheme: '🌿 Two-Way Wing Disruptor & Glass Crasher' },
+        { name: 'Reed Sheppard', pos: 'PG', ppg: 10.8, rpg: 2.8, apg: 4.2, tpm: 2.1, pra: 17.8, scheme: '🌿 High-IQ Backcourt Playmaker & Movement Shooter' }
+      ],
+      'PHX': [
+        { name: 'Devin Booker', pos: 'SG', ppg: 26.2, rpg: 4.2, apg: 6.2, tpm: 2.5, pra: 36.6, scheme: '🌿 Suns #1 Scorer & Mid-Range Playmaker (Proj 26.2 PTS / 6.2 AST)' },
+        { name: 'Miles Bridges', pos: 'SF', ppg: 16.8, rpg: 6.9, apg: 3.1, tpm: 2.1, pra: 26.8, scheme: '🌿 FTN Verified Over 6.5 REB (+128, Leads Suns w/ 6.9 RPG, Proj 7.7 REB)' },
+        { name: 'Dillon Brooks', pos: 'SF', ppg: 15.6, rpg: 3.5, apg: 1.8, tpm: 2.1, pra: 20.9, scheme: '🌿 Suns Starting Wing (Proj 15.6 PTS / 3.5 REB / 2.1 3PM)' },
+        { name: 'Jalen Green', pos: 'SG', ppg: 14.9, rpg: 3.4, apg: 2.8, tpm: 2.1, pra: 21.1, scheme: '🌿 Suns Dynamic Guard Scorer (Proj 14.9 PTS / 3.4 REB / 2.8 AST)' },
+        { name: 'Tyus Jones', pos: 'PG', ppg: 10.8, rpg: 2.8, apg: 6.4, tpm: 1.8, pra: 20.0, scheme: '🌿 Low-Turnover Table Setter' },
+        { name: 'Royce O\'Neale', pos: 'PF', ppg: 9.2, rpg: 5.2, apg: 2.4, tpm: 2.1, pra: 16.8, scheme: '🌿 Corner 3PT Spacer & Small-Ball Rebounder' }
+      ],
       'NO': [
-        { name: 'Jeremiah Fears', pos: 'PG', ppg: 15.4, rpg: 4.1, apg: 5.2, tpm: 1.6, pra: 25.0, l10_ast: 6.6, l10_pra: 29.4, scheme: '🌿 Pelicans Primary Playmaker (6.6 L10 APG / 29.4 L10 PRA in 29.5 MPG)' },
-        { name: 'Zion Williamson', pos: 'PF', ppg: 24.2, rpg: 6.8, apg: 5.1, tpm: 0.2, pra: 36.1, scheme: '🌿 Interior Paint Force & Downhill Finisher' },
-        { name: 'Trey Murphy III', pos: 'SF', ppg: 17.6, rpg: 4.9, apg: 2.3, tpm: 2.9, pra: 24.8, scheme: '🌿 High-Volume Perimeter Spacer (7.8 3PA/g)' },
-        { name: 'Saddiq Bey', pos: 'PF', ppg: 14.4, rpg: 5.6, apg: 1.8, tpm: 2.2, pra: 21.8, scheme: '🌿 Wing Scorer & Corner Floor Spacer' },
-        { name: 'Dejounte Murray', pos: 'SG', ppg: 19.2, rpg: 5.1, apg: 6.2, tpm: 2.1, pra: 30.5, scheme: '🌿 Two-Way Guard & Mid-Range Creator' },
-        { name: 'Yves Missi', pos: 'C', ppg: 9.6, rpg: 8.4, apg: 1.4, tpm: 0.0, pra: 19.4, scheme: '🌿 Rim-Running Center & Offensive Glass Crasher' }
+        { name: 'Zion Williamson', pos: 'PF', ppg: 21.7, rpg: 5.8, apg: 2.9, tpm: 0.2, pra: 30.4, scheme: '🌿 Pelicans #1 Scoring Option (21.7 PPG in 32.7 Proj Min)' },
+        { name: 'Jeremiah Fears', pos: 'PG', ppg: 15.4, rpg: 4.1, apg: 5.2, tpm: 1.6, pra: 25.0, l10_ast: 6.6, l10_pra: 29.4, scheme: '🌿 Pelicans Starting PG (6.6 L10 APG / 29.4 L10 PRA in 32.1 Min)' },
+        { name: 'Saddiq Bey', pos: 'PF', ppg: 15.4, rpg: 4.2, apg: 2.3, tpm: 2.1, pra: 21.9, scheme: '🌿 Starting Forward Spacer (Proj 15.6 PTS / 3.9 REB / 2.0 3PM)' },
+        { name: 'Trey Murphy III', pos: 'SF', ppg: 15.6, rpg: 4.9, apg: 3.6, tpm: 2.8, pra: 24.1, scheme: '🌿 High-Volume Perimeter Wing (15.6 PPG / 3.6 APG)' },
+        { name: 'Herbert Jones', pos: 'SG', ppg: 11.2, rpg: 4.1, apg: 2.6, tpm: 1.5, pra: 17.9, scheme: '🌿 Starting Two-Way Wing (26.4 Proj Min)' },
+        { name: 'Yves Missi', pos: 'C', ppg: 9.6, rpg: 8.4, apg: 1.4, tpm: 0.0, pra: 19.4, scheme: '🌿 Starting Rim-Running Center & Glass Cleaner' }
       ],
       'GS': [
-        { name: 'Stephen Curry', pos: 'PG', ppg: 26.8, rpg: 4.6, apg: 5.8, tpm: 4.4, pra: 37.2, scheme: '🌿 Off-Ball Motion & Deep Pull-Up Threat' },
-        { name: 'Jonathan Kuminga', pos: 'PF', ppg: 18.4, rpg: 5.4, apg: 2.6, tpm: 1.3, pra: 26.4, scheme: '🌿 Downhill Rim Attacker & Transition Finisher' },
-        { name: 'Andrew Wiggins', pos: 'SF', ppg: 16.2, rpg: 4.6, apg: 2.2, tpm: 2.1, pra: 23.0, scheme: '🌿 Two-Way Wing & Secondary Scorer' },
-        { name: 'Buddy Hield', pos: 'SG', ppg: 15.6, rpg: 3.6, apg: 2.3, tpm: 3.3, pra: 21.5, scheme: '🌿 Elite Catch-and-Shoot Movement Shooter' },
-        { name: 'Draymond Green', pos: 'PF', ppg: 9.1, rpg: 7.1, apg: 6.3, tpm: 1.1, pra: 22.5, scheme: '🌿 Short-Roll Playmaker & Defensive Anchor' },
-        { name: 'Brandin Podziemski', pos: 'SG', ppg: 11.2, rpg: 5.1, apg: 4.6, tpm: 1.4, pra: 20.9, scheme: '🌿 Secondary Ball-Handler & Rebounding Guard' }
+        { name: 'Yaxel Lendeborg', pos: 'PF', ppg: 20.5, rpg: 6.6, apg: 3.4, tpm: 2.1, pra: 30.5, scheme: '🌿 Warriors Top Scorer w/ Curry Out (Proj 20.5 PTS / 6.6 REB / 3.4 AST)' },
+        { name: 'Brandin Podziemski', pos: 'PG', ppg: 18.1, rpg: 5.0, apg: 3.8, tpm: 2.5, pra: 26.9, scheme: '🌿 Starting Point Guard w/ Curry Out (Proj 18.1 PTS / 5.0 REB / 2.5 3PM)' },
+        { name: 'De\'Anthony Melton', pos: 'SG', ppg: 11.2, rpg: 3.5, apg: 2.6, tpm: 1.7, pra: 17.3, scheme: '🌿 Starting Two-Way Guard (Proj 11.2 PTS / 3.5 REB / 2.6 AST)' },
+        { name: 'Draymond Green', pos: 'C', ppg: 9.1, rpg: 7.1, apg: 6.3, tpm: 1.1, pra: 22.5, scheme: '🌿 Short-Roll Playmaker & Starting Center (26.3 Proj Min)' },
+        { name: 'Will Richard', pos: 'SF', ppg: 10.4, rpg: 3.8, apg: 1.8, tpm: 1.8, pra: 16.0, scheme: '🌿 Starting Wing Spacer' },
+        { name: 'Stephen Curry', pos: 'PG', ppg: 27.8, rpg: 4.6, apg: 5.8, tpm: 4.4, pra: 38.2, scheme: '🌿 All-NBA Deep Pull-Up Engine' }
       ],
       'CLE': [
-        { name: 'Donovan Mitchell', pos: 'SG', ppg: 26.4, rpg: 4.6, apg: 5.4, tpm: 3.2, pra: 36.4, scheme: '🌿 Cavaliers #1 Perimeter Creator & Pull-Up Threat' },
-        { name: 'James Harden', pos: 'PG', ppg: 17.8, rpg: 4.8, apg: 5.8, tpm: 2.4, pra: 28.4, scheme: '🛡️ High-Spread Rotation Risk (Proj 5.51 AST vs 6.5 Line)' },
+        { name: 'Donovan Mitchell', pos: 'SG', ppg: 26.4, rpg: 4.6, apg: 5.4, tpm: 3.2, pra: 36.4, scheme: '🌿 FanDuel Featured Over 2.5 3PM (-125) & Cavaliers #1 Scorer' },
+        { name: 'James Harden', pos: 'PG', ppg: 17.8, rpg: 4.8, apg: 5.8, tpm: 2.4, pra: 28.4, scheme: '🛡️ FTN Verified Under 6.5 AST (+115, Proj 5.51 AST)' },
         { name: 'Jarrett Allen', pos: 'C', ppg: 15.4, rpg: 10.6, apg: 2.2, tpm: 0.0, pra: 28.2, scheme: '🌿 Interior Lob Finisher & Glass Cleaner w/ Mobley Out' },
-        { name: 'Caris LeVert', pos: 'SG', ppg: 12.8, rpg: 3.4, apg: 4.4, tpm: 1.6, pra: 20.6, scheme: '🌿 Sixth-Man Playmaker & Bench Scorer' },
-        { name: 'Max Strus', pos: 'SF', ppg: 11.2, rpg: 4.4, apg: 3.2, tpm: 2.4, pra: 18.8, scheme: '🌿 Weak-Side Movement Shooter' },
-        { name: 'Georges Niang', pos: 'PF', ppg: 9.8, rpg: 3.8, apg: 1.4, tpm: 2.1, pra: 15.0, scheme: '🌿 Stretch Four Filling Frontcourt Minutes' }
+        { name: 'Meleek Thomas', pos: 'SG', ppg: 10.3, rpg: 2.2, apg: 2.1, tpm: 1.9, pra: 14.6, scheme: '🌿 Statz Projected 10.3 PTS / 1.9 3PM Rotation Guard' },
+        { name: 'Jaylon Tyson', pos: 'SF', ppg: 9.0, rpg: 3.4, apg: 2.0, tpm: 1.3, pra: 14.4, scheme: '🌿 Statz Projected 9.0 PTS / 3.4 REB Wing' },
+        { name: 'Tyrese Proctor', pos: 'PG', ppg: 8.9, rpg: 2.4, apg: 2.8, tpm: 1.5, pra: 14.1, scheme: '🌿 Statz Projected 8.9 PTS / 2.8 AST / 1.5 3PM Guard' }
       ],
       'CHI': [
-        { name: 'Zach LaVine', pos: 'SG', ppg: 22.8, rpg: 4.8, apg: 4.1, tpm: 2.8, pra: 31.7, scheme: '🌿 Primary Wing Scorer & Transition Finisher' },
-        { name: 'Nikola Vucevic', pos: 'C', ppg: 19.4, rpg: 10.2, apg: 3.2, tpm: 1.6, pra: 32.8, scheme: '🌿 Pick-and-Pop Center & Defensive Rebounder' },
-        { name: 'Coby White', pos: 'PG', ppg: 19.2, rpg: 4.1, apg: 5.1, tpm: 2.8, pra: 28.4, scheme: '🌿 High-Volume Pull-Up Guard' },
-        { name: 'Josh Giddey', pos: 'PG', ppg: 13.8, rpg: 7.1, apg: 6.6, tpm: 1.1, pra: 27.5, scheme: '🌿 Triple-Double Threat & Tempo Pusher' },
-        { name: 'Ayo Dosunmu', pos: 'SG', ppg: 12.1, rpg: 3.2, apg: 3.6, tpm: 1.6, pra: 18.9, scheme: '🌿 Transition Slasher & Two-Way Guard' },
-        { name: 'Patrick Williams', pos: 'PF', ppg: 10.2, rpg: 4.6, apg: 1.8, tpm: 1.6, pra: 16.6, scheme: '🌿 3-and-D Forward' }
+        { name: 'Norman Powell', pos: 'SF', ppg: 19.4, rpg: 2.9, apg: 2.1, tpm: 2.4, pra: 24.4, scheme: '🌿 Bulls #1 Scorer (Proj 19.4 PTS / 2.4 3PM in 29.1 Min)' },
+        { name: 'Matas Buzelis', pos: 'PF', ppg: 14.7, rpg: 5.1, apg: 1.9, tpm: 2.1, pra: 21.7, scheme: '🌿 Starting Stretch Forward (Proj 14.7 PTS / 5.1 REB / 2.1 3PM)' },
+        { name: 'Josh Giddey', pos: 'PG', ppg: 12.3, rpg: 6.0, apg: 8.4, tpm: 1.1, pra: 26.7, scheme: '🌿 Bulls Primary Playmaker (Proj 12.3 PTS / 6.0 REB / 8.4 AST)' },
+        { name: 'Nikola Vucevic', pos: 'C', ppg: 17.8, rpg: 9.8, apg: 3.1, tpm: 1.5, pra: 30.7, scheme: '🌿 Pick-and-Pop Center & Defensive Rebounder' },
+        { name: 'Isaac Okoro', pos: 'SG', ppg: 9.8, rpg: 3.4, apg: 1.9, tpm: 1.3, pra: 15.1, scheme: '🌿 Starting Two-Way Wing' }
       ],
       'DEN': [
         { name: 'Nikola Jokic', pos: 'C', ppg: 29.4, rpg: 13.4, apg: 10.2, tpm: 1.6, pra: 53.0, scheme: '🌿 MVP Post Hub & Triple-Double Engine' },
-        { name: 'Jamal Murray', pos: 'PG', ppg: 23.8, rpg: 4.2, apg: 6.4, tpm: 2.6, pra: 34.4, scheme: '🌿 Two-Man PnR Partner & Mid-Range Shotmaker' },
-        { name: 'Michael Porter Jr.', pos: 'SF', ppg: 18.2, rpg: 7.1, apg: 2.1, tpm: 2.8, pra: 27.4, scheme: '🌿 6-Foot-10 Catch-and-Shoot Wing' },
-        { name: 'Aaron Gordon', pos: 'PF', ppg: 14.8, rpg: 6.4, apg: 3.1, tpm: 1.1, pra: 24.3, scheme: '🌿 Dunker-Spot Cutters & Interior Finisher' },
+        { name: 'Jamal Murray', pos: 'PG', ppg: 23.8, rpg: 4.2, apg: 6.4, tpm: 2.6, pra: 34.4, scheme: '🌿 FanDuel Verified 24.5 PTS / 6.5 AST / 2.5 3PM Lines' },
+        { name: 'Aaron Gordon', pos: 'PF', ppg: 14.8, rpg: 6.4, apg: 3.1, tpm: 1.1, pra: 24.3, scheme: '🌿 Dunker-Spot Cutter & Interior Finisher' },
         { name: 'DeMar DeRozan', pos: 'SF', ppg: 13.2, rpg: 3.4, apg: 3.6, tpm: 0.8, pra: 20.2, scheme: '🌿 FTN Verified Over 9.5 PTS (+122, Proj 13.7 PTS)' },
         { name: 'Christian Braun', pos: 'SG', ppg: 12.6, rpg: 4.8, apg: 2.2, tpm: 1.4, pra: 19.6, scheme: '🌿 Transition Cutter & PoA Defender' }
       ],
-      'PHX': [
-        { name: 'Devin Booker', pos: 'SG', ppg: 27.2, rpg: 4.4, apg: 6.6, tpm: 2.6, pra: 38.2, scheme: '🌿 Suns #1 Scorer & Mid-Range Playmaker' },
-        { name: 'Kevin Durant', pos: 'PF', ppg: 26.4, rpg: 6.6, apg: 4.1, tpm: 2.4, pra: 37.1, scheme: '🌿 Elite Isolation Scorer at All Three Levels' },
-        { name: 'Miles Bridges', pos: 'SF', ppg: 16.8, rpg: 6.9, apg: 3.1, tpm: 2.1, pra: 26.8, scheme: '🌿 FTN Verified Over 6.5 REB (+128, Proj 7.7 REB)' },
-        { name: 'Tyus Jones', pos: 'PG', ppg: 10.8, rpg: 2.8, apg: 6.6, tpm: 1.8, pra: 20.2, scheme: '🌿 Low-Turnover Table Setter' },
-        { name: 'Royce O\'Neale', pos: 'SF', ppg: 9.2, rpg: 5.2, apg: 2.4, tpm: 2.1, pra: 16.8, scheme: '🌿 Corner 3PT Spacer & Small-Ball Rebounder' },
-        { name: 'Ryan Dunn', pos: 'PF', ppg: 8.8, rpg: 4.4, apg: 1.2, tpm: 1.6, pra: 14.4, scheme: '🌿 Defensive Wing & Transition Finisher' }
-      ],
       'BOS': [
-        { name: 'Jayson Tatum', pos: 'SF', ppg: 27.4, rpg: 8.4, apg: 5.4, tpm: 3.4, pra: 41.2, scheme: '🌿 All-NBA Wing Initiator & Pull-Up 3PT Scorer' },
-        { name: 'Jaylen Brown', pos: 'SG', ppg: 24.1, rpg: 5.8, apg: 4.2, tpm: 2.3, pra: 34.1, scheme: '🌿 Downhill Slasher & Mid-Post Scorer' },
-        { name: 'Derrick White', pos: 'PG', ppg: 17.2, rpg: 4.3, apg: 5.2, tpm: 3.1, pra: 26.7, scheme: '🌿 High-IQ Two-Way Guard & Volume 3PT Shooter' },
-        { name: 'Jrue Holiday', pos: 'PG', ppg: 12.8, rpg: 4.4, apg: 4.2, tpm: 1.8, pra: 21.4, scheme: '🌿 Perimeter Lockdown & Corner 3PT Threat' },
-        { name: 'Payton Pritchard', pos: 'PG', ppg: 14.4, rpg: 3.1, apg: 3.4, tpm: 3.2, pra: 20.9, scheme: '🌿 Deep-Range Bench Sparkplug' },
-        { name: 'Luka Garza', pos: 'C', ppg: 8.6, rpg: 4.8, apg: 1.1, tpm: 1.1, pra: 14.5, scheme: '🛡️ Rotation Stretch Big (Under 9.5 PTS Lean)' }
+        { name: 'Jayson Tatum', pos: 'SF', ppg: 23.8, rpg: 7.1, apg: 5.9, tpm: 2.5, pra: 36.8, scheme: '🌿 Celtics #1 Option (Proj 23.0-23.8 PTS / 6.9 REB / 5.4 AST)' },
+        { name: 'Paul George', pos: 'SF', ppg: 17.7, rpg: 4.5, apg: 3.0, tpm: 2.7, pra: 25.2, scheme: '🌿 Celtics Starting Wing (Proj 17.7 PTS / 4.5 REB / 2.7 3PM)' },
+        { name: 'Payton Pritchard', pos: 'PG', ppg: 13.8, rpg: 2.9, apg: 3.7, tpm: 2.1, pra: 20.4, scheme: '🌿 Sixth-Man Sparkplug (Proj 13.3 PTS / 3.3 AST / 2.1 3PM in 27.3 Min)' },
+        { name: 'Derrick White', pos: 'PG', ppg: 12.9, rpg: 3.3, apg: 4.1, tpm: 1.8, pra: 20.3, scheme: '🌿 Starting Two-Way Guard (Proj 12.9 PTS / 4.1 AST / 1.8 3PM)' },
+        { name: 'Neemias Queta', pos: 'C', ppg: 9.4, rpg: 6.8, apg: 1.2, tpm: 0.0, pra: 17.4, scheme: '🌿 Starting Center & Rim Finisher' },
+        { name: 'Sam Hauser', pos: 'SF', ppg: 9.8, rpg: 3.5, apg: 1.4, tpm: 2.4, pra: 14.7, scheme: '🌿 High-Percentage Bench Movement Shooter' }
       ],
       'ORL': [
-        { name: 'Paolo Banchero', pos: 'PF', ppg: 25.4, rpg: 7.6, apg: 5.4, tpm: 1.7, pra: 38.4, scheme: '🌿 Primary Point-Forward & Free-Throw Magnet' },
-        { name: 'Franz Wagner', pos: 'SF', ppg: 22.2, rpg: 5.4, apg: 4.8, tpm: 1.9, pra: 32.4, scheme: '🌿 Euro-Step Slasher & Secondary Creator' },
-        { name: 'Jalen Suggs', pos: 'PG', ppg: 15.2, rpg: 4.1, apg: 4.2, tpm: 2.3, pra: 23.5, scheme: '🌿 Point-of-Attack Guard & Pull-Up Shooter' },
-        { name: 'Wendell Carter Jr.', pos: 'C', ppg: 11.2, rpg: 8.4, apg: 2.1, tpm: 1.1, pra: 21.7, scheme: '🌿 Interior Rebounder & Screen Setter' },
-        { name: 'Kentavious Caldwell-Pope', pos: 'SG', ppg: 9.4, rpg: 2.3, apg: 1.8, tpm: 2.0, pra: 13.5, scheme: '🌿 3-and-D Wing Spacer' },
-        { name: 'Anthony Black', pos: 'PG', ppg: 9.6, rpg: 3.3, apg: 4.1, tpm: 0.9, pra: 17.0, scheme: '🌿 Second-Unit Playmaker' }
-      ],
-      'HOU': [
-        { name: 'Alperen Sengun', pos: 'C', ppg: 21.4, rpg: 10.4, apg: 5.1, tpm: 0.7, pra: 36.9, scheme: '🌿 FanDuel Featured Over 9.5 Rebounds (+110)' },
-        { name: 'Jalen Green', pos: 'SG', ppg: 22.1, rpg: 4.4, apg: 3.3, tpm: 2.8, pra: 29.8, scheme: '🌿 High-Volume Perimeter Scorer' },
-        { name: 'Jabari Smith Jr.', pos: 'PF', ppg: 17.8, rpg: 6.6, apg: 2.2, tpm: 2.2, pra: 26.6, scheme: '🌿 Stretch Four & Weak-Side Rebounder' },
-        { name: 'Fred VanVleet', pos: 'PG', ppg: 14.8, rpg: 3.8, apg: 6.4, tpm: 2.6, pra: 25.0, scheme: '🌿 RotoBaller Featured Over 13.5 Points (+100)' },
-        { name: 'Amen Thompson', pos: 'SF', ppg: 13.4, rpg: 7.6, apg: 3.6, tpm: 0.5, pra: 24.6, scheme: '🌿 Elite Transition Athlete & Glass Crasher' },
-        { name: 'Dillon Brooks', pos: 'SF', ppg: 12.4, rpg: 3.8, apg: 1.6, tpm: 2.0, pra: 17.8, scheme: '🌿 Physical Wing & Catch-and-Shoot Spacer' }
+        { name: 'Franz Wagner', pos: 'SF', ppg: 21.7, rpg: 6.8, apg: 5.5, tpm: 1.9, pra: 34.0, scheme: '🌿 Magic #1 Creator w/ Banchero Out (Proj 21.7 PTS / 6.8 REB / 5.5 AST)' },
+        { name: 'Desmond Bane', pos: 'SG', ppg: 17.0, rpg: 4.3, apg: 2.9, tpm: 2.9, pra: 24.2, scheme: '🌿 Magic Starting SG (Proj 17.0 PTS / 4.3 REB / 2.9 3PM in 34.7 Min)' },
+        { name: 'Anthony Black', pos: 'PG', ppg: 16.3, rpg: 4.8, apg: 5.4, tpm: 1.4, pra: 26.5, scheme: '🌿 Starting Point Guard (16.3 PPG / 5.4 APG in 32.5 Min)' },
+        { name: 'Jalen Suggs', pos: 'PG', ppg: 15.2, rpg: 4.1, apg: 4.2, tpm: 2.3, pra: 23.5, scheme: '🌿 High-Energy Two-Way Guard (31.3 Proj Min)' },
+        { name: 'Wendell Carter Jr.', pos: 'PF', ppg: 11.2, rpg: 8.4, apg: 2.1, tpm: 1.1, pra: 21.7, scheme: '🌿 Interior Rebounder & Screen Setter (33.3 Proj Min)' },
+        { name: 'Tristan da Silva', pos: 'C', ppg: 10.4, rpg: 4.6, apg: 1.7, tpm: 1.6, pra: 16.7, scheme: '🌿 Starting Stretch Frontcourt Piece' }
       ],
       'MIA': [
-        { name: 'Tyler Herro', pos: 'SG', ppg: 23.2, rpg: 5.1, apg: 4.8, tpm: 3.4, pra: 33.1, scheme: '🌿 Heat Leading Perimeter Scorer & 3PT Volume Leader' },
-        { name: 'Jimmy Butler', pos: 'SF', ppg: 20.8, rpg: 5.4, apg: 5.1, tpm: 0.9, pra: 31.3, scheme: '🌿 Half-Court Mismatch & Free-Throw Creator' },
-        { name: 'Bam Adebayo', pos: 'C', ppg: 19.2, rpg: 10.2, apg: 4.2, tpm: 0.8, pra: 33.6, scheme: '🌿 DHO Hub & Switchable Interior Anchor' },
-        { name: 'Terry Rozier', pos: 'PG', ppg: 14.1, rpg: 4.0, apg: 4.4, tpm: 2.1, pra: 22.5, scheme: '🌿 Pull-Up Guard & Secondary Handler' },
-        { name: 'Jaime Jaquez Jr.', pos: 'SF', ppg: 11.6, rpg: 4.6, apg: 2.6, tpm: 1.0, pra: 18.8, scheme: '🌿 Footwork Wing & Post Cutter' },
-        { name: 'Nikola Jovic', pos: 'PF', ppg: 9.4, rpg: 4.3, apg: 2.1, tpm: 1.6, pra: 15.8, scheme: '🌿 Floor-Spacing Forward' }
+        { name: 'Giannis Antetokounmpo', pos: 'PF', ppg: 28.9, rpg: 10.3, apg: 4.8, tpm: 0.5, pra: 44.0, scheme: '🌿 Heat #1 Option (28.9 PPG Season, Proj 25.4 PTS / 10.3 REB / 4.8 AST)' },
+        { name: 'Bam Adebayo', pos: 'C', ppg: 18.0, rpg: 8.4, apg: 3.0, tpm: 1.2, pra: 29.4, scheme: '🌿 Heat Starting Center (Proj 18.0 PTS / 8.4 REB / 3.0 AST)' },
+        { name: 'Andrew Wiggins', pos: 'SF', ppg: 15.2, rpg: 4.6, apg: 2.2, tpm: 2.0, pra: 22.0, scheme: '🌿 Two-Way Wing Scorer (30+ Min Rotation)' },
+        { name: 'Klay Thompson', pos: 'SG', ppg: 13.4, rpg: 3.2, apg: 2.0, tpm: 2.8, pra: 18.6, scheme: '🌿 Starting SG & Perimeter Spacer' },
+        { name: 'Davion Mitchell', pos: 'PG', ppg: 12.9, rpg: 2.8, apg: 6.8, tpm: 1.9, pra: 22.5, scheme: '🌿 Starting Point Guard (Proj 12.9 PTS / 6.8 AST in 36.2 Min)' }
       ],
       'PHI': [
-        { name: 'Tyrese Maxey', pos: 'PG', ppg: 28.6, rpg: 3.8, apg: 6.4, tpm: 3.1, pra: 38.8, scheme: '🌿 76ers #1 Scorer & Speed Initiator (37.5 MPG)' },
-        { name: 'Yaxel Lendeborg', pos: 'PF', ppg: 23.6, rpg: 7.8, apg: 2.6, tpm: 1.8, pra: 34.0, scheme: '🌿 RotoBaller Featured Over 22.5 Points (-108 vs BKN)' },
-        { name: 'Paul George', pos: 'SF', ppg: 19.2, rpg: 5.4, apg: 4.6, tpm: 2.6, pra: 29.2, scheme: '🌿 Two-Way Wing Creator & Pull-Up Shooter' },
-        { name: 'Jared McCain', pos: 'SG', ppg: 16.1, rpg: 2.8, apg: 3.2, tpm: 2.4, pra: 22.1, scheme: '🌿 Sharpshooting Combo Guard' },
-        { name: 'Kelly Oubre Jr.', pos: 'SF', ppg: 15.2, rpg: 5.1, apg: 1.8, tpm: 1.8, pra: 22.1, scheme: '🌿 Baseline Slasher & Transition Wing' },
-        { name: 'Andre Drummond', pos: 'C', ppg: 9.2, rpg: 10.4, apg: 1.1, tpm: 0.0, pra: 20.7, scheme: '🌿 Elite Per-Minute Rebounder' }
+        { name: 'Tyrese Maxey', pos: 'PG', ppg: 26.7, rpg: 3.8, apg: 5.8, tpm: 2.8, pra: 36.3, scheme: '🌿 76ers #1 Scorer & Speed Initiator (26.7 PPG)' },
+        { name: 'Jaylen Brown', pos: 'SG', ppg: 20.6, rpg: 6.8, apg: 3.6, tpm: 2.1, pra: 31.0, scheme: '🌿 76ers All-Star Wing (Proj 20.6 PTS / 6.8 REB / 3.6 AST)' },
+        { name: 'Joel Embiid', pos: 'C', ppg: 19.0, rpg: 8.7, apg: 3.0, tpm: 1.1, pra: 30.7, scheme: '🌿 76ers Interior Anchor (Proj 19.0 PTS / 8.7 REB / 3.0 AST)' },
+        { name: 'LeBron James', pos: 'PF', ppg: 15.0, rpg: 6.5, apg: 5.6, tpm: 1.6, pra: 27.1, scheme: '🌿 76ers Point-Forward Playmaker (Proj 15.0 PTS / 6.5 REB / 5.6 AST)' },
+        { name: 'Kelly Oubre Jr.', pos: 'SF', ppg: 14.2, rpg: 5.0, apg: 1.8, tpm: 1.8, pra: 21.0, scheme: '🌿 Baseline Slasher & Transition Wing' }
       ],
       'BKN': [
-        { name: 'Cam Thomas', pos: 'SG', ppg: 24.4, rpg: 3.3, apg: 3.5, tpm: 2.6, pra: 31.2, scheme: '🌿 High-Usage Isolation Scorer' },
-        { name: 'Cameron Johnson', pos: 'SF', ppg: 17.6, rpg: 4.3, apg: 2.8, tpm: 2.8, pra: 24.7, scheme: '🌿 High-Release Wing Shooter' },
-        { name: 'Nic Claxton', pos: 'C', ppg: 12.2, rpg: 9.6, apg: 2.1, tpm: 0.0, pra: 23.9, scheme: '🌿 Switchable Center & Lob Threat' },
-        { name: 'Day\'Ron Sharpe', pos: 'C', ppg: 8.6, rpg: 7.4, apg: 3.9, tpm: 0.2, pra: 19.9, scheme: '🌿 RotoBaller Featured Over 3.5 Assists (-108)' },
-        { name: 'Dorian Finney-Smith', pos: 'PF', ppg: 10.2, rpg: 5.1, apg: 1.8, tpm: 2.1, pra: 17.1, scheme: '🌿 3-and-D Small-Ball Forward' },
-        { name: 'Ziaire Williams', pos: 'SF', ppg: 9.6, rpg: 4.1, apg: 1.5, tpm: 1.3, pra: 15.2, scheme: '🌿 Athletic Wing Defender' }
+        { name: 'Cam Thomas', pos: 'SG', ppg: 21.4, rpg: 3.2, apg: 3.4, tpm: 2.4, pra: 28.0, scheme: '🌿 High-Usage Perimeter Scorer' },
+        { name: 'Julius Randle', pos: 'PF', ppg: 17.2, rpg: 5.7, apg: 3.9, tpm: 1.6, pra: 26.8, scheme: '🌿 Nets #1 Frontcourt Creator (Proj 17.2 PTS / 5.7 REB / 3.9 AST)' },
+        { name: 'Nic Claxton', pos: 'C', ppg: 11.4, rpg: 8.8, apg: 2.1, tpm: 0.0, pra: 22.3, scheme: '🌿 Switchable Center & Lob Threat' },
+        { name: 'Danny Wolf', pos: 'PF', ppg: 9.5, rpg: 5.6, apg: 2.1, tpm: 1.1, pra: 17.2, scheme: '🌿 Starting Stretch Big (Proj 9.5 PTS / 5.6 REB)' },
+        { name: 'Egor Demin', pos: 'PG', ppg: 9.2, rpg: 2.6, apg: 2.5, tpm: 1.9, pra: 14.3, scheme: '🌿 Starting Point Guard (Proj 9.2 PTS / 1.9 3PM)' },
+        { name: 'Day\'Ron Sharpe', pos: 'C', ppg: 8.6, rpg: 7.4, apg: 3.9, tpm: 0.2, pra: 19.9, scheme: '🌿 RotoBaller Featured Over 3.5 Assists (-108)' }
       ],
       'MEM': [
-        { name: 'Ty Jerome', pos: 'PG', ppg: 27.8, rpg: 4.1, apg: 5.7, tpm: 2.8, pra: 37.6, scheme: '🌿 Grizzlies Scoring Leader vs Wizards 30th-Ranked Defense' },
-        { name: 'Ja Morant', pos: 'PG', ppg: 24.4, rpg: 5.0, apg: 8.2, tpm: 1.7, pra: 37.6, scheme: '🌿 Rim-Pressuring Playmaker' },
-        { name: 'Cameron Boozer', pos: 'PF', ppg: 17.4, rpg: 10.3, apg: 5.4, tpm: 1.4, pra: 33.1, scheme: '🌿 Double-Double Frontcourt Hub' },
-        { name: 'Cam Spencer', pos: 'SG', ppg: 14.6, rpg: 3.8, apg: 8.1, tpm: 2.6, pra: 26.5, scheme: '🌿 RotoBaller Featured Over 7.5 Assists (-104)' },
-        { name: 'Cedric Coward', pos: 'SF', ppg: 13.2, rpg: 6.9, apg: 4.3, tpm: 1.6, pra: 24.4, scheme: '🌿 RotoBaller Featured Over 10.5 Reb+Ast (-120)' },
-        { name: 'Zach Edey', pos: 'C', ppg: 13.6, rpg: 9.4, apg: 1.2, tpm: 0.0, pra: 24.2, scheme: '🌿 7-Foot-4 Paint Presence & Offensive Glass Leader' }
+        { name: 'Cameron Boozer', pos: 'PF', ppg: 16.4, rpg: 9.8, apg: 4.8, tpm: 1.4, pra: 31.0, scheme: '🌿 Grizzlies All-Around Frontcourt Hub (Proj 14.0-17.4 PTS / 9.1-10.3 REB)' },
+        { name: 'Cam Spencer', pos: 'PG', ppg: 14.6, rpg: 3.8, apg: 8.1, tpm: 2.6, pra: 26.5, scheme: '🌿 RotoBaller Featured Over 7.5 Assists (-104)' },
+        { name: 'Cedric Coward', pos: 'SG', ppg: 13.6, rpg: 7.1, apg: 3.8, tpm: 1.6, pra: 24.5, scheme: '🌿 RotoBaller Featured Over 10.5 Reb+Ast (-120)' },
+        { name: 'Isaiah Stewart', pos: 'C', ppg: 11.9, rpg: 7.4, apg: 1.6, tpm: 0.8, pra: 20.9, scheme: '🌿 Starting Center & Efficient Paint Finisher' },
+        { name: 'Jaylen Wells', pos: 'SF', ppg: 11.8, rpg: 3.6, apg: 2.1, tpm: 1.8, pra: 17.5, scheme: '🌿 Starting Perimeter Wing Spacer' }
       ],
       'WSH': [
-        { name: 'Jordan Poole', pos: 'PG', ppg: 21.1, rpg: 3.1, apg: 5.3, tpm: 3.1, pra: 29.5, scheme: '🌿 High-Pace Primary Guard' },
-        { name: 'Kyle Kuzma', pos: 'PF', ppg: 19.2, rpg: 6.4, apg: 3.7, tpm: 1.8, pra: 29.3, scheme: '🌿 High-Volume Forward Initiator' },
+        { name: 'Anthony Davis', pos: 'PF', ppg: 20.6, rpg: 10.1, apg: 2.2, tpm: 0.6, pra: 32.9, scheme: '🌿 Wizards #1 Interior Option (Proj 20.6 PTS / 10.1 REB in 34.2 Min)' },
+        { name: 'Trae Young', pos: 'PG', ppg: 19.1, rpg: 3.1, apg: 7.8, tpm: 2.2, pra: 30.0, scheme: '🌿 Wizards Primary Playmaker (Proj 19.1 PTS / 7.8 AST / 2.1 3PM in 36.0 Min)' },
+        { name: 'AJ Dybantsa', pos: 'SF', ppg: 16.2, rpg: 5.4, apg: 2.8, tpm: 1.7, pra: 24.4, scheme: '🌿 Starting Wing Scorer (33.9 Proj Min)' },
+        { name: 'KyShawn George', pos: 'SG', ppg: 15.4, rpg: 4.6, apg: 3.9, tpm: 2.2, pra: 23.9, scheme: '🌿 Starting Two-Way Wing (Proj 15.4 PTS / 4.6 REB / 3.9 AST / 2.2 3PM)' },
         { name: 'Alexandre Sarr', pos: 'C', ppg: 13.8, rpg: 7.2, apg: 2.2, tpm: 1.2, pra: 23.2, scheme: '🌿 RotoBaller Featured Over 6.5 Rebounds (-125)' },
-        { name: 'Bilal Coulibaly', pos: 'SF', ppg: 14.4, rpg: 5.3, apg: 3.1, tpm: 1.5, pra: 22.8, scheme: '🌿 Two-Way Slasher & Transition Wing' },
-        { name: 'Jonas Valanciunas', pos: 'C', ppg: 12.2, rpg: 8.1, apg: 2.1, tpm: 0.4, pra: 22.4, scheme: '🌿 Physical Post Scorer & Rebounder' },
-        { name: 'Carlton Carrington', pos: 'PG', ppg: 10.6, rpg: 4.1, apg: 4.7, tpm: 1.6, pra: 19.4, scheme: '🌿 Combo Guard Creator' }
+        { name: 'Bilal Coulibaly', pos: 'SF', ppg: 13.4, rpg: 5.1, apg: 3.0, tpm: 1.4, pra: 21.5, scheme: '🌿 Two-Way Slasher & Transition Wing' }
       ],
       'POR': [
-        { name: 'Deni Avdija', pos: 'PF', ppg: 19.2, rpg: 7.6, apg: 6.1, tpm: 1.8, pra: 32.9, scheme: '🌿 FanDuel Featured Over 5.5 Assists (-118)' },
-        { name: 'Anfernee Simons', pos: 'PG', ppg: 21.4, rpg: 3.1, apg: 5.1, tpm: 3.2, pra: 29.6, scheme: '🌿 Blazers Primary Perimeter Shotmaker' },
-        { name: 'Jerami Grant', pos: 'PF', ppg: 18.6, rpg: 4.1, apg: 2.3, tpm: 2.3, pra: 25.0, scheme: '🌿 Isolation Wing & Perimeter Spacer' },
-        { name: 'Donovan Clingan', pos: 'C', ppg: 11.4, rpg: 10.8, apg: 1.8, tpm: 0.2, pra: 24.0, scheme: '🌿 Interior Glass Anchor & Shot Blocker' },
-        { name: 'Shaedon Sharpe', pos: 'SG', ppg: 16.4, rpg: 4.3, apg: 2.7, tpm: 2.1, pra: 23.4, scheme: '🌿 Explosive Three-Level Wing' },
-        { name: 'Scoot Henderson', pos: 'PG', ppg: 14.1, rpg: 3.3, apg: 5.7, tpm: 1.4, pra: 23.1, scheme: '🌿 Downhill Drive-and-Kick Guard' }
+        { name: 'Deni Avdija', pos: 'SF', ppg: 21.5, rpg: 5.5, apg: 5.6, tpm: 1.8, pra: 32.6, scheme: '🌿 Blazers #1 Option w/ Morant Out (Proj 21.5 PTS / 5.5 REB / 5.6 AST)' },
+        { name: 'Damian Lillard', pos: 'PG', ppg: 17.9, rpg: 3.1, apg: 4.2, tpm: 2.3, pra: 25.2, scheme: '🌿 Starting PG (Proj 17.9 PTS / 4.2 AST / 2.3 3PM in 29.6 Min)' },
+        { name: 'Toumani Camara', pos: 'PF', ppg: 12.4, rpg: 6.2, apg: 2.1, tpm: 1.6, pra: 20.7, scheme: '🌿 Starting Two-Way Forward (29.9 Proj Min)' },
+        { name: 'Donovan Clingan', pos: 'C', ppg: 10.3, rpg: 9.3, apg: 1.8, tpm: 0.2, pra: 21.4, scheme: '🌿 Starting Center & Interior Rebounder (Proj 10.3 PTS / 9.3 REB)' },
+        { name: 'Sidy Cissoko', pos: 'SG', ppg: 8.8, rpg: 3.4, apg: 2.4, tpm: 1.1, pra: 14.6, scheme: '🌿 Starting Wing Guard' }
       ],
       'MIN': [
-        { name: 'Anthony Edwards', pos: 'SG', ppg: 27.6, rpg: 5.8, apg: 5.2, tpm: 3.4, pra: 38.6, scheme: '🌿 Timberwolves Alpha Scorer & Pull-Up 3PT Leader' },
-        { name: 'Julius Randle', pos: 'PF', ppg: 21.2, rpg: 7.3, apg: 4.6, tpm: 1.7, pra: 33.1, scheme: '🌿 Physical Bully-Ball Forward & Interior Passer' },
-        { name: 'Rudy Gobert', pos: 'C', ppg: 11.8, rpg: 12.1, apg: 1.4, tpm: 0.0, pra: 25.3, scheme: '🌿 Rim Deterrent & Double-Digit Rebounder' },
-        { name: 'Donte DiVincenzo', pos: 'SG', ppg: 12.6, rpg: 3.8, apg: 3.6, tpm: 2.8, pra: 20.0, scheme: '🌿 High-Volume Movement 3PT Shooter' },
-        { name: 'Jaden McDaniels', pos: 'SF', ppg: 11.1, rpg: 4.3, apg: 1.8, tpm: 1.5, pra: 17.2, scheme: '🌿 Perimeter Defender & Corner Spacer' },
-        { name: 'Mike Conley', pos: 'PG', ppg: 9.3, rpg: 2.7, apg: 5.8, tpm: 2.0, pra: 17.8, scheme: '🌿 Veteran Floor General' }
+        { name: 'LaMelo Ball', pos: 'PG', ppg: 19.7, rpg: 3.8, apg: 5.7, tpm: 3.5, pra: 29.2, scheme: '🌿 Timberwolves Lead Creator w/ Edwards Out (Proj 19.7 PTS / 5.7 AST / 3.5 3PM)' },
+        { name: 'Ayo Dosunmu', pos: 'SG', ppg: 17.5, rpg: 4.2, apg: 3.3, tpm: 1.8, pra: 25.0, scheme: '🌿 Starting SG w/ Edwards Out (Proj 17.5 PTS / 4.2 REB / 3.3 AST in 32.9 Min)' },
+        { name: 'Jaden McDaniels', pos: 'SF', ppg: 16.0, rpg: 4.8, apg: 2.9, tpm: 1.8, pra: 23.7, scheme: '🌿 Starting Two-Way Wing (Proj 16.0 PTS / 4.8 REB / 2.9 AST in 34.7 Min)' },
+        { name: 'Jonathan Kuminga', pos: 'PF', ppg: 15.4, rpg: 5.2, apg: 2.4, tpm: 1.2, pra: 23.0, scheme: '🌿 Starting Power Forward (31.7 Proj Min)' },
+        { name: 'Rudy Gobert', pos: 'C', ppg: 11.8, rpg: 11.6, apg: 1.4, tpm: 0.0, pra: 24.8, scheme: '🌿 Rim Deterrent & Double-Digit Rebounder' }
       ],
       'NY': [
         { name: 'Jalen Brunson', pos: 'PG', ppg: 23.2, rpg: 3.6, apg: 5.9, tpm: 2.1, pra: 32.7, scheme: '🌿 Statz Featured 23.0 PTS / 5.8 AST Projection at TOR' },
@@ -909,63 +909,56 @@
       ],
       'LAL': [
         { name: 'Luka Doncic', pos: 'PG', ppg: 30.8, rpg: 6.1, apg: 7.0, tpm: 4.0, pra: 43.9, scheme: '🌿 Statz Projected 30.8 PTS / 6.1 REB / 7.0 AST / 4.0 3PM w/ Reaves Out' },
-        { name: 'Anthony Davis', pos: 'C', ppg: 26.2, rpg: 11.6, apg: 3.4, tpm: 0.7, pra: 41.2, scheme: '🌿 Dominant Interior Two-Way Anchor' },
-        { name: 'LeBron James', pos: 'SF', ppg: 22.6, rpg: 7.6, apg: 8.2, tpm: 2.1, pra: 38.4, scheme: '🌿 All-Time Playmaker & Transition Freight Train' },
-        { name: 'Walker Kessler', pos: 'C', ppg: 11.0, rpg: 9.6, apg: 1.4, tpm: 0.0, pra: 22.0, scheme: '🌿 Statz Projected 11.0 PTS / 9.6 REB Interior Glass Cleaner' },
+        { name: 'Walker Kessler', pos: 'C', ppg: 11.4, rpg: 10.2, apg: 1.4, tpm: 0.0, pra: 23.0, scheme: '🌿 Statz Projected 11.0-11.7 PTS / 9.6-10.8 REB Starting Center' },
         { name: 'Dalton Knecht', pos: 'SG', ppg: 12.4, rpg: 3.4, apg: 1.8, tpm: 2.4, pra: 17.6, scheme: '🌿 Movement 3PT Shooter Absorbing Wing Minutes' },
+        { name: 'Jake LaRavia', pos: 'PF', ppg: 11.2, rpg: 5.4, apg: 2.2, tpm: 1.8, pra: 18.8, scheme: '🌿 Starting Stretch Forward (26.1 Proj Min)' },
         { name: 'Collin Sexton', pos: 'PG', ppg: 10.8, rpg: 2.1, apg: 3.2, tpm: 1.3, pra: 16.1, scheme: '🌿 Boosted Backcourt Rotation w/ Reaves Sidelined' }
       ],
       'CHA': [
         { name: 'Brandon Miller', pos: 'SF', ppg: 17.6, rpg: 3.9, apg: 3.0, tpm: 2.7, pra: 24.5, scheme: '🌿 Statz Projected 17.6 PTS / 2.7 3PM Hornets #1 Scoring Option' },
         { name: 'Naz Reid', pos: 'C', ppg: 14.7, rpg: 6.1, apg: 2.0, tpm: 1.9, pra: 22.8, scheme: '🌿 Statz Projected 14.7 PTS / 6.1 REB / 1.9 3PM Stretch Big' },
         { name: 'Grayson Allen', pos: 'SG', ppg: 14.1, rpg: 3.3, apg: 3.5, tpm: 2.8, pra: 20.9, scheme: '🌿 Statz Projected 14.1 PTS / 3.5 AST / 2.8 3PM w/ Guards Out' },
-        { name: 'LaMelo Ball', pos: 'PG', ppg: 25.2, rpg: 5.6, apg: 8.2, tpm: 3.6, pra: 39.0, scheme: '🌿 High-Volume Deep 3PT & Playmaking Engine' },
-        { name: 'Moussa Diabaté', pos: 'PF', ppg: 8.8, rpg: 9.5, apg: 1.4, tpm: 0.0, pra: 19.7, scheme: '🌿 #11 NBA Rebounder (9.5 RPG)' },
-        { name: 'Tre Mann', pos: 'PG', ppg: 12.4, rpg: 3.1, apg: 4.3, tpm: 1.8, pra: 19.8, scheme: '🌿 Shot-Creating Combo Guard' }
+        { name: 'Coby White', pos: 'PG', ppg: 13.0, rpg: 2.8, apg: 3.1, tpm: 2.1, pra: 18.9, scheme: '🌿 Secondary Guard Creator' },
+        { name: 'Moussa Diabaté', pos: 'PF', ppg: 8.8, rpg: 9.5, apg: 1.4, tpm: 0.0, pra: 19.7, scheme: '🌿 #11 NBA Rebounder (9.5 RPG)' }
       ],
       'OKC': [
-        { name: 'Shai Gilgeous-Alexander', pos: 'PG', ppg: 29.8, rpg: 5.8, apg: 6.5, tpm: 1.8, pra: 42.1, scheme: '🌿 MVP-Caliber Paint & Mid-Range Scorer' },
+        { name: 'Shai Gilgeous-Alexander', pos: 'PG', ppg: 30.5, rpg: 3.8, apg: 5.2, tpm: 1.8, pra: 39.5, scheme: '🌿 MVP-Caliber Paint & Mid-Range Scorer (30.5 PPG)' },
         { name: 'Jalen Williams', pos: 'SF', ppg: 21.4, rpg: 6.2, apg: 5.1, tpm: 1.8, pra: 32.7, scheme: '🌿 Secondary Ball-Handler & Small-Ball Forward' },
-        { name: 'Luguentz Dort', pos: 'SG', ppg: 11.2, rpg: 4.1, apg: 1.6, tpm: 2.2, pra: 16.9, scheme: '🌿 3-and-D Point-of-Attack Stopper' },
-        { name: 'Isaiah Hartenstein', pos: 'C', ppg: 11.8, rpg: 11.2, apg: 3.8, tpm: 0.2, pra: 26.8, scheme: '🌿 Short-Roll Passer & Rebounding Anchor' },
-        { name: 'Aaron Wiggins', pos: 'SG', ppg: 10.4, rpg: 3.8, apg: 1.8, tpm: 1.6, pra: 16.0, scheme: '🌿 Efficient Wing Cutter & Shooter' },
-        { name: 'Alex Caruso', pos: 'SG', ppg: 8.4, rpg: 3.4, apg: 3.2, tpm: 1.4, pra: 15.0, scheme: '🌿 Perimeter Disruptor & Connector' }
+        { name: 'Jared McCain', pos: 'SG', ppg: 14.9, rpg: 3.4, apg: 1.9, tpm: 2.6, pra: 20.2, scheme: '🌿 Thunder Starting SG (Proj 14.9 PTS / 3.4 REB / 2.6 3PM in 28.3 Min)' },
+        { name: 'Isaiah Hartenstein', pos: 'C', ppg: 9.6, rpg: 9.8, apg: 3.7, tpm: 0.2, pra: 23.1, scheme: '🌿 Short-Roll Passer & Rebounding Anchor (Proj 9.8 REB / 3.7 AST)' },
+        { name: 'Aday Mara', pos: 'C', ppg: 8.8, rpg: 6.4, apg: 1.8, tpm: 0.0, pra: 17.0, scheme: '🌿 Starting Frontcourt Rim Protector' }
       ],
       'DAL': [
-        { name: 'Kyrie Irving', pos: 'PG', ppg: 24.6, rpg: 4.8, apg: 5.4, tpm: 2.9, pra: 34.8, scheme: '🌿 Elite Isolation & Pull-Up Finisher' },
-        { name: 'Cooper Flagg', pos: 'PF', ppg: 18.8, rpg: 7.6, apg: 3.8, tpm: 1.6, pra: 30.2, scheme: '🌿 Two-Way Point-Forward & Transition Star' },
-        { name: 'Klay Thompson', pos: 'SG', ppg: 14.2, rpg: 3.4, apg: 2.0, tpm: 3.1, pra: 19.6, scheme: '🌿 High-Volume Catch-and-Shoot Wing' },
-        { name: 'P.J. Washington', pos: 'PF', ppg: 12.6, rpg: 6.4, apg: 2.1, tpm: 1.8, pra: 21.1, scheme: '🌿 Stretch Four & Versatile Rebounder' },
-        { name: 'Daniel Gafford', pos: 'C', ppg: 11.8, rpg: 7.8, apg: 1.4, tpm: 0.0, pra: 21.0, scheme: '🌿 High-Percentage Lob & Rim Finisher' },
-        { name: 'Dereck Lively II', pos: 'C', ppg: 9.8, rpg: 8.2, apg: 2.2, tpm: 0.0, pra: 20.2, scheme: '🌿 Vertical Spacer & Shot Blocker' }
+        { name: 'Cooper Flagg', pos: 'PF', ppg: 19.8, rpg: 6.1, apg: 5.2, tpm: 1.3, pra: 31.1, scheme: '🌿 Mavericks #1 Option (Proj 19.8 PTS / 6.1 REB / 5.2 AST)' },
+        { name: 'Kyrie Irving', pos: 'PG', ppg: 17.4, rpg: 3.4, apg: 3.5, tpm: 2.7, pra: 24.3, scheme: '🌿 Elite Isolation & Pull-Up Finisher (Proj 17.4 PTS / 2.7 3PM)' },
+        { name: 'P.J. Washington', pos: 'PF', ppg: 12.1, rpg: 6.3, apg: 1.3, tpm: 2.0, pra: 19.7, scheme: '🌿 Stretch Four & Versatile Rebounder' },
+        { name: 'Daniel Gafford', pos: 'C', ppg: 11.8, rpg: 7.8, apg: 1.4, tpm: 0.0, pra: 21.0, scheme: '🌿 High-Percentage Lob & Rim Finisher' }
       ],
       'SAC': [
-        { name: 'Domantas Sabonis', pos: 'C', ppg: 19.8, rpg: 14.2, apg: 7.4, tpm: 0.6, pra: 41.4, scheme: '🌿 NBA Rebounding Leader & DHO Hub' },
-        { name: 'De\'Aaron Fox', pos: 'PG', ppg: 24.8, rpg: 4.4, apg: 6.2, tpm: 2.2, pra: 35.4, scheme: '🌿 Clutch Fourth-Quarter Scorer' },
-        { name: 'Keegan Murray', pos: 'PF', ppg: 16.2, rpg: 6.4, apg: 1.8, tpm: 2.6, pra: 24.4, scheme: '🌿 Two-Way Stretch Forward' },
-        { name: 'Malik Monk', pos: 'SG', ppg: 15.8, rpg: 3.2, apg: 5.4, tpm: 2.4, pra: 24.4, scheme: '🌿 Dynamic Sixth-Man PnR Creator' },
-        { name: 'Kevin Huerter', pos: 'SG', ppg: 10.8, rpg: 3.4, apg: 2.4, tpm: 2.2, pra: 16.6, scheme: '🌿 DHO Movement Shooter' }
+        { name: 'Darius Acuff Jr.', pos: 'PG', ppg: 21.9, rpg: 3.2, apg: 7.0, tpm: 3.5, pra: 32.1, scheme: '🌿 Kings #1 Scorer & Creator (Proj 21.9 PTS / 7.0 AST / 3.5 3PM)' },
+        { name: 'Domantas Sabonis', pos: 'C', ppg: 14.5, rpg: 10.3, apg: 5.4, tpm: 0.6, pra: 30.2, scheme: '🌿 Interior Rebounding Anchor & DHO Hub (Proj 14.5 PTS / 10.3 REB / 5.4 AST)' },
+        { name: 'De\'Andre Hunter', pos: 'SF', ppg: 14.0, rpg: 3.9, apg: 1.8, tpm: 2.4, pra: 19.7, scheme: '🌿 Two-Way Wing Spacer (Proj 14.0 PTS / 2.4 3PM)' },
+        { name: 'Zach LaVine', pos: 'SG', ppg: 12.9, rpg: 3.8, apg: 3.2, tpm: 2.1, pra: 19.9, scheme: '🌿 Perimeter Shotmaker' }
       ],
       'IND': [
-        { name: 'Pascal Siakam', pos: 'PF', ppg: 21.8, rpg: 7.4, apg: 4.2, tpm: 1.4, pra: 33.4, scheme: '🌿 Mid-Post Mismatch & Transition Scorer' },
-        { name: 'Myles Turner', pos: 'C', ppg: 15.2, rpg: 7.1, apg: 1.6, tpm: 2.0, pra: 23.9, scheme: '🌿 Pick-and-Pop Stretch Five' },
-        { name: 'Bennedict Mathurin', pos: 'SG', ppg: 17.6, rpg: 5.8, apg: 2.2, tpm: 1.8, pra: 25.6, scheme: '🌿 Downhill Scorer & Free-Throw Drawer' },
-        { name: 'Andrew Nembhard', pos: 'PG', ppg: 13.4, rpg: 3.4, apg: 6.2, tpm: 1.4, pra: 23.0, scheme: '🌿 Primary Ball-Handler w/ Haliburton Out' },
+        { name: 'Pascal Siakam', pos: 'PF', ppg: 19.9, rpg: 5.9, apg: 3.5, tpm: 1.4, pra: 29.3, scheme: '🌿 Pacers #1 Scorer (Proj 19.9 PTS / 5.9 REB / 3.5 AST)' },
+        { name: 'Andrew Nembhard', pos: 'PG', ppg: 14.5, rpg: 3.4, apg: 7.5, tpm: 1.9, pra: 25.4, scheme: '🌿 Pacers Lead Guard (Proj 14.5 PTS / 7.5 AST / 1.9 3PM)' },
+        { name: 'Ivica Zubac', pos: 'C', ppg: 10.2, rpg: 8.4, apg: 1.8, tpm: 0.0, pra: 20.4, scheme: '🌿 Pacers Starting Center (Proj 10.2 PTS / 8.4 REB)' },
         { name: 'T.J. McConnell', pos: 'PG', ppg: 10.8, rpg: 3.1, apg: 5.8, tpm: 0.4, pra: 19.7, scheme: '🌿 High-Pace Paint Penetrator' }
       ],
       'MIL': [
-        { name: 'Giannis Antetokounmpo', pos: 'PF', ppg: 31.0, rpg: 11.8, apg: 6.2, tpm: 0.5, pra: 49.0, scheme: '🌿 Unstoppable Paint & Transition Force' },
-        { name: 'Damian Lillard', pos: 'PG', ppg: 25.2, rpg: 4.4, apg: 7.1, tpm: 3.5, pra: 36.7, scheme: '🌿 Deep Pull-Up 3PT & PnR Maestro' },
-        { name: 'Bobby Portis', pos: 'PF', ppg: 13.8, rpg: 8.4, apg: 1.4, tpm: 1.4, pra: 23.6, scheme: '🌿 Double-Double Bench Scorer' },
-        { name: 'Gary Trent Jr.', pos: 'SG', ppg: 11.4, rpg: 2.6, apg: 1.6, tpm: 2.4, pra: 15.6, scheme: '🌿 Perimeter Catch-and-Shoot Guard' },
-        { name: 'Taurean Prince', pos: 'SF', ppg: 9.2, rpg: 4.1, apg: 1.8, tpm: 1.9, pra: 15.1, scheme: '🌿 Corner 3PT Wing Spacer' }
+        { name: 'Tyler Herro', pos: 'PG', ppg: 19.4, rpg: 4.3, apg: 4.4, tpm: 2.2, pra: 28.1, scheme: '🌿 Bucks #1 Scorer (Proj 19.4 PTS / 4.3 REB / 4.4 AST / 2.2 3PM)' },
+        { name: 'Jaime Jaquez Jr.', pos: 'SG', ppg: 14.5, rpg: 4.7, apg: 3.7, tpm: 1.2, pra: 22.9, scheme: '🌿 Bucks Secondary Creator (Proj 14.5 PTS / 4.7 REB / 3.7 AST)' },
+        { name: 'Myles Turner', pos: 'C', ppg: 13.8, rpg: 6.8, apg: 1.6, tpm: 1.9, pra: 22.2, scheme: '🌿 Bucks Starting Stretch Five' },
+        { name: 'Kyle Kuzma', pos: 'PF', ppg: 11.5, rpg: 4.4, apg: 2.7, tpm: 1.2, pra: 18.6, scheme: '🌿 Bucks Starting Forward (Proj 11.5 PTS / 4.4 REB)' },
+        { name: 'Brayden Burries', pos: 'SF', ppg: 11.2, rpg: 3.6, apg: 2.2, tpm: 1.6, pra: 17.0, scheme: '🌿 Starting Wing Scorer' }
       ],
       'ATL': [
-        { name: 'Trae Young', pos: 'PG', ppg: 26.4, rpg: 3.2, apg: 10.8, tpm: 3.2, pra: 40.4, scheme: '🌿 NBA Assists Leader & Deep PnR Engine' },
-        { name: 'Jalen Johnson', pos: 'PF', ppg: 19.8, rpg: 9.6, apg: 5.4, tpm: 1.6, pra: 34.8, scheme: '🌿 Point-Forward Transition & Rebounding Star' },
-        { name: 'Dyson Daniels', pos: 'SG', ppg: 13.4, rpg: 5.2, apg: 3.6, tpm: 1.4, pra: 22.2, scheme: '🌿 League Steals Leader & Two-Way Guard' },
-        { name: 'Zaccharie Risacher', pos: 'SF', ppg: 12.6, rpg: 4.4, apg: 1.8, tpm: 1.8, pra: 18.8, scheme: '🌿 Lengthy Wing Shooter' },
-        { name: 'Clint Capela', pos: 'C', ppg: 10.4, rpg: 9.8, apg: 1.2, tpm: 0.0, pra: 21.4, scheme: '🌿 Lob Partner & Offensive Rebounder' }
+        { name: 'Nickeil Alexander-Walker', pos: 'SG', ppg: 20.3, rpg: 3.8, apg: 4.1, tpm: 3.6, pra: 28.2, scheme: '🌿 Hawks Leading Scorer (Proj 20.3 PTS / 3.6 3PM)' },
+        { name: 'Jalen Johnson', pos: 'PF', ppg: 19.9, rpg: 9.3, apg: 6.9, tpm: 1.6, pra: 36.1, scheme: '🌿 Hawks Point-Forward Engine (Proj 19.9 PTS / 9.3 REB / 6.9 AST)' },
+        { name: 'CJ McCollum', pos: 'PG', ppg: 15.1, rpg: 3.0, apg: 3.8, tpm: 2.1, pra: 21.9, scheme: '🌿 Veteran Guard Scorer (Proj 15.1 PTS / 3.8 AST / 2.1 3PM)' },
+        { name: 'Dyson Daniels', pos: 'PG', ppg: 13.4, rpg: 5.2, apg: 3.6, tpm: 1.4, pra: 22.2, scheme: '🌿 League Steals Leader & Two-Way Guard' },
+        { name: 'Onyeka Okongwu', pos: 'C', ppg: 12.8, rpg: 8.4, apg: 2.1, tpm: 0.8, pra: 23.3, scheme: '🌿 Starting Center & Interior Finisher' }
       ]
     };
     NBA_30_TEAM_ROTATIONS['GSW'] = NBA_30_TEAM_ROTATIONS['GS'];
@@ -988,7 +981,9 @@
       'deni avdija::assists': { ppLine: 5.5, bookLine: 5.5, projected: 6.3, overOdds: -118, underOdds: -108, l10: [6, 7, 5, 6, 8, 6, 5, 7, 6, 6], badge: 'FanDuel Featured Prop (5.5 AST)', note: 'FanDuel Research Featured Bet (Over 5.5 Assists -118): Operating as Portland primary point-forward facilitator.' },
       'fred vanvleet::points': { ppLine: 13.5, bookLine: 13.5, projected: 15.1, overOdds: +100, underOdds: -125, l10: [14, 16, 12, 15, 17, 14, 15, 13, 16, 15], badge: 'RotoBaller Featured (13.5 PTS)', note: 'RotoBaller Featured Pick (Over 13.5 Points +100 FanDuel): Averaging 14.8 PPG in 35+ minutes for 11-3 Houston.' },
       'cam spencer::assists': { ppLine: 7.5, bookLine: 7.5, projected: 8.4, overOdds: -104, underOdds: -118, l10: [8, 9, 7, 8, 10, 8, 7, 9, 8, 8], badge: 'RotoBaller / Novig Verified (7.5 AST)', note: 'RotoBaller Featured Pick (Over 7.5 Assists -104): Thriving as playmaker against fast-paced Washington.' },
-      'yaxel lendeborg::points': { ppLine: 22.5, bookLine: 22.5, projected: 24.3, overOdds: -108, underOdds: -115, l10: [23, 25, 21, 26, 24, 22, 25, 24, 23, 25], badge: 'RotoBaller / Novig Verified (22.5 PTS)', note: 'RotoBaller Featured Pick (Over 22.5 Points -108): High-usage frontcourt scorer against undersized Brooklyn.' },
+      'kevin durant::points': { ppLine: 21.5, bookLine: 21.5, projected: 22.4, overOdds: -118, underOdds: -108, l10: [22, 24, 20, 25, 21, 23, 22, 19, 24, 23], badge: 'Statz AI + FanDuel Verified (HOU • 21.5 PTS)', note: 'Rockets Star Forward (HOU @ MIA): Projected for 21.5–22.4 points, 5.1 rebounds & 4.2 assists in 33.3 minutes for 11-3 Houston.' },
+      'giannis antetokounmpo::points': { ppLine: 26.5, bookLine: 26.5, projected: 25.4, overOdds: -106, underOdds: -118, l10: [26, 29, 24, 28, 25, 30, 24, 27, 25, 26], badge: 'Statz AI Verified (MIA • 26.5 PTS)', note: 'Heat Star Forward (HOU @ MIA): Statz projects Giannis for 25.4 points, 10.3 rebounds & 4.8 assists against top-ranked Houston defense.' },
+      'yaxel lendeborg::points': { ppLine: 20.5, bookLine: 20.5, projected: 21.6, overOdds: -115, underOdds: -110, l10: [21, 23, 19, 24, 21, 20, 22, 21, 23, 22], badge: 'Statz AI + RotoBaller Verified (GS • 20.5 PTS)', note: 'Warriors #1 Scoring Option w/ Stephen Curry Out (GS @ NO): Projected for 20.5+ points, 6.6 rebounds & 3.4 assists vs. 29th-ranked Pelicans defense.' },
       'day\'ron sharpe::assists': { ppLine: 3.5, bookLine: 3.5, projected: 4.2, overOdds: -108, underOdds: -115, l10: [4, 5, 3, 4, 4, 5, 3, 4, 4, 5], badge: 'RotoBaller / Novig Verified (3.5 AST)', note: 'RotoBaller Featured Pick (Over 3.5 Assists -108): High-post DHO hub for Brooklyn.' },
       'alexandre sarr::rebounds': { ppLine: 6.5, bookLine: 6.5, projected: 7.4, overOdds: -125, underOdds: +100, l10: [7, 8, 6, 8, 7, 7, 9, 6, 7, 8], badge: 'RotoBaller / Novig Verified (6.5 REB)', note: 'RotoBaller Featured Pick (Over 6.5 Rebounds -125): Cleared 6.5 rebounds in 8 of his last 10 games.' },
       'jamal murray::points': { ppLine: 24.5, bookLine: 24.5, projected: 23.6, overOdds: -104, underOdds: -122, l10: [24, 22, 26, 23, 25, 21, 24, 23, 25, 22], badge: 'FanDuel Sportsbook Verified (24.5 PTS)', note: 'FanDuel Sportsbook Line (24.5 Points, Under juiced to -122 in DEN -10.5 blowout-risk matchup vs PHX).' },
@@ -1084,6 +1079,7 @@
       games: [],
       props: [],
       customPropsByDate: {},
+      livePlayerTeamMap: {},
       injuries: JSON.parse(JSON.stringify(BASELINE_INJURIES)),
       scraperLogs: [],
       simPlayerId: null,
@@ -1443,9 +1439,23 @@
               });
             });
 
+            // 2C-bis. Extract live boxscore rosters if present to lock in real-time 2026-27 team assignments
+            if (sdata.boxscore && Array.isArray(sdata.boxscore.players)) {
+              sdata.boxscore.players.forEach(teamBox => {
+                const bAbbr = normalizeTeamAbbr((teamBox.team && teamBox.team.abbreviation) || '');
+                if (!bAbbr) return;
+                (teamBox.statistics || []).forEach(statGroup => {
+                  (statGroup.athletes || []).forEach(athEntry => {
+                    const aName = athEntry.athlete && athEntry.athlete.displayName;
+                    if (aName) appState.livePlayerTeamMap[aName.toLowerCase()] = bAbbr;
+                  });
+                });
+              });
+            }
+
             // 2D. Extract ALL Real-Time Season Statistical Leaders (sdata.leaders) for every game (never gated on g.oddsPosted!)
             (sdata.leaders || []).forEach(teamLeaders => {
-              const tAbbr = (teamLeaders.team && teamLeaders.team.abbreviation) || g.awayTeam.abbr;
+              const tAbbr = normalizeTeamAbbr((teamLeaders.team && teamLeaders.team.abbreviation) || g.awayTeam.abbr);
               const oppAbbr = tAbbr === g.awayTeam.abbr ? g.homeTeam.abbr : g.awayTeam.abbr;
 
               (teamLeaders.leaders || []).forEach(cat => {
@@ -1459,6 +1469,7 @@
                 (cat.leaders || []).forEach(leaderEntry => {
                   if (!leaderEntry || !leaderEntry.athlete) return;
                   const pName = leaderEntry.athlete.displayName;
+                  if (pName && tAbbr) appState.livePlayerTeamMap[pName.toLowerCase()] = normalizeTeamAbbr(tAbbr);
                   const pPos = (leaderEntry.athlete.position && leaderEntry.athlete.position.abbreviation) || 'G/F';
                   const rawVal = parseFloat((leaderEntry.mainStat && leaderEntry.mainStat.value) || leaderEntry.displayValue);
                   if (!pName || isNaN(rawVal) || rawVal <= 2.0) return;
@@ -1632,6 +1643,8 @@
           { team: homeAbbr, opp: awayAbbr, players: homeRoster }
         ].forEach(side => {
           side.players.forEach(pInfo => {
+            const liveTeam = appState.livePlayerTeamMap && appState.livePlayerTeamMap[pInfo.name.toLowerCase()];
+            if (liveTeam && liveTeam !== side.team) return;
             const statConfigs = [
               { statType: 'Points', rawVal: pInfo.ppg, minVal: 8.5, unit: 'PPG' },
               { statType: 'Rebounds', rawVal: pInfo.rpg, minVal: 3.8, unit: 'RPG' },

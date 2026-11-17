@@ -30,124 +30,175 @@ STAT_META = {
 
 # 30-Team Star Player Knowledge Base with 2026-27 Baselines and Matchup Tendencies
 TEAM_PLAYERS = {
-    "BOS": [
-        {"name": "Jayson Tatum", "pos": "SF", "ppg": 27.4, "rpg": 8.6, "apg": 5.4, "tpm": 3.4, "pra": 41.4, "usg": 30.5, "min": 36.0, "scheme": "🌿 Isolation scorer vs perimeter drop", "scheme_mult": 1.08},
-        {"name": "Jaylen Brown", "pos": "SG", "ppg": 24.2, "rpg": 5.8, "apg": 4.2, "tpm": 2.4, "pra": 34.2, "usg": 28.0, "min": 34.5, "scheme": "🌿 Transition downhill slasher", "scheme_mult": 1.06},
-        {"name": "Derrick White", "pos": "PG", "ppg": 16.5, "rpg": 4.2, "apg": 5.5, "tpm": 2.8, "pra": 26.2, "usg": 19.5, "min": 33.0, "scheme": "🌿 Catch-and-shoot spacer", "scheme_mult": 1.05}
-    ],
-    "ORL": [
-        {"name": "Paolo Banchero", "pos": "PF", "ppg": 25.8, "rpg": 7.6, "apg": 5.8, "tpm": 1.8, "pra": 39.2, "usg": 31.2, "min": 35.5, "scheme": "🌿 Bully-ball forward vs single coverage", "scheme_mult": 1.09},
-        {"name": "Franz Wagner", "pos": "SF", "ppg": 21.4, "rpg": 5.6, "apg": 4.5, "tpm": 2.0, "pra": 31.5, "usg": 25.4, "min": 34.0, "scheme": "🌿 Drive-and-kick playmaker", "scheme_mult": 1.05},
-        {"name": "Jalen Suggs", "pos": "PG", "ppg": 14.8, "rpg": 4.0, "apg": 4.2, "tpm": 2.2, "pra": 23.0, "usg": 20.0, "min": 31.0, "scheme": "🌿 PoA defender & corner shooter", "scheme_mult": 1.04}
-    ],
-    "BKN": [
-        {"name": "Cam Thomas", "pos": "SG", "ppg": 24.8, "rpg": 3.4, "apg": 3.6, "tpm": 2.6, "pra": 31.8, "usg": 30.2, "min": 34.5, "scheme": "🌿 High-volume pull-up scorer", "scheme_mult": 1.07},
-        {"name": "Nic Claxton", "pos": "C", "ppg": 12.4, "rpg": 10.2, "apg": 2.2, "tpm": 0.0, "pra": 24.8, "usg": 15.0, "min": 31.5, "scheme": "🌿 Rim runner & lob threat", "scheme_mult": 1.04}
-    ],
-    "IND": [
-        {"name": "Tyrese Haliburton", "pos": "PG", "ppg": 20.5, "rpg": 4.2, "apg": 10.8, "tpm": 3.0, "pra": 35.5, "usg": 24.5, "min": 34.5, "scheme": "🌿 Fast-break wizard vs unset defense", "scheme_mult": 1.11},
-        {"name": "Pascal Siakam", "pos": "PF", "ppg": 21.8, "rpg": 7.4, "apg": 4.2, "tpm": 1.4, "pra": 33.4, "usg": 26.0, "min": 34.0, "scheme": "🌿 Mid-post faceup specialist", "scheme_mult": 1.06},
-        {"name": "Myles Turner", "pos": "C", "ppg": 14.2, "rpg": 7.0, "apg": 1.6, "tpm": 1.8, "pra": 22.8, "usg": 19.0, "min": 29.5, "scheme": "🌿 Pick-and-pop stretch 5", "scheme_mult": 1.08}
-    ],
-    "LAC": [
-        {"name": "James Harden", "pos": "PG", "ppg": 19.5, "rpg": 5.4, "apg": 9.2, "tpm": 2.5, "pra": 34.1, "usg": 28.5, "min": 36.0, "scheme": "🌿 PnR maestro & step-back creator", "scheme_mult": 1.07},
-        {"name": "Norman Powell", "pos": "SG", "ppg": 18.6, "rpg": 3.2, "apg": 2.0, "tpm": 2.4, "pra": 23.8, "usg": 24.0, "min": 32.0, "scheme": "🌿 Floor spacer & drive attacker", "scheme_mult": 1.05},
-        {"name": "Ivica Zubac", "pos": "C", "ppg": 13.5, "rpg": 10.8, "apg": 1.8, "tpm": 0.0, "pra": 26.1, "usg": 18.0, "min": 31.0, "scheme": "🌿 Drop rim protector & offensive rebounder", "scheme_mult": 1.05}
-    ],
-    "GS": [
-        {"name": "Stephen Curry", "pos": "PG", "ppg": 27.2, "rpg": 4.8, "apg": 5.6, "tpm": 4.8, "pra": 37.6, "usg": 31.0, "min": 34.0, "scheme": "🌿 Off-ball motion & deep drop killer (+12.4% 3PM)", "scheme_mult": 1.124},
-        {"name": "Jonathan Kuminga", "pos": "PF", "ppg": 18.4, "rpg": 5.6, "apg": 2.8, "tpm": 1.2, "pra": 26.8, "usg": 24.5, "min": 30.5, "scheme": "🌿 Athletic rim attacker", "scheme_mult": 1.06},
-        {"name": "Draymond Green", "pos": "PF", "ppg": 9.2, "rpg": 7.2, "apg": 6.8, "tpm": 1.0, "pra": 23.2, "usg": 14.5, "min": 29.5, "scheme": "🌿 Short-roll distributor & defensive anchor", "scheme_mult": 1.05}
-    ],
-    "GSW": [
-        {"name": "Stephen Curry", "pos": "PG", "ppg": 27.2, "rpg": 4.8, "apg": 5.6, "tpm": 4.8, "pra": 37.6, "usg": 31.0, "min": 34.0, "scheme": "🌿 Off-ball motion & deep drop killer (+12.4% 3PM)", "scheme_mult": 1.124},
-        {"name": "Jonathan Kuminga", "pos": "PF", "ppg": 18.4, "rpg": 5.6, "apg": 2.8, "tpm": 1.2, "pra": 26.8, "usg": 24.5, "min": 30.5, "scheme": "🌿 Athletic rim attacker", "scheme_mult": 1.06}
-    ],
-    "TOR": [
-        {"name": "Scottie Barnes", "pos": "PF", "ppg": 21.8, "rpg": 8.4, "apg": 6.2, "tpm": 1.8, "pra": 36.4, "usg": 27.5, "min": 35.5, "scheme": "🌿 Versatile point-forward initiator", "scheme_mult": 1.08},
-        {"name": "RJ Barrett", "pos": "SG", "ppg": 21.2, "rpg": 6.2, "apg": 3.8, "tpm": 1.8, "pra": 31.2, "usg": 26.0, "min": 33.5, "scheme": "🌿 Strong-side rim penetrator", "scheme_mult": 1.05},
-        {"name": "Immanuel Quickley", "pos": "PG", "ppg": 18.5, "rpg": 4.0, "apg": 6.5, "tpm": 2.5, "pra": 29.0, "usg": 24.0, "min": 33.0, "scheme": "🌿 Pull-up 3PT & floater threat", "scheme_mult": 1.07}
-    ],
-    "LAL": [
-        {"name": "Anthony Davis", "pos": "C", "ppg": 27.8, "rpg": 12.2, "apg": 3.4, "tpm": 0.6, "pra": 43.4, "usg": 30.5, "min": 36.0, "scheme": "🌿 Interior power vs undersized frontcourts (+11% REB)", "scheme_mult": 1.11},
-        {"name": "LeBron James", "pos": "SF", "ppg": 23.5, "rpg": 7.8, "apg": 8.8, "tpm": 2.2, "pra": 40.1, "usg": 27.5, "min": 34.5, "scheme": "🌿 Half-court surgical orchestrator", "scheme_mult": 1.08},
-        {"name": "Austin Reaves", "pos": "SG", "ppg": 16.8, "rpg": 4.2, "apg": 5.4, "tpm": 2.0, "pra": 26.4, "usg": 21.0, "min": 33.0, "scheme": "🌿 Secondary PnR & foul-drawer", "scheme_mult": 1.06}
-    ],
-    "OKC": [
-        {"name": "Shai Gilgeous-Alexander", "pos": "PG", "ppg": 29.8, "rpg": 5.8, "apg": 6.5, "tpm": 1.8, "pra": 42.1, "usg": 34.0, "min": 36.5, "scheme": "🌿 Foul-drawing foul machine vs wing press (+9.4% PTS)", "scheme_mult": 1.094},
-        {"name": "Chet Holmgren", "pos": "C", "ppg": 17.5, "rpg": 8.5, "apg": 2.6, "tpm": 1.8, "pra": 28.6, "usg": 22.0, "min": 32.0, "scheme": "🌿 Rim protection & trailing 3s", "scheme_mult": 1.05}
-    ],
     "HOU": [
-        {"name": "Alperen Sengun", "pos": "C", "ppg": 24.5, "rpg": 10.4, "apg": 5.8, "tpm": 0.8, "pra": 40.7, "usg": 29.0, "min": 34.5, "scheme": "🌿 Post hub vs small-ball frontcourts (+10.4%)", "scheme_mult": 1.104},
-        {"name": "Jalen Green", "pos": "SG", "ppg": 21.0, "rpg": 4.5, "apg": 3.5, "tpm": 2.8, "pra": 29.0, "usg": 27.0, "min": 33.5, "scheme": "🌿 Explosive transition scorer", "scheme_mult": 1.05}
-    ],
-    "DEN": [
-        {"name": "Nikola Jokic", "pos": "C", "ppg": 29.5, "rpg": 13.5, "apg": 10.2, "tpm": 1.6, "pra": 53.2, "usg": 31.0, "min": 36.5, "scheme": "🌿 Low-post mismatch vs single coverage (+11.6% PRA)", "scheme_mult": 1.116},
-        {"name": "Jamal Murray", "pos": "PG", "ppg": 21.2, "rpg": 4.0, "apg": 6.4, "tpm": 2.6, "pra": 31.6, "usg": 26.5, "min": 34.5, "scheme": "🌿 Two-man game partner", "scheme_mult": 1.06}
-    ],
-    "MIN": [
-        {"name": "Anthony Edwards", "pos": "SG", "ppg": 27.6, "rpg": 5.8, "apg": 5.2, "tpm": 3.2, "pra": 38.6, "usg": 32.0, "min": 36.5, "scheme": "🌿 High-velocity pull-up scorer", "scheme_mult": 1.08},
-        {"name": "Rudy Gobert", "pos": "C", "ppg": 12.0, "rpg": 12.5, "apg": 1.4, "tpm": 0.0, "pra": 25.9, "usg": 14.5, "min": 32.5, "scheme": "🏔️ Rim finisher vs shot deterrence (-12% pts)", "scheme_mult": 0.88}
-    ],
-    "SAS": [
-        {"name": "Victor Wembanyama", "pos": "C", "ppg": 25.4, "rpg": 11.2, "apg": 3.8, "tpm": 2.5, "pra": 40.4, "usg": 31.5, "min": 34.0, "scheme": "🌿 Roaming shot-blocker & high-post kickout (+11.2% AST)", "scheme_mult": 1.112},
-        {"name": "De'Aaron Fox", "pos": "PG", "ppg": 21.0, "rpg": 4.0, "apg": 6.2, "tpm": 2.2, "pra": 31.2, "usg": 27.5, "min": 33.5, "scheme": "🌿 Downhill paint pressure", "scheme_mult": 1.06}
-    ],
-    "MIL": [
-        {"name": "Giannis Antetokounmpo", "pos": "PF", "ppg": 31.0, "rpg": 11.8, "apg": 6.2, "tpm": 0.5, "pra": 49.0, "usg": 34.5, "min": 35.5, "scheme": "🌿 Paint transition destroyer", "scheme_mult": 1.11},
-        {"name": "Damian Lillard", "pos": "PG", "ppg": 24.5, "rpg": 4.4, "apg": 7.0, "tpm": 3.5, "pra": 35.9, "usg": 28.5, "min": 35.0, "scheme": "🌿 Deep range pull-up threat", "scheme_mult": 1.08}
-    ],
-    "CLE": [
-        {"name": "Donovan Mitchell", "pos": "SG", "ppg": 26.5, "rpg": 4.6, "apg": 5.8, "tpm": 3.4, "pra": 36.9, "usg": 31.0, "min": 35.5, "scheme": "🌿 Perimeter shot-creator", "scheme_mult": 1.08},
-        {"name": "Evan Mobley", "pos": "PF", "ppg": 18.2, "rpg": 9.4, "apg": 3.2, "tpm": 1.2, "pra": 30.8, "usg": 22.5, "min": 34.0, "scheme": "🌿 Defensive anchor & short roll", "scheme_mult": 1.06}
-    ],
-    "NY": [
-        {"name": "Jalen Brunson", "pos": "PG", "ppg": 27.8, "rpg": 3.6, "apg": 7.2, "tpm": 2.8, "pra": 38.6, "usg": 31.5, "min": 36.0, "scheme": "🌿 Footwork master in paint & mid-range", "scheme_mult": 1.09},
-        {"name": "Karl-Anthony Towns", "pos": "C", "ppg": 23.4, "rpg": 11.8, "apg": 2.8, "tpm": 2.4, "pra": 38.0, "usg": 27.0, "min": 34.5, "scheme": "🌿 Pick-and-pop mismatch 5", "scheme_mult": 1.08}
-    ],
-    "DAL": [
-        {"name": "Luka Doncic", "pos": "PG", "ppg": 32.5, "rpg": 9.2, "apg": 9.8, "tpm": 3.8, "pra": 51.5, "usg": 36.0, "min": 37.0, "scheme": "🌿 High-usage helicopter orchestrator", "scheme_mult": 1.10},
-        {"name": "Kyrie Irving", "pos": "SG", "ppg": 24.2, "rpg": 4.8, "apg": 5.2, "tpm": 2.8, "pra": 34.2, "usg": 27.0, "min": 34.5, "scheme": "🌿 Elite isolation finisher", "scheme_mult": 1.07}
+        {"name": "Kevin Durant", "pos": "PF", "ppg": 21.5, "rpg": 5.1, "apg": 4.2, "tpm": 2.2, "pra": 30.8, "usg": 28.5, "min": 33.3, "scheme": "🌿 Rockets Star Forward (Proj 21.5 PTS / 5.1 REB / 4.2 AST)", "scheme_mult": 1.05},
+        {"name": "Alperen Sengun", "pos": "C", "ppg": 21.5, "rpg": 10.4, "apg": 6.4, "tpm": 0.7, "pra": 38.3, "usg": 28.0, "min": 35.6, "scheme": "🌿 Post hub & FanDuel Over 9.5 REB (+110)", "scheme_mult": 1.06},
+        {"name": "Jabari Smith Jr.", "pos": "SF", "ppg": 17.8, "rpg": 6.4, "apg": 2.2, "tpm": 2.3, "pra": 26.4, "usg": 22.0, "min": 34.4, "scheme": "🌿 Stretch Wing Spacer", "scheme_mult": 1.04},
+        {"name": "Amen Thompson", "pos": "PG", "ppg": 15.1, "rpg": 5.8, "apg": 3.8, "tpm": 0.6, "pra": 24.7, "usg": 21.5, "min": 32.9, "scheme": "🌿 Starting Lead Guard & Transition Slasher", "scheme_mult": 1.04}
     ],
     "PHX": [
-        {"name": "Devin Booker", "pos": "SG", "ppg": 27.5, "rpg": 4.5, "apg": 6.8, "tpm": 2.6, "pra": 38.8, "usg": 30.5, "min": 36.0, "scheme": "🌿 Midrange assassin vs drop", "scheme_mult": 1.08},
-        {"name": "Kevin Durant", "pos": "PF", "ppg": 26.8, "rpg": 6.8, "apg": 4.5, "tpm": 2.4, "pra": 38.1, "usg": 29.0, "min": 36.0, "scheme": "🌿 Uncontestable high release point", "scheme_mult": 1.08}
+        {"name": "Devin Booker", "pos": "SG", "ppg": 26.2, "rpg": 4.2, "apg": 6.2, "tpm": 2.5, "pra": 36.6, "usg": 30.5, "min": 36.0, "scheme": "🌿 Suns #1 Scorer & Mid-Range Playmaker", "scheme_mult": 1.05},
+        {"name": "Miles Bridges", "pos": "SF", "ppg": 16.8, "rpg": 6.9, "apg": 3.1, "tpm": 2.1, "pra": 26.8, "usg": 23.0, "min": 34.0, "scheme": "🌿 FTN Verified Over 6.5 REB (+128)", "scheme_mult": 1.06},
+        {"name": "Dillon Brooks", "pos": "SF", "ppg": 15.6, "rpg": 3.5, "apg": 1.8, "tpm": 2.1, "pra": 20.9, "usg": 20.5, "min": 32.5, "scheme": "🌿 Suns Starting Wing Spacer", "scheme_mult": 1.03},
+        {"name": "Jalen Green", "pos": "SG", "ppg": 14.9, "rpg": 3.4, "apg": 2.8, "tpm": 2.1, "pra": 21.1, "usg": 24.0, "min": 31.0, "scheme": "🌿 Suns Perimeter Shotmaker", "scheme_mult": 1.03}
     ],
-    "MIA": [
-        {"name": "Jimmy Butler", "pos": "SF", "ppg": 21.0, "rpg": 5.5, "apg": 5.2, "tpm": 1.0, "pra": 31.7, "usg": 26.0, "min": 34.0, "scheme": "🌿 Foul drawer & clutch playmaker", "scheme_mult": 1.06},
-        {"name": "Bam Adebayo", "pos": "C", "ppg": 19.5, "rpg": 10.5, "apg": 4.4, "tpm": 0.8, "pra": 34.4, "usg": 24.5, "min": 34.5, "scheme": "🌿 DHO hub & switchable anchor", "scheme_mult": 1.06}
+    "BOS": [
+        {"name": "Jayson Tatum", "pos": "SF", "ppg": 23.8, "rpg": 7.1, "apg": 5.9, "tpm": 2.5, "pra": 36.8, "usg": 30.0, "min": 34.4, "scheme": "🌿 Celtics All-NBA Wing Initiator", "scheme_mult": 1.05},
+        {"name": "Paul George", "pos": "SF", "ppg": 17.7, "rpg": 4.5, "apg": 3.0, "tpm": 2.7, "pra": 25.2, "usg": 24.5, "min": 30.4, "scheme": "🌿 Celtics Wing Scorer & 3PT Spacer", "scheme_mult": 1.04},
+        {"name": "Payton Pritchard", "pos": "PG", "ppg": 13.8, "rpg": 2.9, "apg": 3.7, "tpm": 2.1, "pra": 20.4, "usg": 21.0, "min": 27.3, "scheme": "🌿 High-Volume Sixth-Man Guard", "scheme_mult": 1.04},
+        {"name": "Derrick White", "pos": "PG", "ppg": 12.9, "rpg": 3.3, "apg": 4.1, "tpm": 1.8, "pra": 20.3, "usg": 18.5, "min": 30.0, "scheme": "🌿 Two-Way Guard Connector", "scheme_mult": 1.03}
     ],
-    "SAC": [
-        {"name": "Domantas Sabonis", "pos": "C", "ppg": 19.8, "rpg": 14.5, "apg": 7.6, "tpm": 0.6, "pra": 41.9, "usg": 24.0, "min": 35.5, "scheme": "🌿 Triple-double machine on glass", "scheme_mult": 1.095},
-        {"name": "Zach LaVine", "pos": "SG", "ppg": 23.5, "rpg": 4.6, "apg": 4.2, "tpm": 2.8, "pra": 32.3, "usg": 28.0, "min": 34.5, "scheme": "🌿 Perimeter scorer & transition flyer", "scheme_mult": 1.06}
+    "ORL": [
+        {"name": "Franz Wagner", "pos": "SF", "ppg": 21.7, "rpg": 6.8, "apg": 5.5, "tpm": 1.9, "pra": 34.0, "usg": 28.5, "min": 36.8, "scheme": "🌿 Magic #1 Creator w/ Banchero Out", "scheme_mult": 1.06},
+        {"name": "Desmond Bane", "pos": "SG", "ppg": 17.0, "rpg": 4.3, "apg": 2.9, "tpm": 2.9, "pra": 24.2, "usg": 24.0, "min": 34.6, "scheme": "🌿 Magic High-Volume 3PT Shooter", "scheme_mult": 1.05},
+        {"name": "Anthony Black", "pos": "PG", "ppg": 16.3, "rpg": 4.8, "apg": 5.4, "tpm": 1.4, "pra": 26.5, "usg": 21.0, "min": 32.1, "scheme": "🌿 Starting Point Guard", "scheme_mult": 1.04}
     ],
-    "MEM": [
-        {"name": "Ja Morant", "pos": "PG", "ppg": 25.4, "rpg": 5.2, "apg": 8.1, "tpm": 1.8, "pra": 38.7, "usg": 31.5, "min": 34.0, "scheme": "🌿 Paint penetration & downhill speed", "scheme_mult": 1.09},
-        {"name": "Zach Edey", "pos": "C", "ppg": 14.2, "rpg": 9.8, "apg": 1.2, "tpm": 0.0, "pra": 25.2, "usg": 19.0, "min": 27.5, "scheme": "🌿 Massive post hook & putback threat", "scheme_mult": 1.06}
+    "CLE": [
+        {"name": "Donovan Mitchell", "pos": "SG", "ppg": 26.4, "rpg": 4.6, "apg": 5.4, "tpm": 3.2, "pra": 36.4, "usg": 31.0, "min": 35.0, "scheme": "🌿 Cavaliers #1 Perimeter Creator", "scheme_mult": 1.05},
+        {"name": "James Harden", "pos": "PG", "ppg": 17.8, "rpg": 4.8, "apg": 5.8, "tpm": 2.4, "pra": 28.4, "usg": 24.5, "min": 33.0, "scheme": "🛡️ FTN Verified Under 6.5 AST (+115)", "scheme_mult": 0.96},
+        {"name": "Jarrett Allen", "pos": "C", "ppg": 15.4, "rpg": 10.6, "apg": 2.2, "tpm": 0.0, "pra": 28.2, "usg": 19.5, "min": 32.5, "scheme": "🌿 Interior Anchor w/ Mobley Out", "scheme_mult": 1.06}
+    ],
+    "CHI": [
+        {"name": "Norman Powell", "pos": "SF", "ppg": 19.4, "rpg": 2.9, "apg": 2.1, "tpm": 2.4, "pra": 24.4, "usg": 25.0, "min": 29.1, "scheme": "🌿 Bulls #1 Perimeter Scorer", "scheme_mult": 1.05},
+        {"name": "Matas Buzelis", "pos": "PF", "ppg": 14.7, "rpg": 5.1, "apg": 1.9, "tpm": 2.1, "pra": 21.7, "usg": 21.0, "min": 27.9, "scheme": "🌿 Starting Stretch Forward", "scheme_mult": 1.04},
+        {"name": "Josh Giddey", "pos": "PG", "ppg": 12.3, "rpg": 6.0, "apg": 8.4, "tpm": 1.1, "pra": 26.7, "usg": 22.0, "min": 29.3, "scheme": "🌿 Bulls Primary Playmaker", "scheme_mult": 1.05}
+    ],
+    "DEN": [
+        {"name": "Nikola Jokic", "pos": "C", "ppg": 29.4, "rpg": 13.4, "apg": 10.2, "tpm": 1.6, "pra": 53.0, "usg": 31.0, "min": 36.5, "scheme": "🌿 MVP Post Hub & Triple-Double Engine", "scheme_mult": 1.06},
+        {"name": "Jamal Murray", "pos": "PG", "ppg": 23.8, "rpg": 4.2, "apg": 6.4, "tpm": 2.6, "pra": 34.4, "usg": 26.5, "min": 34.5, "scheme": "🌿 Two-Man PnR Partner", "scheme_mult": 1.03},
+        {"name": "DeMar DeRozan", "pos": "SF", "ppg": 13.2, "rpg": 3.4, "apg": 3.6, "tpm": 0.8, "pra": 20.2, "usg": 21.0, "min": 28.5, "scheme": "🌿 FTN Verified Over 9.5 PTS (+122)", "scheme_mult": 1.08}
     ],
     "PHI": [
-        {"name": "Tyrese Maxey", "pos": "PG", "ppg": 28.2, "rpg": 3.8, "apg": 6.5, "tpm": 3.2, "pra": 38.5, "usg": 32.5, "min": 37.5, "scheme": "🌿 Open-floor speed vs unset defense", "scheme_mult": 1.09},
-        {"name": "Kelly Oubre Jr.", "pos": "SF", "ppg": 16.4, "rpg": 5.2, "apg": 1.8, "tpm": 2.0, "pra": 23.4, "usg": 22.0, "min": 32.0, "scheme": "🌿 Corner slasher & cutter", "scheme_mult": 1.05}
+        {"name": "Tyrese Maxey", "pos": "PG", "ppg": 26.7, "rpg": 3.8, "apg": 5.8, "tpm": 2.8, "pra": 36.3, "usg": 31.0, "min": 36.5, "scheme": "🌿 76ers #1 Scorer & Speed Initiator", "scheme_mult": 1.05},
+        {"name": "Jaylen Brown", "pos": "SG", "ppg": 20.6, "rpg": 6.8, "apg": 3.6, "tpm": 2.1, "pra": 31.0, "usg": 26.5, "min": 34.5, "scheme": "🌿 76ers Two-Way Wing Scorer", "scheme_mult": 1.04},
+        {"name": "Joel Embiid", "pos": "C", "ppg": 19.0, "rpg": 8.7, "apg": 3.0, "tpm": 1.1, "pra": 30.7, "usg": 28.0, "min": 31.0, "scheme": "🌿 76ers Interior Anchor", "scheme_mult": 1.04},
+        {"name": "LeBron James", "pos": "PF", "ppg": 15.0, "rpg": 6.5, "apg": 5.6, "tpm": 1.6, "pra": 27.1, "usg": 23.5, "min": 32.0, "scheme": "🌿 76ers Point-Forward Playmaker", "scheme_mult": 1.04}
     ],
-    "CHA": [
-        {"name": "LaMelo Ball", "pos": "PG", "ppg": 25.2, "rpg": 5.8, "apg": 8.4, "tpm": 3.6, "pra": 39.4, "usg": 31.0, "min": 35.0, "scheme": "🌿 Deep range pull-up & flashy passing", "scheme_mult": 1.08},
-        {"name": "Brandon Miller", "pos": "SF", "ppg": 21.0, "rpg": 5.0, "apg": 3.2, "tpm": 2.8, "pra": 29.2, "usg": 25.0, "min": 33.5, "scheme": "🌿 Tall wing shot-maker", "scheme_mult": 1.06}
+    "BKN": [
+        {"name": "Cam Thomas", "pos": "SG", "ppg": 21.4, "rpg": 3.2, "apg": 3.4, "tpm": 2.4, "pra": 28.0, "usg": 29.0, "min": 33.0, "scheme": "🌿 High-Volume Pull-Up Scorer", "scheme_mult": 1.04},
+        {"name": "Julius Randle", "pos": "PF", "ppg": 17.2, "rpg": 5.7, "apg": 3.9, "tpm": 1.6, "pra": 26.8, "usg": 25.5, "min": 33.5, "scheme": "🌿 Nets Frontcourt Creator", "scheme_mult": 1.04},
+        {"name": "Day'Ron Sharpe", "pos": "C", "ppg": 8.6, "rpg": 7.4, "apg": 3.9, "tpm": 0.2, "pra": 19.9, "usg": 16.5, "min": 24.5, "scheme": "🌿 RotoBaller Over 3.5 AST (-108)", "scheme_mult": 1.06}
     ],
-    "ATL": [
-        {"name": "Jalen Johnson", "pos": "PF", "ppg": 19.8, "rpg": 9.5, "apg": 6.8, "tpm": 1.6, "pra": 36.1, "usg": 25.5, "min": 35.5, "scheme": "🌿 Point-forward transition runner (+9.8% PRA)", "scheme_mult": 1.098},
-        {"name": "Trae Young", "pos": "PG", "ppg": 26.5, "rpg": 3.2, "apg": 10.5, "tpm": 3.2, "pra": 40.2, "usg": 31.5, "min": 36.0, "scheme": "🌿 PnR maestro & deep logo bomb", "scheme_mult": 1.08}
+    "MEM": [
+        {"name": "Cameron Boozer", "pos": "PF", "ppg": 16.4, "rpg": 9.8, "apg": 4.8, "tpm": 1.4, "pra": 31.0, "usg": 24.0, "min": 30.7, "scheme": "🌿 Grizzlies All-Around Frontcourt Hub", "scheme_mult": 1.05},
+        {"name": "Cam Spencer", "pos": "PG", "ppg": 14.6, "rpg": 3.8, "apg": 8.1, "tpm": 2.6, "pra": 26.5, "usg": 21.0, "min": 28.0, "scheme": "🌿 RotoBaller Over 7.5 AST (-104)", "scheme_mult": 1.06},
+        {"name": "Cedric Coward", "pos": "SG", "ppg": 13.6, "rpg": 7.1, "apg": 3.8, "tpm": 1.6, "pra": 24.5, "usg": 20.0, "min": 28.6, "scheme": "🌿 RotoBaller Over 10.5 Reb+Ast (-120)", "scheme_mult": 1.05}
     ],
-    "NOP": [
-        {"name": "Zion Williamson", "pos": "PF", "ppg": 24.2, "rpg": 6.8, "apg": 5.2, "tpm": 0.1, "pra": 36.2, "usg": 29.5, "min": 33.5, "scheme": "🌿 Unstoppable paint force", "scheme_mult": 1.09},
-        {"name": "Dejounte Murray", "pos": "PG", "ppg": 19.8, "rpg": 5.2, "apg": 6.4, "tpm": 2.2, "pra": 31.4, "usg": 25.5, "min": 34.5, "scheme": "🌿 Mid-range pull-up & defensive steals", "scheme_mult": 1.06}
+    "WSH": [
+        {"name": "Anthony Davis", "pos": "PF", "ppg": 20.6, "rpg": 10.1, "apg": 2.2, "tpm": 0.6, "pra": 32.9, "usg": 27.5, "min": 34.2, "scheme": "🌿 Wizards #1 Interior Option", "scheme_mult": 1.05},
+        {"name": "Trae Young", "pos": "PG", "ppg": 19.1, "rpg": 3.1, "apg": 7.8, "tpm": 2.2, "pra": 30.0, "usg": 28.5, "min": 36.0, "scheme": "🌿 Wizards Primary Playmaker", "scheme_mult": 1.05},
+        {"name": "KyShawn George", "pos": "SG", "ppg": 15.4, "rpg": 4.6, "apg": 3.9, "tpm": 2.2, "pra": 23.9, "usg": 21.0, "min": 33.9, "scheme": "🌿 Starting Two-Way Wing", "scheme_mult": 1.04},
+        {"name": "Alexandre Sarr", "pos": "C", "ppg": 13.8, "rpg": 7.2, "apg": 2.2, "tpm": 1.2, "pra": 23.2, "usg": 19.5, "min": 25.0, "scheme": "🌿 RotoBaller Over 6.5 REB (-125)", "scheme_mult": 1.06}
+    ],
+    "WAS": [
+        {"name": "Anthony Davis", "pos": "PF", "ppg": 20.6, "rpg": 10.1, "apg": 2.2, "tpm": 0.6, "pra": 32.9, "usg": 27.5, "min": 34.2, "scheme": "🌿 Wizards #1 Interior Option", "scheme_mult": 1.05},
+        {"name": "Trae Young", "pos": "PG", "ppg": 19.1, "rpg": 3.1, "apg": 7.8, "tpm": 2.2, "pra": 30.0, "usg": 28.5, "min": 36.0, "scheme": "🌿 Wizards Primary Playmaker", "scheme_mult": 1.05}
+    ],
+    "MIA": [
+        {"name": "Giannis Antetokounmpo", "pos": "PF", "ppg": 28.9, "rpg": 10.3, "apg": 4.8, "tpm": 0.5, "pra": 44.0, "usg": 33.5, "min": 33.3, "scheme": "🌿 Heat #1 Option (Proj 25.4 PTS / 10.3 REB)", "scheme_mult": 1.06},
+        {"name": "Bam Adebayo", "pos": "C", "ppg": 18.0, "rpg": 8.4, "apg": 3.0, "tpm": 1.2, "pra": 29.4, "usg": 23.5, "min": 34.6, "scheme": "🌿 Heat DHO Hub & Switchable Anchor", "scheme_mult": 1.04},
+        {"name": "Davion Mitchell", "pos": "PG", "ppg": 12.9, "rpg": 2.8, "apg": 6.8, "tpm": 1.9, "pra": 22.5, "usg": 19.5, "min": 36.2, "scheme": "🌿 Heat Starting Point Guard", "scheme_mult": 1.04}
     ],
     "POR": [
-        {"name": "Deni Avdija", "pos": "PF", "ppg": 22.8, "rpg": 7.8, "apg": 5.5, "tpm": 1.8, "pra": 36.1, "usg": 26.0, "min": 34.5, "scheme": "🌿 Secondary creator & glass crasher", "scheme_mult": 1.07},
-        {"name": "Donovan Clingan", "pos": "C", "ppg": 11.2, "rpg": 9.8, "apg": 1.6, "tpm": 0.0, "pra": 22.6, "usg": 16.0, "min": 28.0, "scheme": "🌿 Rim protection & screen setter", "scheme_mult": 1.04}
+        {"name": "Deni Avdija", "pos": "SF", "ppg": 21.5, "rpg": 5.5, "apg": 5.6, "tpm": 1.8, "pra": 32.6, "usg": 26.5, "min": 33.1, "scheme": "🌿 Blazers #1 Option w/ Morant Out", "scheme_mult": 1.06},
+        {"name": "Damian Lillard", "pos": "PG", "ppg": 17.9, "rpg": 3.1, "apg": 4.2, "tpm": 2.3, "pra": 25.2, "usg": 25.0, "min": 29.6, "scheme": "🌿 Blazers Deep Pull-Up Threat", "scheme_mult": 1.04},
+        {"name": "Donovan Clingan", "pos": "C", "ppg": 10.3, "rpg": 9.3, "apg": 1.8, "tpm": 0.2, "pra": 21.4, "usg": 16.5, "min": 26.3, "scheme": "🌿 Interior Rebounder & Rim Protector", "scheme_mult": 1.05}
+    ],
+    "MIN": [
+        {"name": "LaMelo Ball", "pos": "PG", "ppg": 19.7, "rpg": 3.8, "apg": 5.7, "tpm": 3.5, "pra": 29.2, "usg": 28.5, "min": 29.4, "scheme": "🌿 Wolves Lead Creator w/ Edwards Out", "scheme_mult": 1.05},
+        {"name": "Ayo Dosunmu", "pos": "SG", "ppg": 17.5, "rpg": 4.2, "apg": 3.3, "tpm": 1.8, "pra": 25.0, "usg": 22.5, "min": 32.9, "scheme": "🌿 Starting Two-Way Scorer", "scheme_mult": 1.04},
+        {"name": "Jaden McDaniels", "pos": "SF", "ppg": 16.0, "rpg": 4.8, "apg": 2.9, "tpm": 1.8, "pra": 23.7, "usg": 20.5, "min": 34.7, "scheme": "🌿 Two-Way Wing Scorer", "scheme_mult": 1.04},
+        {"name": "Rudy Gobert", "pos": "C", "ppg": 11.8, "rpg": 11.6, "apg": 1.4, "tpm": 0.0, "pra": 24.8, "usg": 15.0, "min": 28.9, "scheme": "🌿 Interior Glass Cleaner", "scheme_mult": 1.03}
+    ],
+    "GS": [
+        {"name": "Yaxel Lendeborg", "pos": "PF", "ppg": 20.5, "rpg": 6.6, "apg": 3.4, "tpm": 2.1, "pra": 30.5, "usg": 26.5, "min": 30.8, "scheme": "🌿 Warriors Top Scorer w/ Curry Out", "scheme_mult": 1.06},
+        {"name": "Brandin Podziemski", "pos": "PG", "ppg": 18.1, "rpg": 5.0, "apg": 3.8, "tpm": 2.5, "pra": 26.9, "usg": 24.0, "min": 32.4, "scheme": "🌿 Warriors Lead Guard w/ Curry Out", "scheme_mult": 1.05},
+        {"name": "Draymond Green", "pos": "C", "ppg": 9.1, "rpg": 7.1, "apg": 6.3, "tpm": 1.1, "pra": 22.5, "usg": 15.0, "min": 26.3, "scheme": "🌿 Short-Roll Distributor", "scheme_mult": 1.04}
+    ],
+    "GSW": [
+        {"name": "Yaxel Lendeborg", "pos": "PF", "ppg": 20.5, "rpg": 6.6, "apg": 3.4, "tpm": 2.1, "pra": 30.5, "usg": 26.5, "min": 30.8, "scheme": "🌿 Warriors Top Scorer w/ Curry Out", "scheme_mult": 1.06},
+        {"name": "Brandin Podziemski", "pos": "PG", "ppg": 18.1, "rpg": 5.0, "apg": 3.8, "tpm": 2.5, "pra": 26.9, "usg": 24.0, "min": 32.4, "scheme": "🌿 Warriors Lead Guard w/ Curry Out", "scheme_mult": 1.05}
+    ],
+    "NO": [
+        {"name": "Zion Williamson", "pos": "PF", "ppg": 21.7, "rpg": 5.8, "apg": 2.9, "tpm": 0.2, "pra": 30.4, "usg": 29.5, "min": 32.7, "scheme": "🌿 Pelicans #1 Scoring Option", "scheme_mult": 1.05},
+        {"name": "Jeremiah Fears", "pos": "PG", "ppg": 15.4, "rpg": 4.1, "apg": 5.2, "tpm": 1.6, "pra": 25.0, "usg": 24.0, "min": 32.1, "scheme": "🌿 Pelicans Primary Playmaker (6.6 L10 APG)", "scheme_mult": 1.06},
+        {"name": "Saddiq Bey", "pos": "PF", "ppg": 15.4, "rpg": 4.2, "apg": 2.3, "tpm": 2.1, "pra": 21.9, "usg": 21.0, "min": 30.1, "scheme": "🌿 Wing Spacer", "scheme_mult": 1.04}
+    ],
+    "NOP": [
+        {"name": "Zion Williamson", "pos": "PF", "ppg": 21.7, "rpg": 5.8, "apg": 2.9, "tpm": 0.2, "pra": 30.4, "usg": 29.5, "min": 32.7, "scheme": "🌿 Pelicans #1 Scoring Option", "scheme_mult": 1.05},
+        {"name": "Jeremiah Fears", "pos": "PG", "ppg": 15.4, "rpg": 4.1, "apg": 5.2, "tpm": 1.6, "pra": 25.0, "usg": 24.0, "min": 32.1, "scheme": "🌿 Pelicans Primary Playmaker (6.6 L10 APG)", "scheme_mult": 1.06}
+    ],
+    "NY": [
+        {"name": "Jalen Brunson", "pos": "PG", "ppg": 23.2, "rpg": 3.6, "apg": 5.9, "tpm": 2.1, "pra": 32.7, "usg": 30.0, "min": 34.3, "scheme": "🌿 Knicks #1 Scorer & Playmaker", "scheme_mult": 1.05},
+        {"name": "Karl-Anthony Towns", "pos": "C", "ppg": 19.9, "rpg": 12.9, "apg": 2.8, "tpm": 1.8, "pra": 35.6, "usg": 26.5, "min": 32.8, "scheme": "🌿 Statz 12.9 Proj REB vs Thin TOR Frontcourt", "scheme_mult": 1.06}
+    ],
+    "TOR": [
+        {"name": "RJ Barrett", "pos": "PF", "ppg": 19.8, "rpg": 5.8, "apg": 3.4, "tpm": 1.6, "pra": 29.0, "usg": 26.5, "min": 33.5, "scheme": "🌿 Raptors #1 Scorer w/ Kawhi Out", "scheme_mult": 1.05},
+        {"name": "Scottie Barnes", "pos": "SF", "ppg": 18.1, "rpg": 6.7, "apg": 5.1, "tpm": 1.4, "pra": 29.9, "usg": 25.5, "min": 34.5, "scheme": "🌿 Raptors Point-Forward Hub", "scheme_mult": 1.05},
+        {"name": "Immanuel Quickley", "pos": "PG", "ppg": 15.2, "rpg": 3.8, "apg": 4.7, "tpm": 2.3, "pra": 23.7, "usg": 23.0, "min": 32.0, "scheme": "🌿 Pull-Up 3PT & Playmaking Guard", "scheme_mult": 1.04}
+    ],
+    "DET": [
+        {"name": "Cade Cunningham", "pos": "PG", "ppg": 21.8, "rpg": 5.5, "apg": 7.6, "tpm": 1.7, "pra": 34.9, "usg": 30.5, "min": 35.0, "scheme": "🌿 Pistons Primary Engine", "scheme_mult": 1.05},
+        {"name": "Paul Reed", "pos": "C", "ppg": 11.9, "rpg": 8.3, "apg": 1.8, "tpm": 0.4, "pra": 22.0, "usg": 18.5, "min": 28.5, "scheme": "🌿 Starting Center w/ Duren Out", "scheme_mult": 1.06}
+    ],
+    "SA": [
+        {"name": "Victor Wembanyama", "pos": "C", "ppg": 23.9, "rpg": 10.6, "apg": 2.7, "tpm": 1.8, "pra": 37.2, "usg": 31.0, "min": 33.5, "scheme": "🌿 Statz 23.9 PTS / 10.6 REB Projection", "scheme_mult": 1.06},
+        {"name": "Dylan Harper", "pos": "SG", "ppg": 15.6, "rpg": 4.8, "apg": 3.9, "tpm": 1.2, "pra": 24.3, "usg": 23.5, "min": 31.5, "scheme": "🌿 Spurs #2 Scorer", "scheme_mult": 1.05},
+        {"name": "Stephon Castle", "pos": "PG", "ppg": 14.1, "rpg": 5.0, "apg": 5.1, "tpm": 1.3, "pra": 24.2, "usg": 22.0, "min": 32.0, "scheme": "🌿 Lead Guard w/ Fox GTD", "scheme_mult": 1.05}
+    ],
+    "SAS": [
+        {"name": "Victor Wembanyama", "pos": "C", "ppg": 23.9, "rpg": 10.6, "apg": 2.7, "tpm": 1.8, "pra": 37.2, "usg": 31.0, "min": 33.5, "scheme": "🌿 Statz 23.9 PTS / 10.6 REB Projection", "scheme_mult": 1.06},
+        {"name": "Dylan Harper", "pos": "SG", "ppg": 15.6, "rpg": 4.8, "apg": 3.9, "tpm": 1.2, "pra": 24.3, "usg": 23.5, "min": 31.5, "scheme": "🌿 Spurs #2 Scorer", "scheme_mult": 1.05}
+    ],
+    "UTAH": [
+        {"name": "Keyonte George", "pos": "PG", "ppg": 20.5, "rpg": 3.9, "apg": 6.0, "tpm": 2.6, "pra": 30.4, "usg": 28.5, "min": 33.1, "scheme": "🌿 Jazz #1 Creator w/ Markkanen & JJJ Out", "scheme_mult": 1.05},
+        {"name": "Darryn Peterson", "pos": "SG", "ppg": 16.9, "rpg": 4.4, "apg": 3.9, "tpm": 2.2, "pra": 25.2, "usg": 24.5, "min": 32.0, "scheme": "🌿 Starting Scoring Guard", "scheme_mult": 1.05},
+        {"name": "Airious Bailey", "pos": "PF", "ppg": 15.1, "rpg": 5.8, "apg": 2.0, "tpm": 1.8, "pra": 22.9, "usg": 22.0, "min": 32.8, "scheme": "🌿 Starting Power Forward", "scheme_mult": 1.04}
     ],
     "UTA": [
-        {"name": "Keyonte George", "pos": "PG", "ppg": 24.4, "rpg": 4.0, "apg": 6.8, "tpm": 2.8, "pra": 35.2, "usg": 29.0, "min": 35.0, "scheme": "🌿 Primary initiator & pull-up scorer", "scheme_mult": 1.07},
-        {"name": "Lauri Markkanen", "pos": "PF", "ppg": 21.5, "rpg": 7.5, "apg": 1.8, "tpm": 3.0, "pra": 30.8, "usg": 26.0, "min": 34.0, "scheme": "🌿 7-foot catch-and-shoot spacer", "scheme_mult": 1.06}
+        {"name": "Keyonte George", "pos": "PG", "ppg": 20.5, "rpg": 3.9, "apg": 6.0, "tpm": 2.6, "pra": 30.4, "usg": 28.5, "min": 33.1, "scheme": "🌿 Jazz #1 Creator w/ Markkanen & JJJ Out", "scheme_mult": 1.05},
+        {"name": "Darryn Peterson", "pos": "SG", "ppg": 16.9, "rpg": 4.4, "apg": 3.9, "tpm": 2.2, "pra": 25.2, "usg": 24.5, "min": 32.0, "scheme": "🌿 Starting Scoring Guard", "scheme_mult": 1.05}
+    ],
+    "LAC": [
+        {"name": "Darius Garland", "pos": "PG", "ppg": 21.8, "rpg": 2.9, "apg": 6.2, "tpm": 2.6, "pra": 30.9, "usg": 28.5, "min": 33.0, "scheme": "🌿 Clippers #1 Creator w/ Beal Out", "scheme_mult": 1.05},
+        {"name": "Rui Hachimura", "pos": "PF", "ppg": 12.8, "rpg": 4.9, "apg": 1.6, "tpm": 1.4, "pra": 19.3, "usg": 20.0, "min": 29.1, "scheme": "🌿 Starting PF w/ Ingram Out", "scheme_mult": 1.04},
+        {"name": "Brook Lopez", "pos": "C", "ppg": 12.1, "rpg": 5.2, "apg": 1.4, "tpm": 1.3, "pra": 18.7, "usg": 18.5, "min": 24.7, "scheme": "🌿 Stretch Five Rim Protector", "scheme_mult": 1.04}
+    ],
+    "LAL": [
+        {"name": "Luka Doncic", "pos": "PG", "ppg": 30.8, "rpg": 6.1, "apg": 7.0, "tpm": 4.0, "pra": 43.9, "usg": 35.5, "min": 36.6, "scheme": "🌿 Lakers #1 Engine w/ Reaves Out", "scheme_mult": 1.06},
+        {"name": "Walker Kessler", "pos": "C", "ppg": 11.4, "rpg": 10.2, "apg": 1.4, "tpm": 0.0, "pra": 23.0, "usg": 16.5, "min": 30.7, "scheme": "🌿 Lakers Starting Center", "scheme_mult": 1.05}
+    ],
+    "CHA": [
+        {"name": "Brandon Miller", "pos": "SF", "ppg": 17.6, "rpg": 3.9, "apg": 3.0, "tpm": 2.7, "pra": 24.5, "usg": 26.5, "min": 33.5, "scheme": "🌿 Hornets #1 Scoring Option", "scheme_mult": 1.05},
+        {"name": "Naz Reid", "pos": "C", "ppg": 14.7, "rpg": 6.1, "apg": 2.0, "tpm": 1.9, "pra": 22.8, "usg": 22.0, "min": 29.5, "scheme": "🌿 Stretch Big & Frontcourt Scorer", "scheme_mult": 1.04},
+        {"name": "Grayson Allen", "pos": "SG", "ppg": 14.1, "rpg": 3.3, "apg": 3.5, "tpm": 2.8, "pra": 20.9, "usg": 20.5, "min": 32.0, "scheme": "🌿 High-Volume Perimeter Shooter", "scheme_mult": 1.04}
+    ],
+    "OKC": [
+        {"name": "Shai Gilgeous-Alexander", "pos": "PG", "ppg": 30.5, "rpg": 3.8, "apg": 5.2, "tpm": 1.8, "pra": 39.5, "usg": 34.0, "min": 32.5, "scheme": "🌿 MVP Paint & Mid-Range Scorer", "scheme_mult": 1.06},
+        {"name": "Jared McCain", "pos": "SG", "ppg": 14.9, "rpg": 3.4, "apg": 1.9, "tpm": 2.6, "pra": 20.2, "usg": 22.0, "min": 28.3, "scheme": "🌿 Thunder Starting SG", "scheme_mult": 1.05},
+        {"name": "Isaiah Hartenstein", "pos": "C", "ppg": 9.6, "rpg": 9.8, "apg": 3.7, "tpm": 0.2, "pra": 23.1, "usg": 16.0, "min": 26.2, "scheme": "🌿 Short-Roll Hub & Glass Cleaner", "scheme_mult": 1.04}
+    ],
+    "DAL": [
+        {"name": "Cooper Flagg", "pos": "PF", "ppg": 19.8, "rpg": 6.1, "apg": 5.2, "tpm": 1.3, "pra": 31.1, "usg": 27.0, "min": 34.0, "scheme": "🌿 Mavericks #1 Point-Forward", "scheme_mult": 1.05},
+        {"name": "Kyrie Irving", "pos": "PG", "ppg": 17.4, "rpg": 3.4, "apg": 3.5, "tpm": 2.7, "pra": 24.3, "usg": 25.5, "min": 33.5, "scheme": "🌿 Isolation & Pull-Up Finisher", "scheme_mult": 1.04}
+    ],
+    "SAC": [
+        {"name": "Darius Acuff Jr.", "pos": "PG", "ppg": 21.9, "rpg": 3.2, "apg": 7.0, "tpm": 3.5, "pra": 32.1, "usg": 28.5, "min": 34.0, "scheme": "🌿 Kings #1 Scorer & Creator", "scheme_mult": 1.05},
+        {"name": "Domantas Sabonis", "pos": "C", "ppg": 14.5, "rpg": 10.3, "apg": 5.4, "tpm": 0.6, "pra": 30.2, "usg": 22.0, "min": 34.5, "scheme": "🌿 Interior Rebounding Anchor", "scheme_mult": 1.05}
+    ],
+    "IND": [
+        {"name": "Pascal Siakam", "pos": "PF", "ppg": 19.9, "rpg": 5.9, "apg": 3.5, "tpm": 1.4, "pra": 29.3, "usg": 26.0, "min": 34.0, "scheme": "🌿 Pacers #1 Option", "scheme_mult": 1.05},
+        {"name": "Andrew Nembhard", "pos": "PG", "ppg": 14.5, "rpg": 3.4, "apg": 7.5, "tpm": 1.9, "pra": 25.4, "usg": 22.0, "min": 33.0, "scheme": "🌿 Primary Facilitator", "scheme_mult": 1.05},
+        {"name": "Ivica Zubac", "pos": "C", "ppg": 10.2, "rpg": 8.4, "apg": 1.8, "tpm": 0.0, "pra": 20.4, "usg": 17.5, "min": 29.0, "scheme": "🌿 Pacers Starting Center", "scheme_mult": 1.04}
+    ],
+    "MIL": [
+        {"name": "Tyler Herro", "pos": "PG", "ppg": 19.4, "rpg": 4.3, "apg": 4.4, "tpm": 2.2, "pra": 28.1, "usg": 27.5, "min": 31.2, "scheme": "🌿 Bucks #1 Perimeter Scorer", "scheme_mult": 1.05},
+        {"name": "Jaime Jaquez Jr.", "pos": "SG", "ppg": 14.5, "rpg": 4.7, "apg": 3.7, "tpm": 1.2, "pra": 22.9, "usg": 22.0, "min": 28.5, "scheme": "🌿 Secondary Creator", "scheme_mult": 1.04},
+        {"name": "Myles Turner", "pos": "C", "ppg": 13.8, "rpg": 6.8, "apg": 1.6, "tpm": 1.9, "pra": 22.2, "usg": 19.5, "min": 26.6, "scheme": "🌿 Stretch Five Rim Protector", "scheme_mult": 1.04}
+    ],
+    "ATL": [
+        {"name": "Nickeil Alexander-Walker", "pos": "SG", "ppg": 20.3, "rpg": 3.8, "apg": 4.1, "tpm": 3.6, "pra": 28.2, "usg": 25.0, "min": 32.5, "scheme": "🌿 Hawks Leading Scorer & 3PT Threat", "scheme_mult": 1.05},
+        {"name": "Jalen Johnson", "pos": "PF", "ppg": 19.9, "rpg": 9.3, "apg": 6.9, "tpm": 1.6, "pra": 36.1, "usg": 26.5, "min": 34.3, "scheme": "🌿 Hawks Point-Forward Engine", "scheme_mult": 1.06}
     ]
 }
 
