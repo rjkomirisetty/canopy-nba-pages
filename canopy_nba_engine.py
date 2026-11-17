@@ -402,7 +402,7 @@ def generate_props_for_slate(date_str: str) -> Dict[str, Any]:
                         line_type = live_entry.get("odds_type", "standard")
                     else:
                         frac = base_stat - math.floor(base_stat)
-                        pp_line = math.floor(base_stat) + 0.5 if frac >= 0.25 else math.floor(base_stat) - 0.5
+                        pp_line = (math.floor(base_stat) + 0.5 if (ord(p_name[0]) + ord(stat_name[0])) % 2 == 0 else math.floor(base_stat) - 0.5) if frac < 0.05 else math.floor(base_stat) + 0.5
                         pp_line = max(1.5, pp_line)
                         line_type = "standard"
 
@@ -498,16 +498,26 @@ def generate_props_for_slate(date_str: str) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     import argparse
+    from datetime import timedelta
+    us_ct_now = datetime.now(timezone(timedelta(hours=-6)))
+    default_date = us_ct_now.strftime("%Y-%m-%d")
+
     parser = argparse.ArgumentParser(description="Canopy NBA Live Python Scraper")
-    parser.add_argument("date", nargs="?", default=datetime.now(timezone.utc).strftime("%Y-%m-%d"), help="Date in YYYY-MM-DD format")
+    parser.add_argument("date", nargs="?", default=default_date, help="Date in YYYY-MM-DD format")
     parser.add_argument("--output", "-o", default="", help="Optional path to write JSON output (e.g. live_slate.json)")
     args = parser.parse_args()
 
     res = generate_props_for_slate(args.date)
     if args.output:
+        base_dt = datetime.strptime(args.date, "%Y-%m-%d")
+        slates_by_date = {}
+        for delta in (-1, 0, 1):
+            d_iso = (base_dt + timedelta(days=delta)).strftime("%Y-%m-%d")
+            slates_by_date[d_iso] = res if delta == 0 else generate_props_for_slate(d_iso)
+        res["slates_by_date"] = slates_by_date
         with open(args.output, "w", encoding="utf-8") as f:
             json.dump(res, f, indent=2)
-        print(f"Saved {res['games_count']} games and {res['props_count']} props for {args.date} -> {args.output}")
+        print(f"Saved {res['games_count']} games and {res['props_count']} props for {args.date} (+3-day window) -> {args.output}")
     else:
         print(f"Scraped {res['games_count']} games and generated {res['props_count']} props for {args.date}:")
         for g in res["games"]:

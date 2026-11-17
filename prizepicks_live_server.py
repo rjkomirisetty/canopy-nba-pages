@@ -38,7 +38,9 @@ class CanopyServerHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path.startswith("/api/slate") or self.path.startswith("/api/refresh"):
             try:
-                slate_data = canopy_nba_engine.generate_props_for_slate("2026-11-04")
+                from datetime import datetime, timezone, timedelta
+                us_ct = datetime.now(timezone(timedelta(hours=-6))).strftime("%Y-%m-%d")
+                slate_data = canopy_nba_engine.generate_props_for_slate(us_ct)
                 response_bytes = json.dumps(slate_data, indent=2).encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
@@ -78,7 +80,7 @@ class CanopyServerHandler(SimpleHTTPRequestHandler):
             return
 
         if self.path == "/" or self.path == "":
-            self.path = "/prizepicks_nba_predictor.html"
+            self.path = "/index.html"
 
         return super().do_GET()
 
