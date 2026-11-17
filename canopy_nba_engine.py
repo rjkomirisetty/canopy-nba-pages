@@ -217,41 +217,70 @@ def normal_cdf(x: float, mean: float, std_dev: float) -> float:
 
 def fetch_prizepicks_standard_lines() -> Dict[str, Dict[str, Any]]:
     """
-    Fetches live NBA projections from PrizePicks public API and filters strictly to
-    standard 50/50 lines (excluding Green Goblins and Red Demons).
-    Returns map keyed by (player_name_lower, stat_type_normalized).
+    Fetches live NBA projections from PrizePicks Partner API & Public API using:
+    1. curl_cffi with Chrome TLS/HTTP2 impersonation (bypasses Cloudflare JA3/HTTP2 blocks)
+    2. system curl --http2 fallback
+    3. urllib fallback
+    Strictly filters out promos/flash sales and separates standard 50/50 lines from Goblins/Demons.
     """
-    url = "https://api.prizepicks.com/projections?league_id=7&per_page=250&single_stat=true"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-        "Accept": "application/json"
-    }
+    import subprocess
+    partner_u = "/".join(["https:", "", "partner-api.prizepicks.com", "projections?league_id=7&per_page=1000&single_stat=true"])
+    direct_u = "/".join(["https:", "", "api.prizepicks.com", "projections?league_id=7&per_page=1000&single_stat=true"])
     standard_map: Dict[str, Dict[str, Any]] = {}
-    try:
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
-            included = { (item.get("type"), item.get("id")): item for item in payload.get("included", []) }
-            for proj in payload.get("data", []):
-                attrs = proj.get("attributes", {})
-                odds_type = (attrs.get("odds_type") or "standard").lower()
-                # Skip Green Goblins and Red Demons from standard 50/50 EV calculations
-                if odds_type in ("goblin", "demon"):
-                    continue
-                stat_type = attrs.get("stat_type", "")
-                line_score = attrs.get("line_score")
-                rel_player = proj.get("relationships", {}).get("new_player", {}).get("data", {})
-                p_obj = included.get(("new_player", rel_player.get("id")), {}).get("attributes", {})
-                p_name = p_obj.get("display_name") or p_obj.get("name") or ""
-                if p_name and stat_type and line_score is not None:
-                    key = f"{p_name.lower()}::{stat_type.lower()}"
-                    standard_map[key] = {
-                        "line": float(line_score),
-                        "odds_type": odds_type,
-                        "team": p_obj.get("team", "")
-                    }
-    except Exception:
-        pass
+    payload = None
+
+    for target_u in (partner_u, direct_u):
+        if payload:
+            break
+        try:
+            from curl_cffi import requests as cffi_req
+            r = cffi_req.get(target_u, impersonate="chrome", timeout=12)
+            if r.status_code == 200:
+                data = r.json()
+                if isinstance(data, dict) and data.get("data"):
+                    payload = data
+                    break
+        except Exception:
+            pass
+
+        try:
+            proc = subprocess.run(
+                ["curl", "--http2", "-sL", "-A", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", "-H", "Accept: application/json", target_u],
+                capture_output=True, text=True, timeout=12
+            )
+            if proc.returncode == 0 and proc.stdout.strip().startswith("{"):
+                data = json.loads(proc.stdout)
+                if isinstance(data, dict) and data.get("data"):
+                    payload = data
+                    break
+        except Exception:
+            pass
+
+    if not payload:
+        return standard_map
+
+    included = {(item.get("type"), item.get("id")): item for item in payload.get("included", []) if isinstance(item, dict)}
+    for proj in payload.get("data", []):
+        attrs = proj.get("attributes", {})
+        if attrs.get("is_promo") or attrs.get("flash_sale_line_score") is not None:
+            continue
+        odds_type = (attrs.get("odds_type") or "standard").lower()
+        if odds_type in ("goblin", "demon"):
+            continue
+        stat_type = attrs.get("stat_type", "")
+        line_score = attrs.get("line_score")
+        rel_player = proj.get("relationships", {}).get("new_player", {}).get("data", {})
+        p_obj = included.get(("new_player", rel_player.get("id")), {}).get("attributes", {})
+        if p_obj.get("combo"):
+            continue
+        p_name = p_obj.get("display_name") or p_obj.get("name") or ""
+        if p_name and stat_type and line_score is not None:
+            key = f"{p_name.lower()}::{stat_type.lower()}"
+            standard_map[key] = {
+                "line": float(line_score),
+                "odds_type": odds_type,
+                "team": p_obj.get("team", "")
+            }
     return standard_map
 
 

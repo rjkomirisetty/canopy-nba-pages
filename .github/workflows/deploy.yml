@@ -32,6 +32,10 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install curl_cffi for PrizePicks HTTP/2 + Chrome TLS Impersonation
+        run: |
+          pip install curl_cffi requests || true
+
       - name: Run Python Multi-Source NBA Scraper (canopy_nba_engine.py)
         run: |
           python3 canopy_nba_engine.py --output live_slate.json || true

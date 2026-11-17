@@ -55,22 +55,29 @@ class CanopyServerHandler(SimpleHTTPRequestHandler):
                 return
 
         if self.path.startswith("/api/prizepicks"):
+            import subprocess
             for url in (PARTNER_PP_URL, PRIZEPICKS_URL):
                 try:
-                    req = urllib.request.Request(
-                        url,
-                        headers={
-                            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-                            "Accept": "application/json",
-                            "Referer": "https://app.prizepicks.com/",
-                        },
-                    )
-                    with urllib.request.urlopen(req, timeout=12) as resp:
-                        body = resp.read()
+                    from curl_cffi import requests as cffi_req
+                    r = cffi_req.get(url, impersonate="chrome", timeout=12)
+                    if r.status_code == 200 and r.text.strip().startswith("{"):
                         self.send_response(200)
                         self.send_header("Content-Type", "application/json")
                         self.end_headers()
-                        self.wfile.write(body)
+                        self.wfile.write(r.content)
+                        return
+                except Exception:
+                    pass
+                try:
+                    proc = subprocess.run(
+                        ["curl", "--http2", "-sL", "-A", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", "-H", "Accept: application/json", url],
+                        capture_output=True, timeout=12
+                    )
+                    if proc.returncode == 0 and proc.stdout.strip().startswith(b"{"):
+                        self.send_response(200)
+                        self.send_header("Content-Type", "application/json")
+                        self.end_headers()
+                        self.wfile.write(proc.stdout)
                         return
                 except Exception:
                     continue
