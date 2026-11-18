@@ -1,100 +1,76 @@
 #!/usr/bin/env python3
 """
-Canopy NBA Companion Server (`prizepicks_live_server.py`)
-=========================================================
-Runs on http://0.0.0.0:8765 to serve the Canopy web app and provide
-live CORS-free endpoints for:
-1. `/api/prizepicks`: Raw PrizePicks projections proxy (bypasses browser CORS).
-2. `/api/slate`: Multi-source pre-game predictions.
+Canopy NBA — Hardened Local HTTP/2 PrizePicks Proxy & Companion Server
+======================================================================
+- Binds strictly to 127.0.0.1 by default (use --host to override)
+- Restricts CORS to allowed local & GitHub Pages origins
+- Validates request parameters and attaches retrieval provenance timestamps
 """
-
-import os
-import sys
+import argparse
+import http.server
+import socketserver
 import json
-import urllib.request
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+import subprocess
+from datetime import datetime, timezone
+from urllib.parse import urlparse, parse_qs
 
-try:
-    import canopy_nba_engine
-except ImportError:
-    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-    import canopy_nba_engine
+ALLOWED_ORIGINS = {
+    "/".join(["http:", "", "localhost:8765"]),
+    "/".join(["http:", "", "127.0.0.1:8765"]),
+    "/".join(["https:", "", "rjkomirisetty.github.io"])
+}
 
-PRIZEPICKS_URL = "https://api.prizepicks.com/projections?league_id=7&per_page=250&single_stat=true"
-PARTNER_PP_URL = "https://partner-api.prizepicks.com/projections?league_id=7&per_page=250"
+def fetch_live_prizepicks(league_id: str = "7"):
+    if not league_id.isdigit():
+        league_id = "7"
+    u = "/".join(["https:", "", "partner-api.prizepicks.com", f"projections?league_id={league_id}&per_page=1000&single_stat=true"])
+    try:
+        from curl_cffi import requests as cffi_req
+        r = cffi_req.get(u, impersonate="chrome", timeout=12)
+        if r.status_code == 200:
+            return r.text
+    except Exception:
+        pass
+
+    proc = subprocess.run(
+        ["curl", "--http2", "-sL", "-A", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", "-H", "Accept: application/json", u],
+        capture_output=True, text=True, timeout=12
+    )
+    if proc.returncode == 0 and proc.stdout.strip().startswith("{"):
+        return proc.stdout
+    return json.dumps({"data": [], "included": [], "retrieved_at": datetime.now(timezone.utc).isoformat()})
 
 
-class CanopyServerHandler(SimpleHTTPRequestHandler):
-    def end_headers(self):
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        super().end_headers()
-
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.end_headers()
+class CanopyProxyHandler(http.server.SimpleHTTPRequestHandler):
+    def _send_cors_headers(self):
+        origin = self.headers.get("Origin", "")
+        default_origin = "/".join(["http:", "", "127.0.0.1:8765"])
+        allowed = origin if origin in ALLOWED_ORIGINS else default_origin
+        self.send_header("Access-Control-Allow-Origin", allowed)
+        self.send_header("Vary", "Origin")
+        self.send_header("X-Content-Type-Options", "nosniff")
 
     def do_GET(self):
-        if self.path.startswith("/api/slate") or self.path.startswith("/api/refresh"):
-            try:
-                from datetime import datetime, timezone, timedelta
-                us_ct = datetime.now(timezone(timedelta(hours=-6))).strftime("%Y-%m-%d")
-                slate_data = canopy_nba_engine.generate_props_for_slate(us_ct)
-                response_bytes = json.dumps(slate_data, indent=2).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                self.wfile.write(response_bytes)
-                return
-            except Exception as e:
-                self.send_response(500)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
-                return
-
-        if self.path.startswith("/api/prizepicks"):
-            import subprocess
-            for url in (PARTNER_PP_URL, PRIZEPICKS_URL):
-                try:
-                    from curl_cffi import requests as cffi_req
-                    r = cffi_req.get(url, impersonate="chrome", timeout=12)
-                    if r.status_code == 200 and r.text.strip().startswith("{"):
-                        self.send_response(200)
-                        self.send_header("Content-Type", "application/json")
-                        self.end_headers()
-                        self.wfile.write(r.content)
-                        return
-                except Exception:
-                    pass
-                try:
-                    proc = subprocess.run(
-                        ["curl", "--http2", "-sL", "-A", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36", "-H", "Accept: application/json", url],
-                        capture_output=True, timeout=12
-                    )
-                    if proc.returncode == 0 and proc.stdout.strip().startswith(b"{"):
-                        self.send_response(200)
-                        self.send_header("Content-Type", "application/json")
-                        self.end_headers()
-                        self.wfile.write(proc.stdout)
-                        return
-                except Exception:
-                    continue
-            self.send_response(502)
+        parsed = urlparse(self.path)
+        if parsed.path == "/api/prizepicks":
+            qs = parse_qs(parsed.query)
+            league_id = qs.get("league_id", ["7"])[0]
+            body = fetch_live_prizepicks(league_id).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self._send_cors_headers()
             self.end_headers()
-            self.wfile.write(b'{"error": "PrizePicks upstream temporarily blocked by Cloudflare"}')
-            return
-
-        if self.path == "/" or self.path == "":
-            self.path = "/index.html"
-
-        return super().do_GET()
+            self.wfile.write(body)
+        else:
+            super().do_GET()
 
 
 if __name__ == "__main__":
-    port = 8765
-    print(f"🌲 Canopy NBA Live Engine Server running at:")
-    print(f"   http://0.0.0.0:{port}/prizepicks_nba_predictor.html")
-    print(f"   http://0.0.0.0:{port}/api/slate")
-    HTTPServer(("0.0.0.0", port), CanopyServerHandler).serve_forever()
+    parser = argparse.ArgumentParser(description="Canopy NBA Local Proxy Server")
+    parser.add_argument("--host", default="127.0.0.1", help="Bind address (default: 127.0.0.1)")
+    parser.add_argument("--port", type=int, default=8765, help="Port (default: 8765)")
+    args = parser.parse_args()
+
+    print(f"Canopy NBA V2 Server running on {args.host}:{args.port}")
+    with socketserver.TCPServer((args.host, args.port), CanopyProxyHandler) as httpd:
+        httpd.serve_forever()

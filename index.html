@@ -232,7 +232,7 @@
               Split: 50% MORE / 50% LESS
             </span>
             <label class="flex items-center gap-1.5 text-[11px] text-stone-400 cursor-pointer select-none" title="Green Goblins & Red Demons have modified payouts and are hidden by default">
-              <input id="showAltLinesToggle" type="checkbox" onchange="toggleShowAltLines(this.checked)" class="accent-emerald-500 rounded" />
+              <input id="showAltLinesToggle" type="checkbox" checked onchange="toggleShowAltLines(this.checked)" class="accent-emerald-500 rounded" />
               <span>Show Goblins / Demons</span>
             </label>
             <label class="flex items-center gap-1.5 text-[11px] text-stone-400 cursor-pointer select-none">
@@ -240,6 +240,7 @@
               <span>Show OUT Players</span>
             </label>
             <select id="sortBy" onchange="renderPropCards()" class="bg-[#0b0f0d] border border-emerald-900/50 rounded-xl px-2.5 py-1.5 text-xs text-stone-200">
+              <option value="popular">Sort: PrizePicks Board (🔥 Popular + Hit %)</option>
               <option value="hitProb">Sort: Highest Hit %</option>
               <option value="edge">Sort: Highest Edge %</option>
               <option value="projDiff">Sort: Biggest Proj Diff</option>
@@ -858,72 +859,72 @@
       ],
       'MIN': [
         { name: 'LaMelo Ball', pos: 'PG', ppg: 18.6, rpg: 3.6, apg: 6.2, tpm: 3.6, pra: 28.4, scheme: '🌿 Timberwolves Lead Creator w/ Edwards Out (Proj 19.7 PTS / 5.7 AST / 3.5 3PM)' },
-        { name: 'Ayo Dosunmu', pos: 'SG', ppg: 17.5, rpg: 4.2, apg: 3.3, tpm: 1.8, pra: 25.0, scheme: '🌿 Starting SG w/ Edwards Out (Proj 17.5 PTS / 4.2 REB / 3.3 AST in 32.9 Min)' },
+        { name: 'Ayo Dosunmu', pos: 'G', ppg: 18.5, rpg: 4.2, apg: 3.3, tpm: 1.9, pra: 26.0, proj_ppg: 19.6, proj_rpg: 4.4, proj_apg: 3.5, proj_tpm: 2.1, proj_pra: 27.5, scheme: '🌿 Statz Verified 18.5 PTS Line (Avg 18.5 PPG / 20.2 L10 / 23.0 L5; cleared in 10 of 13)' },
         { name: 'Jaden McDaniels', pos: 'SF', ppg: 17.0, rpg: 6.3, apg: 3.8, tpm: 1.8, pra: 27.1, scheme: '🌿 Starting Two-Way Wing (Proj 16.0 PTS / 4.8 REB / 2.9 AST in 34.7 Min)' },
         { name: 'Jonathan Kuminga', pos: 'PF', ppg: 12.3, rpg: 5.2, apg: 2.4, tpm: 1.2, pra: 19.9, scheme: '🌿 Starting Power Forward (31.7 Proj Min)' },
         { name: 'Rudy Gobert', pos: 'C', ppg: 9.4, rpg: 9.5, apg: 1.4, tpm: 0.0, pra: 20.3, scheme: '🌿 Rim Deterrent & Double-Digit Rebounder' }
       ],
       'NY': [
-        { name: 'Jalen Brunson', pos: 'PG', ppg: 26.6, rpg: 2.9, apg: 5.7, tpm: 2.8, pra: 35.2, scheme: '🌿 Statz Featured 23.0 PTS / 5.8 AST Projection at TOR' },
-        { name: 'Karl-Anthony Towns', pos: 'C', ppg: 22.7, rpg: 12.9, apg: 2.8, tpm: 1.8, pra: 38.4, scheme: '🌿 Statz Featured 19.8 PTS / 12.9 REB vs Thin Raptors Frontcourt' },
-        { name: 'OG Anunoby', pos: 'SF', ppg: 15.6, rpg: 5.1, apg: 2.0, tpm: 2.1, pra: 22.7, scheme: '🌿 Statz Projected 15.5 PTS / 5.1 REB / 2.0 3PM vs Former Team' },
-        { name: 'Mikal Bridges', pos: 'SG', ppg: 6.9, rpg: 2.7, apg: 2.4, tpm: 1.4, pra: 12.0, scheme: '🌿 Ironman Wing & Mid-Range Scorer' },
-        { name: 'Josh Hart', pos: 'SG', ppg: 12.6, rpg: 8.6, apg: 5.1, tpm: 1.2, pra: 26.3, scheme: '🌿 High-Motor Rebounding Guard & Transition Pusher' },
-        { name: 'Miles McBride', pos: 'PG', ppg: 10.2, rpg: 2.3, apg: 2.7, tpm: 2.1, pra: 15.2, scheme: '🌿 Bench 3-and-D Guard' }
+        { name: 'Karl-Anthony Towns', pos: 'C-F', ppg: 20.8, rpg: 12.9, apg: 2.8, tpm: 2.0, pra: 36.5, proj_ppg: 19.8, proj_rpg: 13.4, proj_apg: 2.9, proj_tpm: 2.1, proj_pra: 38.8, scheme: '🌿 PrizePicks #1 Popular (🔥 6.2K • 20.5 PTS / 1.5 3PTM / 12.5 REB / 36.5 PRA)' },
+        { name: 'Jalen Brunson', pos: 'G', ppg: 24.6, rpg: 2.9, apg: 5.7, tpm: 2.8, pra: 33.5, proj_ppg: 23.0, proj_rpg: 3.1, proj_apg: 5.8, proj_tpm: 3.1, proj_pra: 35.1, scheme: '🌿 PrizePicks Featured (🔥 4.8K 19.5 PTS Goblin / 24.5 Std / 🔥 3.9K 2.5 3PTM Demon)' },
+        { name: 'OG Anunoby', pos: 'F', ppg: 17.4, rpg: 5.1, apg: 2.0, tpm: 2.0, pra: 24.5, proj_ppg: 15.5, proj_rpg: 5.1, proj_apg: 2.0, proj_tpm: 2.0, proj_pra: 22.6, scheme: '🌿 Statz Verified 17.5 PTS Line (Proj 15.5 PTS / 5.1 REB / 2.0 3PM at TOR)' },
+        { name: 'Josh Hart', pos: 'G-F', ppg: 8.4, rpg: 7.3, apg: 4.2, tpm: 1.1, pra: 18.5, proj_ppg: 6.8, proj_rpg: 7.1, proj_apg: 3.8, proj_tpm: 1.0, proj_pra: 17.2, scheme: '🛡️ Statz Verified 8.5 PTS / 7.5 REB / 4.5 AST / 18.5 PRA Lines at TOR' },
+        { name: 'Mikal Bridges', pos: 'G-F', ppg: 8.4, rpg: 3.4, apg: 2.4, tpm: 1.4, pra: 14.2, proj_ppg: 7.4, proj_rpg: 2.6, proj_apg: 2.3, proj_tpm: 1.3, proj_pra: 12.3, scheme: '🛡️ Statz Verified 8.5 PTS (-127 U) & 3.5 REB (-165 U) Lines' },
+        { name: 'Miles McBride', pos: 'G', ppg: 10.2, rpg: 2.3, apg: 2.7, tpm: 2.0, pra: 15.2, proj_ppg: 10.6, proj_rpg: 2.4, proj_apg: 2.8, proj_tpm: 2.1, proj_pra: 15.8, scheme: '🌿 Bench 3-and-D Guard' }
       ],
       'TOR': [
-        { name: 'RJ Barrett', pos: 'PF', ppg: 19.8, rpg: 5.8, apg: 3.4, tpm: 1.6, pra: 29.0, scheme: '🌿 Statz Projected 19.7 PTS / 5.8 REB w/ Kawhi Leonard Out' },
-        { name: 'Scottie Barnes', pos: 'SF', ppg: 18.1, rpg: 6.7, apg: 5.1, tpm: 1.4, pra: 29.9, scheme: '🌿 Statz Projected 18.0 PTS / 6.7 REB / 5.1 AST All-Around Hub' },
-        { name: 'Immanuel Quickley', pos: 'PG', ppg: 15.2, rpg: 3.8, apg: 4.7, tpm: 2.3, pra: 23.7, scheme: '🌿 Statz Projected 15.1 PTS / 4.6 AST / 2.3 3PM vs Former Team' },
-        { name: 'Ja\'Kobe Walter', pos: 'SG', ppg: 12.6, rpg: 3.8, apg: 2.2, tpm: 2.1, pra: 18.6, scheme: '🌿 Starting SG (32.0 Proj Min w/ Leonard Out)' },
-        { name: 'Collin Murray-Boyles', pos: 'C', ppg: 10.8, rpg: 6.8, apg: 2.1, tpm: 0.4, pra: 19.7, scheme: '🌿 Starting Center w/ Nate Bittle Out' },
-        { name: 'Gradey Dick', pos: 'SG', ppg: 14.1, rpg: 3.1, apg: 2.0, tpm: 2.4, pra: 19.2, scheme: '🌿 Off-Screen Movement Shooter' }
+        { name: 'Scottie Barnes', pos: 'F-G', ppg: 21.4, rpg: 6.7, apg: 5.1, tpm: 1.5, pra: 30.6, proj_ppg: 18.8, proj_rpg: 6.8, proj_apg: 5.1, proj_tpm: 1.4, proj_pra: 29.2, scheme: '🛡️ PrizePicks #3 Popular (🔥 4.3K • 21.5 PTS / 🔥 2.3K 30.5 PRA vs NYK Defense)' },
+        { name: 'Jakob Poeltl', pos: 'C', ppg: 7.4, rpg: 5.8, apg: 1.8, tpm: 0.0, pra: 14.6, proj_ppg: 7.8, proj_rpg: 6.1, proj_apg: 1.9, proj_tpm: 0.0, proj_pra: 15.8, scheme: '🌿 PrizePicks #8 Popular (🔥 2.6K • 14.5 PRA & 5.5 REB vs NYK)' },
+        { name: 'RJ Barrett', pos: 'F-G', ppg: 19.8, rpg: 5.8, apg: 3.4, tpm: 1.6, pra: 29.0, proj_ppg: 20.2, proj_rpg: 5.9, proj_apg: 3.5, proj_tpm: 1.7, proj_pra: 29.6, scheme: '🌿 Raptors Wing Scorer w/ Kawhi Leonard Out (19.5 PTS / 28.5 PRA)' },
+        { name: 'Immanuel Quickley', pos: 'G', ppg: 15.4, rpg: 3.9, apg: 4.7, tpm: 2.3, pra: 24.0, proj_ppg: 15.1, proj_rpg: 4.1, proj_apg: 4.8, proj_tpm: 2.3, proj_pra: 24.0, scheme: '🌿 Statz Verified 3.5 REB / 15.5 PTS / 4.5 AST vs Former Team' },
+        { name: 'Ja'Kobe Walter', pos: 'G', ppg: 12.6, rpg: 3.8, apg: 2.2, tpm: 2.0, pra: 18.6, proj_ppg: 12.2, proj_rpg: 3.6, proj_apg: 2.1, proj_tpm: 1.9, proj_pra: 17.9, scheme: '🌿 Starting SG (32.0 Proj Min w/ Leonard Out)' },
+        { name: 'Gradey Dick', pos: 'G-F', ppg: 13.8, rpg: 3.1, apg: 2.0, tpm: 2.3, pra: 18.9, proj_ppg: 13.2, proj_rpg: 3.0, proj_apg: 1.9, proj_tpm: 2.2, proj_pra: 18.1, scheme: '🌿 Off-Screen Movement Shooter' }
       ],
       'DET': [
-        { name: 'Cade Cunningham', pos: 'PG', ppg: 25.0, rpg: 5.2, apg: 7.9, tpm: 2.1, pra: 38.1, scheme: '🌿 Statz Projected 21.7 PTS / 5.5 REB / 7.6 AST Primary Engine' },
-        { name: 'Duncan Robinson', pos: 'PF', ppg: 12.7, rpg: 3.3, apg: 2.1, tpm: 2.6, pra: 18.1, scheme: '🌿 Statz Projected 12.7 PTS / 2.6 3PM Perimeter Specialist' },
-        { name: 'Paul Reed', pos: 'C', ppg: 13.4, rpg: 8.3, apg: 1.8, tpm: 0.6, pra: 23.5, scheme: '🌿 Statz Projected 11.9 PTS / 8.3 REB Starting Center w/ Duren Out' },
-        { name: 'Ausar Thompson', pos: 'SG', ppg: 12.2, rpg: 6.8, apg: 3.0, tpm: 0.7, pra: 22.0, scheme: '🌿 Athletic Wing Slasher & Rebounder (27.3 Proj Min)' },
-        { name: 'Daniss Jenkins', pos: 'PG', ppg: 11.4, rpg: 3.1, apg: 4.8, tpm: 1.8, pra: 19.3, scheme: '🌿 Starting Guard (30.0 Proj Min)' },
-        { name: 'Ron Holland II', pos: 'SF', ppg: 11.2, rpg: 4.6, apg: 2.0, tpm: 1.2, pra: 17.8, scheme: '🌿 High-Motor Transition Wing & Slasher' }
+        { name: 'Cade Cunningham', pos: 'G', ppg: 24.8, rpg: 5.4, apg: 7.9, tpm: 2.1, pra: 38.1, proj_ppg: 22.8, proj_rpg: 5.0, proj_apg: 8.2, proj_tpm: 2.1, proj_pra: 36.0, scheme: '🛡️ PrizePicks #6 Popular (🔥 3.2K • 24.5 PTS / 5.5 REB / 7.5 AST / 2.5 3PTM at SAS)' },
+        { name: 'Ausar Thompson', pos: 'G-F', ppg: 10.4, rpg: 8.6, apg: 5.1, tpm: 0.7, pra: 21.8, proj_ppg: 10.4, proj_rpg: 8.9, proj_apg: 5.2, proj_tpm: 0.7, proj_pra: 24.2, scheme: '🌿 PrizePicks #10 Popular (🔥 2.3K • 21.5 PRA / 7.5 REB / 4.5 AST / 10.5 PTS)' },
+        { name: 'Paul Reed', pos: 'C', ppg: 11.8, rpg: 7.8, apg: 1.8, tpm: 0.6, pra: 21.4, proj_ppg: 12.4, proj_rpg: 8.4, proj_apg: 1.9, proj_tpm: 0.6, proj_pra: 22.7, scheme: '🌿 Starting Center w/ Jalen Duren Out (Proj 12.4 PTS / 8.4 REB)' },
+        { name: 'Duncan Robinson', pos: 'F', ppg: 12.7, rpg: 3.3, apg: 2.1, tpm: 2.6, pra: 18.1, proj_ppg: 12.2, proj_rpg: 3.1, proj_apg: 2.0, proj_tpm: 2.5, proj_pra: 17.3, scheme: '🌿 Perimeter Movement Specialist (2.5 3PTM Line)' },
+        { name: 'Daniss Jenkins', pos: 'G', ppg: 11.4, rpg: 3.1, apg: 4.8, tpm: 1.8, pra: 19.3, proj_ppg: 11.0, proj_rpg: 3.0, proj_apg: 4.6, proj_tpm: 1.7, proj_pra: 18.6, scheme: '🌿 Starting Guard (30.0 Proj Min)' },
+        { name: 'Ron Holland II', pos: 'F', ppg: 11.2, rpg: 4.6, apg: 2.0, tpm: 1.2, pra: 17.8, proj_ppg: 11.5, proj_rpg: 4.8, proj_apg: 2.1, proj_tpm: 1.2, proj_pra: 18.4, scheme: '🌿 High-Motor Transition Slasher' }
       ],
       'SA': [
-        { name: 'Victor Wembanyama', pos: 'C', ppg: 30.3, rpg: 10.6, apg: 2.7, tpm: 1.8, pra: 43.6, scheme: '🌿 Statz Projected 23.9 PTS / 10.6 REB vs Depleted Pistons Frontcourt' },
-        { name: 'Dylan Harper', pos: 'SG', ppg: 17.3, rpg: 4.8, apg: 3.9, tpm: 1.2, pra: 26.0, scheme: '🌿 Statz Projected 15.6 PTS / 4.8 REB / 3.9 AST #2 Spurs Option' },
-        { name: 'Stephon Castle', pos: 'PG', ppg: 14.1, rpg: 5.0, apg: 5.1, tpm: 1.3, pra: 24.2, scheme: '🌿 Statz Projected 14.1 PTS / 5.0 REB / 5.1 AST Lead Guard w/ Fox Out' },
-        { name: 'Devin Vassell', pos: 'SG', ppg: 16.4, rpg: 3.8, apg: 3.3, tpm: 2.4, pra: 23.5, scheme: '🌿 Wing Shotmaker & Mid-Range Scorer' },
-        { name: 'Julian Champagnie', pos: 'SF', ppg: 11.2, rpg: 4.8, apg: 1.6, tpm: 2.4, pra: 17.6, scheme: '🌿 High-Volume 3-and-D Wing' },
-        { name: 'Jeremy Sochan', pos: 'PF', ppg: 12.1, rpg: 6.8, apg: 3.1, tpm: 0.8, pra: 22.0, scheme: '🌿 Connective Forward & Interior Finisher' }
+        { name: 'Victor Wembanyama', pos: 'F-C', ppg: 30.3, rpg: 10.6, apg: 2.7, tpm: 1.8, pra: 43.6, proj_ppg: 28.4, proj_rpg: 11.2, proj_apg: 2.8, proj_tpm: 1.9, proj_pra: 42.4, scheme: '🌿 PrizePicks #12 Popular (🔥 2.2K • 30.5 PTS / 10.5 REB / 1.5 3PTM vs DET)' },
+        { name: 'Dylan Harper', pos: 'G', ppg: 16.8, rpg: 4.8, apg: 3.9, tpm: 1.4, pra: 25.5, proj_ppg: 15.8, proj_rpg: 4.7, proj_apg: 3.9, proj_tpm: 1.3, proj_pra: 24.4, scheme: '🛡️ Statz Projected 15.8 PTS / 4.7 REB / 3.9 AST #2 Spurs Option' },
+        { name: 'Stephon Castle', pos: 'G', ppg: 14.1, rpg: 5.0, apg: 5.1, tpm: 1.3, pra: 24.2, proj_ppg: 14.5, proj_rpg: 5.2, proj_apg: 5.4, proj_tpm: 1.4, proj_pra: 25.1, scheme: '🌿 Lead Guard w/ De'Aaron Fox Out (Proj 14.5 PTS / 5.4 AST)' },
+        { name: 'Devin Vassell', pos: 'G-F', ppg: 16.4, rpg: 3.8, apg: 3.3, tpm: 2.4, pra: 23.5, proj_ppg: 16.8, proj_rpg: 3.9, proj_apg: 3.4, proj_tpm: 2.5, proj_pra: 24.1, scheme: '🌿 Wing Shotmaker & Mid-Range Scorer' },
+        { name: 'Julian Champagnie', pos: 'F', ppg: 11.2, rpg: 4.8, apg: 1.6, tpm: 2.2, pra: 17.6, proj_ppg: 11.5, proj_rpg: 4.9, proj_apg: 1.7, proj_tpm: 2.3, proj_pra: 18.1, scheme: '🌿 High-Volume 3-and-D Wing' },
+        { name: 'Jeremy Sochan', pos: 'F', ppg: 12.1, rpg: 6.8, apg: 3.1, tpm: 0.8, pra: 22.0, proj_ppg: 11.7, proj_rpg: 6.6, proj_apg: 3.0, proj_tpm: 0.7, proj_pra: 21.3, scheme: '🌿 Connective Forward & Interior Finisher' }
       ],
       'UTAH': [
-        { name: 'Keyonte George', pos: 'PG', ppg: 21.4, rpg: 4.5, apg: 6.0, tpm: 2.6, pra: 31.9, scheme: '🌿 Statz Projected 20.5 PTS / 6.0 AST Primary Jazz Creator (33.1 Min)' },
-        { name: 'Darryn Peterson', pos: 'SG', ppg: 16.9, rpg: 4.4, apg: 3.9, tpm: 2.2, pra: 25.2, scheme: '🌿 Statz Projected 16.9 PTS / 4.4 REB / 3.9 AST / 2.2 3PM w/ Markkanen Out' },
-        { name: 'Airious Bailey', pos: 'PF', ppg: 15.1, rpg: 5.8, apg: 2.0, tpm: 1.8, pra: 22.9, scheme: '🌿 Statz Projected 15.1 PTS / 5.8 REB Starting PF (32.8 Min)' },
-        { name: 'Kyle Filipowski', pos: 'C', ppg: 11.4, rpg: 7.2, apg: 2.3, tpm: 1.1, pra: 20.9, scheme: '🌿 Expanded Frontcourt Role w/ JJJ, Markkanen & Nurkic Out' },
-        { name: 'Mo Bamba', pos: 'C', ppg: 8.8, rpg: 6.8, apg: 1.0, tpm: 1.1, pra: 16.6, scheme: '🌿 Starting Center & Stretch Rim Protector' },
-        { name: 'Josh Green', pos: 'SF', ppg: 9.2, rpg: 3.2, apg: 2.1, tpm: 1.4, pra: 14.5, scheme: '🌿 Starting Wing Spacer' }
+        { name: 'Keyonte George', pos: 'G', ppg: 21.3, rpg: 3.8, apg: 6.0, tpm: 2.1, pra: 30.8, proj_ppg: 20.6, proj_rpg: 4.6, proj_apg: 6.0, proj_tpm: 2.0, proj_pra: 31.6, scheme: '🌿 Statz Verified 21.5 PTS / 3.5 REB (-145 O) / 30.5 PRA / 2.5 3PTM Lines' },
+        { name: 'Darryn Peterson', pos: 'G', ppg: 14.4, rpg: 4.4, apg: 3.9, tpm: 2.0, pra: 22.7, proj_ppg: 16.9, proj_rpg: 4.6, proj_apg: 4.0, proj_tpm: 2.2, proj_pra: 25.5, scheme: '🌿 Statz Verified 14.5 PTS Line (Projects 16.9 PTS w/ Markkanen Out)' },
+        { name: 'Airious Bailey', pos: 'F', ppg: 15.1, rpg: 5.8, apg: 2.0, tpm: 1.8, pra: 22.9, proj_ppg: 15.5, proj_rpg: 6.1, proj_apg: 2.1, proj_tpm: 1.9, proj_pra: 23.7, scheme: '🌿 Starting PF w/ Markkanen & JJJ Out (32.8 Proj Min)' },
+        { name: 'Kyle Filipowski', pos: 'C', ppg: 11.4, rpg: 7.2, apg: 2.3, tpm: 1.1, pra: 20.9, proj_ppg: 12.0, proj_rpg: 7.8, proj_apg: 2.4, proj_tpm: 1.2, proj_pra: 22.2, scheme: '🌿 Expanded Frontcourt Role w/ JJJ, Markkanen & Nurkic Out' },
+        { name: 'Mo Bamba', pos: 'C', ppg: 8.8, rpg: 6.8, apg: 1.0, tpm: 1.1, pra: 16.6, proj_ppg: 9.1, proj_rpg: 7.1, proj_apg: 1.0, proj_tpm: 1.1, proj_pra: 17.2, scheme: '🌿 Starting Center & Stretch Rim Protector' },
+        { name: 'Josh Green', pos: 'G-F', ppg: 9.2, rpg: 3.2, apg: 2.1, tpm: 1.4, pra: 14.5, proj_ppg: 9.0, proj_rpg: 3.1, proj_apg: 2.0, proj_tpm: 1.4, proj_pra: 14.1, scheme: '🌿 Starting Wing Spacer' }
       ],
       'LAC': [
-        { name: 'Darius Garland', pos: 'PG', ppg: 20.1, rpg: 2.8, apg: 5.5, tpm: 2.4, pra: 28.4, scheme: '🌿 Statz Projected 21.8 PTS / 6.2 AST Clippers #1 Creator w/ Beal Out' },
-        { name: 'Rui Hachimura', pos: 'PF', ppg: 12.6, rpg: 6.0, apg: 1.6, tpm: 1.4, pra: 20.2, scheme: '🌿 Statz Projected 12.8 PTS / 4.9 REB Starting PF w/ Ingram Out' },
-        { name: 'Brook Lopez', pos: 'C', ppg: 12.1, rpg: 5.2, apg: 1.4, tpm: 1.3, pra: 18.7, scheme: '🌿 Statz Projected 12.1 PTS / 5.2 REB / 1.2 3PM Starting Center' },
-        { name: 'Derrick Jones Jr.', pos: 'SF', ppg: 10.8, rpg: 4.4, apg: 1.4, tpm: 1.4, pra: 16.6, scheme: '🌿 Starting SF (29.2 Proj Min) & Lob Finisher' },
-        { name: 'Kris Dunn', pos: 'SG', ppg: 8.8, rpg: 3.8, apg: 4.8, tpm: 1.1, pra: 17.4, scheme: '🌿 Starting Two-Way Backcourt Partner (26.4 Proj Min)' },
-        { name: 'Keaton Wagler', pos: 'SG', ppg: 10.2, rpg: 3.1, apg: 2.8, tpm: 1.6, pra: 16.1, scheme: '🌿 Backcourt Rotation Scorer' }
+        { name: 'Darius Garland', pos: 'G', ppg: 20.4, rpg: 2.8, apg: 5.5, tpm: 2.4, pra: 33.4, proj_ppg: 21.8, proj_rpg: 2.8, proj_apg: 6.2, proj_tpm: 2.6, proj_pra: 29.8, scheme: '🌿 Statz Verified 33.5 PRA Line (Avg 28.4 PRA) & 21.8 Proj PTS w/ Beal Out' },
+        { name: 'Rui Hachimura', pos: 'F', ppg: 15.4, rpg: 5.6, apg: 1.6, tpm: 1.5, pra: 22.6, proj_ppg: 12.8, proj_rpg: 4.9, proj_apg: 1.5, proj_tpm: 1.3, proj_pra: 19.2, scheme: '🛡️ Statz Verified 15.5 PTS Line (Projects 12.8 PTS / 4.9 REB vs UTAH)' },
+        { name: 'Brook Lopez', pos: 'C', ppg: 12.1, rpg: 5.2, apg: 1.4, tpm: 1.4, pra: 18.7, proj_ppg: 12.5, proj_rpg: 5.5, proj_apg: 1.4, proj_tpm: 1.5, proj_pra: 19.4, scheme: '🌿 Starting Stretch Five Center vs Depleted Jazz Frontcourt' },
+        { name: 'Derrick Jones Jr.', pos: 'F', ppg: 10.8, rpg: 4.4, apg: 1.4, tpm: 1.4, pra: 16.6, proj_ppg: 11.2, proj_rpg: 4.6, proj_apg: 1.5, proj_tpm: 1.4, proj_pra: 17.3, scheme: '🌿 Starting SF (29.2 Proj Min) & Lob Finisher' },
+        { name: 'Kris Dunn', pos: 'G', ppg: 8.8, rpg: 3.8, apg: 4.8, tpm: 1.1, pra: 17.4, proj_ppg: 8.5, proj_rpg: 3.6, proj_apg: 4.6, proj_tpm: 1.0, proj_pra: 16.7, scheme: '🌿 Starting Two-Way Backcourt Partner (26.4 Proj Min)' },
+        { name: 'Keaton Wagler', pos: 'G', ppg: 10.2, rpg: 3.1, apg: 2.8, tpm: 1.6, pra: 16.1, proj_ppg: 10.5, proj_rpg: 3.2, proj_apg: 2.9, proj_tpm: 1.7, proj_pra: 16.6, scheme: '🌿 Backcourt Rotation Scorer' }
       ],
       'LAL': [
-        { name: 'Luka Doncic', pos: 'PG', ppg: 35.2, rpg: 7.5, apg: 7.6, tpm: 4.0, pra: 50.3, scheme: '🌿 Statz Projected 30.8 PTS / 6.1 REB / 7.0 AST / 4.0 3PM w/ Reaves Out' },
-        { name: 'Walker Kessler', pos: 'C', ppg: 14.2, rpg: 10.2, apg: 1.4, tpm: 0.0, pra: 25.8, scheme: '🌿 Statz Projected 11.0-11.7 PTS / 9.6-10.8 REB Starting Center' },
-        { name: 'Dalton Knecht', pos: 'SG', ppg: 12.4, rpg: 3.4, apg: 1.8, tpm: 2.4, pra: 17.6, scheme: '🌿 Movement 3PT Shooter Absorbing Wing Minutes' },
-        { name: 'Jake LaRavia', pos: 'PF', ppg: 11.2, rpg: 5.4, apg: 2.2, tpm: 1.8, pra: 18.8, scheme: '🌿 Starting Stretch Forward (26.1 Proj Min)' },
-        { name: 'Collin Sexton', pos: 'PG', ppg: 10.8, rpg: 2.1, apg: 3.2, tpm: 1.3, pra: 16.1, scheme: '🌿 Boosted Backcourt Rotation w/ Reaves Sidelined' }
+        { name: 'Luka Dončić', pos: 'F-G', ppg: 35.8, rpg: 7.5, apg: 7.6, tpm: 3.6, pra: 50.8, proj_ppg: 37.4, proj_rpg: 6.4, proj_apg: 7.0, proj_tpm: 4.0, proj_pra: 50.8, scheme: '🌿 PrizePicks #7 Popular (🔥 3.1K • 35.5 PTS / 7.5 REB / 7.5 AST / 3.5 3PTM vs CHA)' },
+        { name: 'Walker Kessler', pos: 'C', ppg: 11.6, rpg: 10.4, apg: 1.4, tpm: 0.0, pra: 23.4, proj_ppg: 12.2, proj_rpg: 10.8, proj_apg: 1.5, proj_tpm: 0.0, proj_pra: 24.5, scheme: '🌿 Lakers Starting Center (Proj 12.2 PTS / 10.8 REB vs CHA)' },
+        { name: 'Dalton Knecht', pos: 'G-F', ppg: 12.4, rpg: 3.4, apg: 1.8, tpm: 2.4, pra: 17.6, proj_ppg: 13.1, proj_rpg: 3.6, proj_apg: 1.9, proj_tpm: 2.6, proj_pra: 18.6, scheme: '🌿 Movement 3PT Shooter Absorbing Wing Minutes w/ Reaves Out' },
+        { name: 'Jake LaRavia', pos: 'F', ppg: 11.2, rpg: 5.4, apg: 2.2, tpm: 1.8, pra: 18.8, proj_ppg: 10.8, proj_rpg: 5.2, proj_apg: 2.1, proj_tpm: 1.7, proj_pra: 18.1, scheme: '🌿 Starting Stretch Forward (26.1 Proj Min)' },
+        { name: 'Collin Sexton', pos: 'G', ppg: 10.8, rpg: 2.1, apg: 3.2, tpm: 1.4, pra: 16.1, proj_ppg: 11.4, proj_rpg: 2.3, proj_apg: 3.5, proj_tpm: 1.5, proj_pra: 17.2, scheme: '🌿 Boosted Backcourt Rotation w/ Reaves Sidelined' }
       ],
       'CHA': [
-        { name: 'Brandon Miller', pos: 'SF', ppg: 17.6, rpg: 3.9, apg: 3.0, tpm: 2.7, pra: 24.5, scheme: '🌿 Statz Projected 17.6 PTS / 2.7 3PM Hornets #1 Scoring Option' },
-        { name: 'Naz Reid', pos: 'C', ppg: 14.7, rpg: 6.1, apg: 2.0, tpm: 1.9, pra: 22.8, scheme: '🌿 Statz Projected 14.7 PTS / 6.1 REB / 1.9 3PM Stretch Big' },
-        { name: 'Grayson Allen', pos: 'SG', ppg: 14.1, rpg: 3.3, apg: 3.5, tpm: 2.8, pra: 20.9, scheme: '🌿 Statz Projected 14.1 PTS / 3.5 AST / 2.8 3PM w/ Guards Out' },
-        { name: 'Coby White', pos: 'PG', ppg: 13.0, rpg: 2.8, apg: 3.1, tpm: 2.1, pra: 18.9, scheme: '🌿 Secondary Guard Creator' },
-        { name: 'Moussa Diabaté', pos: 'PF', ppg: 8.8, rpg: 9.5, apg: 1.4, tpm: 0.0, pra: 19.7, scheme: '🌿 #11 NBA Rebounder (9.5 RPG)' }
+        { name: 'Brandon Miller', pos: 'F-G', ppg: 17.6, rpg: 3.9, apg: 3.0, tpm: 2.6, pra: 24.5, proj_ppg: 18.2, proj_rpg: 4.1, proj_apg: 3.1, proj_tpm: 2.7, proj_pra: 25.4, scheme: '🌿 Hornets #1 Scoring Option (17.5 PTS / 2.5 3PTM Lines)' },
+        { name: 'Naz Reid', pos: 'F-C', ppg: 14.7, rpg: 6.1, apg: 2.0, tpm: 1.9, pra: 22.8, proj_ppg: 14.2, proj_rpg: 5.8, proj_apg: 1.9, proj_tpm: 1.8, proj_pra: 21.9, scheme: '🌿 Stretch Big & Frontcourt Scorer (14.5 PTS / 5.5 REB)' },
+        { name: 'Grayson Allen', pos: 'G', ppg: 13.8, rpg: 3.3, apg: 3.5, tpm: 2.8, pra: 20.6, proj_ppg: 14.5, proj_rpg: 3.4, proj_apg: 3.6, proj_tpm: 3.1, proj_pra: 21.5, scheme: '🌿 Statz Verified 13.5 PTS & 2.5 3PTM Lines (Avg 15.2 PPG / 3.6 3PM)' },
+        { name: 'Coby White', pos: 'G', ppg: 13.0, rpg: 2.8, apg: 3.1, tpm: 2.1, pra: 18.9, proj_ppg: 12.5, proj_rpg: 2.7, proj_apg: 3.0, proj_tpm: 2.0, proj_pra: 18.2, scheme: '🌿 Secondary Guard Creator' },
+        { name: 'Moussa Diabaté', pos: 'C-F', ppg: 8.8, rpg: 9.5, apg: 1.4, tpm: 0.0, pra: 19.7, proj_ppg: 9.2, proj_rpg: 9.9, proj_apg: 1.5, proj_tpm: 0.0, proj_pra: 20.6, scheme: '🌿 #11 NBA Rebounder (9.5 RPG)' }
       ],
       'OKC': [
         { name: 'Shai Gilgeous-Alexander', pos: 'PG', ppg: 30.5, rpg: 3.8, apg: 5.2, tpm: 1.8, pra: 39.5, scheme: '🌿 MVP-Caliber Paint & Mid-Range Scorer (30.5 PPG)' },
@@ -973,8 +974,394 @@
     NBA_30_TEAM_ROTATIONS['WAS'] = NBA_30_TEAM_ROTATIONS['WSH'];
 
     // 3C. VERIFIED MARKET LINE & PROJECTION OVERRIDES (Exact published PrizePicks / FanDuel / BetMGM / Statz lines)
+    function normalizePlayerKey(name) {
+      return String(name || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    // 3C-0. LIVE PRIZEPICKS BOARD FEATURED POPULAR CARDS (Exact Reference from User Screenshot image_891801.png)
+    // Includes exact popularity counts (🔥 6.2K .. 🔥 2.2K), Central Time game labels, Goblin/Demon alt cards, and ⇄ swap metadata.
+    const PRIZEPICKS_FEATURED_BOARD_2026_11_17 = [
+      {
+        id: 'pp_board_1_kat_pts',
+        popRank: 1,
+        popCount: '6.2K',
+        name: 'Karl-Anthony Towns',
+        pos: 'C-F',
+        team: 'NY',
+        displayTeam: 'NYK',
+        opp: 'TOR',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: '@ TOR Tue 6:30pm',
+        statType: 'Points',
+        ppDisplayStat: 'Points',
+        lineType: 'standard',
+        ppLine: 20.5,
+        bookLine: 20.5,
+        projected: 19.8,
+        overOdds: -108,
+        underOdds: -118,
+        l10: [22, 19, 24, 18, 21, 20, 25, 19, 23, 21],
+        sourceBadge: 'PrizePicks Board #1 (🔥 6.2K)',
+        schemeTag: '🛡️ PrizePicks Board #1 (🔥 6.2K) • 20.5 Points vs TOR (Statz Projects 19.8 PTS)',
+        note: 'PrizePicks Live Board #1 (🔥 6.2K): 20.5 Points (@ TOR Tue 6:30pm). Statz AI model projects 19.8 points in low-total (216.5) half-court matchup.'
+      },
+      {
+        id: 'pp_board_2_brunson_pts_goblin',
+        popRank: 2,
+        popCount: '4.8K',
+        name: 'Jalen Brunson',
+        pos: 'G',
+        team: 'NY',
+        displayTeam: 'NYK',
+        opp: 'TOR',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: '@ TOR Tue 6:30pm',
+        statType: 'Points',
+        ppDisplayStat: 'Points',
+        lineType: 'goblin',
+        hasAltSwap: true,
+        stdSwapLine: 24.5,
+        goblinSwapLine: 19.5,
+        ppLine: 19.5,
+        bookLine: 24.5,
+        projected: 25.4,
+        overOdds: -420,
+        underOdds: +310,
+        l10: [24, 28, 22, 26, 25, 31, 28, 30, 29, 29],
+        sourceBadge: 'PrizePicks Board #2 (🔥 4.8K • 🟢 Goblin)',
+        schemeTag: '🌿 PrizePicks Board #2 (🔥 4.8K • 🟢 Goblin) • 19.5 PTS (⇄ 24.5 Std • 10/10 L10 Hit Rate)',
+        note: 'PrizePicks Live Board #2 (🔥 4.8K • 🟢 Green Goblin): 19.5 Points (More Only; Standard line 24.5). Averaging 26.6 PPG season and 29.4 PPG over L5 (10/10 L10 >= 20 PTS).'
+      },
+      {
+        id: 'pp_board_3_barnes_pts',
+        popRank: 3,
+        popCount: '4.3K',
+        name: 'Scottie Barnes',
+        pos: 'F-G',
+        team: 'TOR',
+        displayTeam: 'TOR',
+        opp: 'NY',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: 'vs NYK Tue 6:30pm',
+        statType: 'Points',
+        ppDisplayStat: 'Points',
+        lineType: 'standard',
+        ppLine: 21.5,
+        bookLine: 20.5,
+        projected: 18.8,
+        overOdds: +106,
+        underOdds: -132,
+        l10: [22, 18, 24, 19, 21, 17, 41, 18, 20, 19],
+        sourceBadge: 'PrizePicks Board #3 (🔥 4.3K)',
+        schemeTag: '🛡️ PrizePicks Board #3 (🔥 4.3K) • 21.5 Points vs NYK (Statz Projects 18.0-18.8 PTS)',
+        note: 'PrizePicks Live Board #3 (🔥 4.3K): 21.5 Points (vs NYK Tue 6:30pm). Statz AI projects 18.0 points against New York elite wing defense (OG Anunoby / Mikal Bridges).'
+      },
+      {
+        id: 'pp_board_4_brunson_3pm_demon',
+        popRank: 4,
+        popCount: '3.9K',
+        name: 'Jalen Brunson',
+        pos: 'G',
+        team: 'NY',
+        displayTeam: 'NYK',
+        opp: 'TOR',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: '@ TOR Tue 6:30pm',
+        statType: '3-PT Made',
+        ppDisplayStat: '3PTM',
+        lineType: 'demon',
+        hasAltSwap: true,
+        stdSwapLine: 1.5,
+        demonSwapLine: 2.5,
+        ppLine: 2.5,
+        bookLine: 2.5,
+        projected: 3.1,
+        overOdds: -135,
+        underOdds: +106,
+        l10: [3, 2, 3, 4, 2, 3, 3, 4, 2, 4],
+        sourceBadge: 'PrizePicks Board #4 (🔥 3.9K • 😈 Demon)',
+        schemeTag: '🌿 PrizePicks Board #4 (🔥 3.9K • 😈 Demon) • 2.5 3PTM (Avg 2.8 Season / 3.6 Road 3PM)',
+        note: 'PrizePicks Live Board #4 (🔥 3.9K • 😈 Red Demon): 2.5 3PTM (More Only). Averaging 2.8 3PM season, 3.2 L5, and 3.6 3PM on the road (cleared 2.5 in 7 of L10, hit 4 at IND).'
+      },
+      {
+        id: 'pp_board_5_kat_3pm',
+        popRank: 5,
+        popCount: '3.2K',
+        name: 'Karl-Anthony Towns',
+        pos: 'C-F',
+        team: 'NY',
+        displayTeam: 'NYK',
+        opp: 'TOR',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: '@ TOR Tue 6:30pm',
+        statType: '3-PT Made',
+        ppDisplayStat: '3PTM',
+        lineType: 'standard',
+        ppLine: 1.5,
+        bookLine: 1.5,
+        projected: 2.1,
+        overOdds: -132,
+        underOdds: +104,
+        l10: [2, 1, 3, 2, 1, 2, 2, 1, 3, 3],
+        sourceBadge: 'PrizePicks Board #5 (🔥 3.2K)',
+        schemeTag: '🌿 PrizePicks Board #5 (🔥 3.2K) • 1.5 3PTM (Cleared in 7 of L10 & 5 of L5 • 2.6 Road Avg)',
+        note: 'PrizePicks Live Board #5 (🔥 3.2K): 1.5 3PTM (@ TOR Tue 6:30pm). Averaging 2.0 3PM season, 2.2 over L5, and 2.6 on the road; cleared 1.5 in 7 of L10, 5 of L5, and 9 of 12 games.'
+      },
+      {
+        id: 'pp_board_6_cade_pts',
+        popRank: 6,
+        popCount: '3.2K',
+        name: 'Cade Cunningham',
+        pos: 'G',
+        team: 'DET',
+        displayTeam: 'DET',
+        opp: 'SA',
+        matchup: 'DET @ SA',
+        ppTimeLabel: '@ SAS Tue 7:00pm',
+        statType: 'Points',
+        ppDisplayStat: 'Points',
+        lineType: 'standard',
+        ppLine: 24.5,
+        bookLine: 23.5,
+        projected: 22.8,
+        overOdds: +104,
+        underOdds: -128,
+        l10: [22, 20, 26, 21, 25, 27, 29, 26, 30, 26],
+        sourceBadge: 'PrizePicks Board #6 (🔥 3.2K)',
+        schemeTag: '🛡️ PrizePicks Board #6 (🔥 3.2K) • 24.5 Points at SAS (Statz Projects 21.7-22.8 PTS vs Wemby)',
+        note: 'PrizePicks Live Board #6 (🔥 3.2K): 24.5 Points (@ SAS Tue 7:00pm). Averaging 25.0 PPG season, but Statz AI model projects 21.7 points against San Antonio rim protection.'
+      },
+      {
+        id: 'pp_board_7_luka_pts',
+        popRank: 7,
+        popCount: '3.1K',
+        name: 'Luka Dončić',
+        pos: 'F-G',
+        team: 'LAL',
+        displayTeam: 'LAL',
+        opp: 'CHA',
+        matchup: 'CHA @ LAL',
+        ppTimeLabel: 'vs CHA Tue 10:00pm',
+        statType: 'Points',
+        ppDisplayStat: 'Points',
+        lineType: 'standard',
+        hasAltSwap: true,
+        stdSwapLine: 35.5,
+        goblinSwapLine: 29.5,
+        ppLine: 35.5,
+        bookLine: 35.5,
+        projected: 37.4,
+        overOdds: -122,
+        underOdds: -104,
+        l10: [36, 41, 33, 42, 38, 39, 34, 44, 37, 39],
+        sourceBadge: 'PrizePicks Board #7 (🔥 3.1K)',
+        schemeTag: '🌿 PrizePicks Board #7 (🔥 3.1K) • ⇄ 35.5 Points vs CHA (38.6 PPG Season • 7/10 L10 Over)',
+        note: 'PrizePicks Live Board #7 (🔥 3.1K): ⇄ 35.5 Points (vs CHA Tue 10:00pm). Averaging 38.6 PPG season and 39.8 PPG over L5 (cleared 35.5 in 7 of L10) with Austin Reaves OUT.'
+      },
+      {
+        id: 'pp_board_8_poeltl_pra',
+        popRank: 8,
+        popCount: '2.6K',
+        name: 'Jakob Poeltl',
+        pos: 'C',
+        team: 'TOR',
+        displayTeam: 'TOR',
+        opp: 'NY',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: 'vs NYK Tue 6:30pm',
+        statType: 'Pts+Rebs+Asts',
+        ppDisplayStat: 'PRA',
+        lineType: 'standard',
+        ppLine: 14.5,
+        bookLine: 14.5,
+        projected: 15.8,
+        overOdds: -120,
+        underOdds: -106,
+        l10: [15, 13, 16, 14, 17, 12, 19, 15, 14, 16],
+        sourceBadge: 'PrizePicks Board #8 (🔥 2.6K)',
+        schemeTag: '🌿 PrizePicks Board #8 (🔥 2.6K) • 14.5 PRA vs NYK (6.3 Home RPG + Paint Touches w/ Bittle Out)',
+        note: 'PrizePicks Live Board #8 (🔥 2.6K): 14.5 PRA (vs NYK Tue 6:30pm). Averages 6.3 RPG at home (had 11 REB in 23 min vs ORL) with expanded center minutes as Nate Bittle is OUT.'
+      },
+      {
+        id: 'pp_board_9_kat_reb',
+        popRank: 9,
+        popCount: '2.4K',
+        name: 'Karl-Anthony Towns',
+        pos: 'C-F',
+        team: 'NY',
+        displayTeam: 'NYK',
+        opp: 'TOR',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: '@ TOR Tue 6:30pm',
+        statType: 'Rebounds',
+        ppDisplayStat: 'Rebounds',
+        lineType: 'standard',
+        ppLine: 12.5,
+        bookLine: 12.5,
+        projected: 13.4,
+        overOdds: -122,
+        underOdds: -104,
+        l10: [13, 15, 11, 14, 13, 12, 15, 13, 14, 15],
+        sourceBadge: 'PrizePicks Board #9 (🔥 2.4K)',
+        schemeTag: '🌿 PrizePicks Board #9 (🔥 2.4K) • 12.5 Rebounds (13.7 Season RPG • 14.2 L10 RPG • 7/10 L10 Over)',
+        note: 'PrizePicks Live Board #9 (🔥 2.4K): 12.5 Rebounds (@ TOR Tue 6:30pm). Averaging 13.7 RPG season and 14.2 L10 RPG (15 REB at IND on Nov 13); cleared 12.5 in 7 of L10 and 9 of 12.'
+      },
+      {
+        id: 'pp_board_10_ausar_pra',
+        popRank: 10,
+        popCount: '2.3K',
+        name: 'Ausar Thompson',
+        pos: 'G-F',
+        team: 'DET',
+        displayTeam: 'DET',
+        opp: 'SA',
+        matchup: 'DET @ SA',
+        ppTimeLabel: '@ SAS Tue 7:00pm',
+        statType: 'Pts+Rebs+Asts',
+        ppDisplayStat: 'PRA',
+        lineType: 'standard',
+        ppLine: 21.5,
+        bookLine: 22.5,
+        projected: 24.2,
+        overOdds: -125,
+        underOdds: -102,
+        l10: [22, 24, 19, 25, 21, 27, 24, 28, 29, 23],
+        sourceBadge: 'PrizePicks Board #10 (🔥 2.3K)',
+        schemeTag: '🌿 PrizePicks Board #10 (🔥 2.3K) • 21.5 PRA (23.8 Season PRA • 26.2 L5 PRA w/ Duren Out)',
+        note: 'PrizePicks Live Board #10 (🔥 2.3K): 21.5 PRA (@ SAS Tue 7:00pm). Averaging 23.8 PRA season and 26.2 PRA over L5 (23 PRA at MIA); cleared 21.5 in 7 of 11 games.'
+      },
+      {
+        id: 'pp_board_11_barnes_pra',
+        popRank: 11,
+        popCount: '2.3K',
+        name: 'Scottie Barnes',
+        pos: 'F-G',
+        team: 'TOR',
+        displayTeam: 'TOR',
+        opp: 'NY',
+        matchup: 'NY @ TOR',
+        ppTimeLabel: 'vs NYK Tue 6:30pm',
+        statType: 'Pts+Rebs+Asts',
+        ppDisplayStat: 'PRA',
+        lineType: 'standard',
+        ppLine: 30.5,
+        bookLine: 29.5,
+        projected: 29.2,
+        overOdds: +104,
+        underOdds: -128,
+        l10: [31, 28, 34, 29, 30, 27, 49, 28, 31, 29],
+        sourceBadge: 'PrizePicks Board #11 (🔥 2.3K)',
+        schemeTag: '🛡️ PrizePicks Board #11 (🔥 2.3K) • 30.5 PRA vs NYK (Statz Projects 29.8 PRA)',
+        note: 'PrizePicks Live Board #11 (🔥 2.3K): 30.5 PRA (vs NYK Tue 6:30pm). Statz AI projects 18.0 PTS + 6.7 REB + 5.1 AST = 29.8 PRA against slow-paced New York.'
+      },
+      {
+        id: 'pp_board_12_wemby_pts',
+        popRank: 12,
+        popCount: '2.2K',
+        name: 'Victor Wembanyama',
+        pos: 'F-C',
+        team: 'SA',
+        displayTeam: 'SAS',
+        opp: 'DET',
+        matchup: 'DET @ SA',
+        ppTimeLabel: 'vs DET Tue 7:00pm',
+        statType: 'Points',
+        ppDisplayStat: 'Points',
+        lineType: 'standard',
+        ppLine: 30.5,
+        bookLine: 29.5,
+        projected: 28.4,
+        overOdds: +102,
+        underOdds: -126,
+        l10: [24, 28, 22, 31, 25, 35, 33, 39, 34, 32],
+        sourceBadge: 'PrizePicks Board #12 (🔥 2.2K)',
+        schemeTag: '🛡️ PrizePicks Board #12 (🔥 2.2K) • 30.5 Points vs DET (28.8 Home PPG • Statz Projects 23.9-28.4 PTS)',
+        note: 'PrizePicks Live Board #12 (🔥 2.2K): 30.5 Points (vs DET Tue 7:00pm). Averaging 30.3 PPG season (28.8 PPG at home), while Statz AI model projects 23.9-28.4 points.'
+      }
+    ];
+
+    // 3C. VERIFIED MARKET LINE & PROJECTION OVERRIDES (Exact published PrizePicks / FanDuel / BetMGM / Statz lines)
     const VERIFIED_PLAYER_LINES_OVERRIDE = {
-      // --- NOV 16 & 17 EXACT PUBLISHED LINES (Statz AI / PrizePicks / FanDuel / BetMGM / FTN / RotoBaller) ---
+      // --- NOV 17 PRIZEPICKS SCREENSHOT & STATZ AI EXACT LINES ---
+      'karl-anthony towns::points': { ppLine: 20.5, bookLine: 20.5, projected: 19.8, overOdds: -108, underOdds: -118, popRank: 1, popCount: '6.2K', ppTimeLabel: '@ TOR Tue 6:30pm', l10: [22, 19, 24, 18, 21, 20, 25, 19, 23, 21], badge: 'PrizePicks Board #1 (🔥 6.2K • 20.5 PTS)', note: 'PrizePicks Live Board #1 (🔥 6.2K): 20.5 Points (@ TOR Tue 6:30pm). Statz AI model projects 19.8 points in low-total (216.5) half-court matchup.' },
+      'karl-anthony towns::3-pt made': { ppLine: 1.5, bookLine: 1.5, projected: 2.1, overOdds: -132, underOdds: +104, popRank: 5, popCount: '3.2K', ppTimeLabel: '@ TOR Tue 6:30pm', l10: [2, 1, 3, 2, 1, 2, 2, 1, 3, 3], badge: 'PrizePicks Board #5 (🔥 3.2K • 1.5 3PTM)', note: 'PrizePicks Live Board #5 (🔥 3.2K): 1.5 3PTM (@ TOR Tue 6:30pm). Averaging 2.0 3PM season, 2.2 over L5, and 2.6 on the road; cleared 1.5 in 7 of L10 and 5 of L5.' },
+      'karl-anthony towns::rebounds': { ppLine: 12.5, bookLine: 12.5, projected: 13.4, overOdds: -122, underOdds: -104, popRank: 9, popCount: '2.4K', ppTimeLabel: '@ TOR Tue 6:30pm', l10: [13, 15, 11, 14, 13, 12, 15, 13, 14, 15], badge: 'PrizePicks Board #9 (🔥 2.4K • 12.5 REB)', note: 'PrizePicks Live Board #9 (🔥 2.4K): 12.5 Rebounds (@ TOR Tue 6:30pm). Averaging 13.7 RPG season and 14.2 L10 RPG (cleared 12.5 in 7 of L10 and 9 of 12).' },
+      'karl-anthony towns::pts+rebs+asts': { ppLine: 36.5, bookLine: 37.5, projected: 38.8, overOdds: -120, underOdds: -104, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [37, 40, 35, 39, 41, 38, 42, 36, 39, 43], badge: 'Statz AI + FanDuel Verified (NYK • 36.5 PRA)', note: 'Statz AI Verified Line: 36.5 PRA at Toronto (posted by 5 books; averages 38.4 PRA season / 39.6 L5 and cleared 36.5 in 8 of L10).' },
+
+      'jalen brunson::points': { ppLine: 24.5, bookLine: 25.5, projected: 23.0, overOdds: +104, underOdds: -128, hasAltSwap: true, stdSwapLine: 24.5, goblinSwapLine: 19.5, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [24, 28, 22, 26, 25, 31, 28, 30, 29, 29], badge: 'PrizePicks Std (24.5 PTS • ⇄ 19.5 Goblin 🔥 4.8K)', note: 'Standard Line: 24.5 Points (PrizePicks Green Goblin is 19.5 PTS 🔥 4.8K). Statz AI model projects 23.0 points at Toronto.' },
+      'jalen brunson::3-pt made': { ppLine: 1.5, bookLine: 2.5, projected: 3.1, overOdds: -245, underOdds: +185, hasAltSwap: true, stdSwapLine: 1.5, demonSwapLine: 2.5, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [3, 2, 3, 4, 2, 3, 3, 4, 2, 4], badge: 'PrizePicks Std (1.5 3PTM • ⇄ 2.5 Demon 🔥 3.9K)', note: 'Standard 1.5 3PTM / Red Demon 2.5 3PTM (🔥 3.9K). Averaging 2.8 3PM season, 3.2 L5, and 3.6 3PM on the road (cleared 2.5 in 7 of L10).' },
+      'jalen brunson::pts+rebs+asts': { ppLine: 33.5, bookLine: 34.5, projected: 35.1, overOdds: -118, underOdds: -108, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [31, 35, 34, 30, 36, 35, 34, 37, 35, 27], badge: 'Statz AI Verified (NYK • 33.5 PRA)', note: 'Statz AI Verified Line: 33.5 PRA (cleared in 6 of L10; averages 35.2 PRA season and 35.3 PRA on the road).' },
+      'jalen brunson::assists': { ppLine: 5.5, bookLine: 5.5, projected: 5.8, overOdds: -115, underOdds: -110, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [5, 6, 6, 5, 7, 6, 5, 7, 6, 6], badge: 'Statz AI Verified (NYK • 5.5 AST)', note: 'Averaging 5.7 APG season and 6.2 APG over his last 5 games (Statz projects 5.8 AST at Toronto).' },
+
+      'scottie barnes::points': { ppLine: 21.5, bookLine: 20.5, projected: 18.8, overOdds: +106, underOdds: -132, popRank: 3, popCount: '4.3K', ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [22, 18, 24, 19, 21, 17, 41, 18, 20, 19], badge: 'PrizePicks Board #3 (🔥 4.3K • 21.5 PTS)', note: 'PrizePicks Live Board #3 (🔥 4.3K): 21.5 Points (vs NYK Tue 6:30pm). Statz AI model projects 18.0 points against New York wing defense.' },
+      'scottie barnes::pts+rebs+asts': { ppLine: 30.5, bookLine: 29.5, projected: 29.2, overOdds: +104, underOdds: -128, popRank: 11, popCount: '2.3K', ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [31, 28, 34, 29, 30, 27, 49, 28, 31, 29], badge: 'PrizePicks Board #11 (🔥 2.3K • 30.5 PRA)', note: 'PrizePicks Live Board #11 (🔥 2.3K): 30.5 PRA (vs NYK Tue 6:30pm). Statz AI projects 18.0 PTS + 6.7 REB + 5.1 AST = 29.8 PRA.' },
+      'scottie barnes::rebounds': { ppLine: 6.5, bookLine: 6.5, projected: 6.8, overOdds: -115, underOdds: -110, ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [7, 6, 8, 7, 6, 15, 5, 7, 6, 7], badge: 'Statz AI Verified (TOR • 6.5 REB)', note: 'Statz AI projects 6.7+ rebounds vs New York (had 15 REB at LAC).' },
+      'scottie barnes::assists': { ppLine: 5.5, bookLine: 5.5, projected: 5.1, overOdds: +105, underOdds: -128, ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [5, 6, 5, 4, 6, 8, 4, 5, 5, 5], badge: 'Statz AI Verified (TOR • 5.5 AST)', note: 'Statz AI projects 5.1 assists against New York slow pace.' },
+
+      'jakob poeltl::pts+rebs+asts': { ppLine: 14.5, bookLine: 14.5, projected: 15.8, overOdds: -120, underOdds: -106, popRank: 8, popCount: '2.6K', ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [15, 13, 16, 14, 17, 12, 19, 15, 14, 16], badge: 'PrizePicks Board #8 (🔥 2.6K • 14.5 PRA)', note: 'PrizePicks Live Board #8 (🔥 2.6K): 14.5 PRA (vs NYK Tue 6:30pm). Averages 6.3 RPG at home (11 REB vs ORL) with Nate Bittle OUT.' },
+      'jakob poeltl::rebounds': { ppLine: 5.5, bookLine: 5.5, projected: 6.1, overOdds: -120, underOdds: -106, ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [6, 5, 7, 5, 6, 4, 11, 6, 5, 7], badge: 'Statz AI Verified (TOR • 5.5 REB)', note: 'Statz AI Verified Line: 5.5 Rebounds (averages 5.8 RPG season and 6.3 RPG at home; grabbed 11 REB in 23 min vs ORL).' },
+
+      'og anunoby::points': { ppLine: 17.5, bookLine: 16.5, projected: 15.5, overOdds: +102, underOdds: -125, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [16, 18, 14, 19, 15, 18, 17, 14, 16, 18], badge: 'Statz AI Verified (NYK • 17.5 PTS)', note: 'Statz AI Verified Line: 17.5 Points at Toronto (averages 16.4 PPG season; Statz model projects 15.5 PTS).' },
+      'josh hart::points': { ppLine: 8.5, bookLine: 8.5, projected: 6.8, overOdds: +108, underOdds: -132, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [7, 9, 6, 10, 8, 7, 6, 8, 5, 7], badge: 'Statz AI Verified (NYK • 8.5 PTS)', note: 'Statz AI Verified Line: 8.5 Points (posted by 7 books; averages 7.3 PPG season / 4.8 PPG road, cleared 8.5 in 0 of L5).' },
+      'josh hart::rebounds': { ppLine: 7.5, bookLine: 7.5, projected: 7.1, overOdds: +104, underOdds: -128, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [7, 9, 6, 8, 7, 6, 8, 7, 6, 7], badge: 'Statz AI Verified (NYK • 7.5 REB)', note: 'Statz AI Verified Line: 7.5 Rebounds (averages 7.3 RPG season and cleared 7.5 in only 3 of L10).' },
+      'josh hart::assists': { ppLine: 4.5, bookLine: 3.5, projected: 3.8, overOdds: +112, underOdds: -138, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [4, 5, 3, 4, 3, 5, 4, 3, 4, 4], badge: 'Statz AI Verified (NYK • 4.5 AST)', note: 'Statz AI Verified Line: 4.5 Assists (averages 3.9 APG season and cleared 4.5 in only 2 of L10 and 1 of L5).' },
+      'josh hart::pts+rebs+asts': { ppLine: 18.5, bookLine: 18.5, projected: 17.2, overOdds: +105, underOdds: -130, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [18, 21, 16, 19, 17, 20, 16, 18, 15, 18], badge: 'Statz AI Verified (NYK • 18.5 PRA)', note: 'Statz AI Verified Line: 18.5 PRA (posted by 5 books; averages 17.8 PRA season / 16.3 road, cleared in 1 of L5).' },
+      'mikal bridges::points': { ppLine: 8.5, bookLine: 8.5, projected: 7.4, overOdds: +110, underOdds: -127, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [6, 9, 5, 7, 8, 6, 9, 7, 4, 18], badge: 'Statz AI + Caesars Verified (NYK • 8.5 PTS)', note: 'Statz AI Verified Line: 8.5 Points at Toronto (posted by 7 books, Caesars Under -127; averages 6.9 PPG in 12 games).' },
+      'mikal bridges::rebounds': { ppLine: 3.5, bookLine: 3.5, projected: 2.6, overOdds: +130, underOdds: -165, ppTimeLabel: '@ TOR Tue 6:30pm', l10: [3, 2, 4, 2, 3, 2, 4, 3, 2, 2], badge: 'Statz AI Verified (NYK • 3.5 REB)', note: 'Statz AI Verified Line: 3.5 Rebounds (averages 2.7 RPG season and 2.0 RPG on the road; cleared 3.5 in only 2 of L10).' },
+      'immanuel quickley::rebounds': { ppLine: 3.5, bookLine: 3.5, projected: 4.1, overOdds: -122, underOdds: -104, ppTimeLabel: 'vs NYK Tue 6:30pm', l10: [4, 3, 5, 4, 3, 5, 4, 4, 3, 5], badge: 'Statz AI Verified (TOR • 3.5 REB)', note: 'Statz AI Verified Line: 3.5 Rebounds vs New York (averages 3.9 RPG season and 4.3 RPG at home; cleared in 3 of L5).' },
+
+      'cade cunningham::points': { ppLine: 24.5, bookLine: 23.5, projected: 22.8, overOdds: +104, underOdds: -128, popRank: 6, popCount: '3.2K', ppTimeLabel: '@ SAS Tue 7:00pm', l10: [22, 20, 26, 21, 25, 27, 29, 26, 30, 26], badge: 'PrizePicks Board #6 (🔥 3.2K • 24.5 PTS)', note: 'PrizePicks Live Board #6 (🔥 3.2K): 24.5 Points (@ SAS Tue 7:00pm). Averaging 25.0 PPG season; Statz AI projects 21.7 points at San Antonio.' },
+      'cade cunningham::rebounds': { ppLine: 5.5, bookLine: 5.5, projected: 5.0, overOdds: +105, underOdds: -130, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [5, 6, 4, 5, 5, 4, 6, 5, 4, 5], badge: 'Statz AI + BetRivers Verified (DET • 5.5 REB)', note: 'Statz AI Verified Line: 5.5 Rebounds (BetRivers Under -130; averages 5.2 RPG season / 4.8 L5 and cleared 5.5 in only 3 of L10).' },
+      'cade cunningham::assists': { ppLine: 7.5, bookLine: 7.5, projected: 8.2, overOdds: -120, underOdds: -106, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [8, 7, 9, 8, 7, 8, 9, 8, 9, 8], badge: 'Statz AI Verified (DET • 7.5 AST)', note: 'Statz AI Game Log: Averaging 7.9 APG season and 8.8 APG over his last 5 games as Detroit primary creator.' },
+      'cade cunningham::3-pt made': { ppLine: 2.5, bookLine: 2.5, projected: 2.1, overOdds: +106, underOdds: -130, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [2, 1, 3, 2, 3, 1, 2, 1, 3, 3], badge: 'Statz AI Verified (DET • 2.5 3PTM)', note: 'Statz AI Verified Line: 2.5 Threes (averages 2.1 3PM season and 1.6 over L5; cleared 2.5 in 5 of L10).' },
+      'cade cunningham::pts+rebs+asts': { ppLine: 37.5, bookLine: 36.5, projected: 36.0, overOdds: +104, underOdds: -126, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [35, 33, 39, 34, 37, 39, 44, 39, 43, 39], badge: 'Statz AI Verified (DET • 37.5 PRA)', note: 'Averaging 38.1 PRA season, facing Victor Wembanyama interior defense at San Antonio (Statz projects 34.8-36.0 PRA).' },
+
+      'ausar thompson::pts+rebs+asts': { ppLine: 21.5, bookLine: 22.5, projected: 24.2, overOdds: -125, underOdds: -102, popRank: 10, popCount: '2.3K', ppTimeLabel: '@ SAS Tue 7:00pm', l10: [22, 24, 19, 25, 21, 27, 24, 28, 29, 23], badge: 'PrizePicks Board #10 (🔥 2.3K • 21.5 PRA)', note: 'PrizePicks Live Board #10 (🔥 2.3K): 21.5 PRA (@ SAS Tue 7:00pm). Averaging 23.8 PRA season and 26.2 L5 PRA w/ Duren out (cleared in 7 of 11).' },
+      'ausar thompson::rebounds': { ppLine: 7.5, bookLine: 8.5, projected: 8.9, overOdds: -128, underOdds: +100, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [8, 9, 7, 8, 6, 11, 10, 12, 11, 8], badge: 'Statz AI Verified (DET • 7.5 REB)', note: 'Statz AI Verified Line: 7.5 Rebounds (averages 8.6 RPG season and 10.4 RPG over L5 w/ Duren out; cleared 7.5 in 8 of 11 games).' },
+      'ausar thompson::assists': { ppLine: 4.5, bookLine: 4.5, projected: 5.2, overOdds: -122, underOdds: -104, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [5, 4, 6, 5, 4, 6, 5, 5, 6, 5], badge: 'Statz AI Verified (DET • 4.5 AST)', note: 'Statz AI Verified Line: 4.5 Assists (averages 5.1 APG season and 5.5 APG on the road; cleared 4.5 in 6 of 11 games).' },
+      'ausar thompson::points': { ppLine: 10.5, bookLine: 10.5, projected: 10.4, overOdds: -110, underOdds: -115, ppTimeLabel: '@ SAS Tue 7:00pm', l10: [9, 11, 8, 12, 10, 11, 9, 11, 12, 10], badge: 'Statz AI Verified (DET • 10.5 PTS)', note: 'Averaging 10.1 PPG season and 10.6 PPG over L5 in 27.7 minutes.' },
+
+      'victor wembanyama::points': { ppLine: 30.5, bookLine: 29.5, projected: 28.4, overOdds: +102, underOdds: -126, popRank: 12, popCount: '2.2K', ppTimeLabel: 'vs DET Tue 7:00pm', l10: [24, 28, 22, 31, 25, 35, 33, 39, 34, 32], badge: 'PrizePicks Board #12 (🔥 2.2K • 30.5 PTS)', note: 'PrizePicks Live Board #12 (🔥 2.2K): 30.5 Points (vs DET Tue 7:00pm). Averaging 30.3 PPG season / 28.8 PPG at home; Statz projects 23.9-28.4 PTS.' },
+      'victor wembanyama::rebounds': { ppLine: 10.5, bookLine: 10.5, projected: 11.2, overOdds: -122, underOdds: -104, ppTimeLabel: 'vs DET Tue 7:00pm', l10: [11, 12, 10, 11, 9, 13, 11, 10, 12, 11], badge: 'Statz AI Verified (SAS • 10.5 REB)', note: 'Statz AI projects 10.6-11.2 rebounds against a Detroit frontcourt missing starting center Jalen Duren.' },
+      'victor wembanyama::3-pt made': { ppLine: 1.5, bookLine: 1.5, projected: 1.9, overOdds: -118, underOdds: -108, ppTimeLabel: 'vs DET Tue 7:00pm', l10: [2, 1, 2, 3, 1, 2, 3, 2, 2, 1], badge: 'Statz AI + BetRivers Verified (SAS • 1.5 3PTM)', note: 'Statz AI Verified Line: 1.5 Threes (posted by 12 books; averages 1.8 3PM season / 2.2 L5 and cleared 1.5 in 8 of 13 games).' },
+      'victor wembanyama::pts+rebs+asts': { ppLine: 43.5, bookLine: 42.5, projected: 42.4, overOdds: -104, underOdds: -122, ppTimeLabel: 'vs DET Tue 7:00pm', l10: [38, 43, 35, 45, 37, 51, 47, 52, 49, 46], badge: 'Statz AI Verified (SAS • 43.5 PRA)', note: 'Averaging 43.6 PRA on the season (41.8 PRA at home).' },
+
+      'luka doncic::points': { ppLine: 35.5, bookLine: 35.5, projected: 37.4, overOdds: -122, underOdds: -104, popRank: 7, popCount: '3.1K', hasAltSwap: true, stdSwapLine: 35.5, goblinSwapLine: 29.5, ppTimeLabel: 'vs CHA Tue 10:00pm', l10: [36, 41, 33, 42, 38, 39, 34, 44, 37, 39], badge: 'PrizePicks Board #7 (🔥 3.1K • ⇄ 35.5 PTS)', note: 'PrizePicks Live Board #7 (🔥 3.1K): ⇄ 35.5 Points (vs CHA Tue 10:00pm). Averaging 38.6 PPG season / 39.8 L5 (cleared 35.5 in 7 of L10) w/ Austin Reaves OUT.' },
+      'luka doncic::rebounds': { ppLine: 7.5, bookLine: 6.5, projected: 6.4, overOdds: +110, underOdds: -135, ppTimeLabel: 'vs CHA Tue 10:00pm', l10: [8, 9, 7, 8, 8, 7, 6, 8, 7, 5], badge: 'Statz AI Verified (LAL • 7.5 REB)', note: 'Statz AI Verified Line: 7.5 Rebounds (cleared in only 4 of L10 and 2 of L5; Statz projects 6.1 REB alongside Walker Kessler).' },
+      'luka doncic::assists': { ppLine: 7.5, bookLine: 7.5, projected: 7.0, overOdds: +108, underOdds: -136, ppTimeLabel: 'vs CHA Tue 10:00pm', l10: [8, 7, 9, 6, 7, 9, 8, 7, 8, 5], badge: 'Statz AI Verified (LAL • 7.5 AST)', note: 'Statz AI Verified Line: 7.5 Assists (cleared in only 4 of L10 and 2 of L5; Statz projects 7.0 AST vs Charlotte).' },
+      'luka doncic::3-pt made': { ppLine: 3.5, bookLine: 3.5, projected: 4.0, overOdds: -122, underOdds: -104, ppTimeLabel: 'vs CHA Tue 10:00pm', l10: [4, 5, 3, 4, 4, 5, 3, 4, 4, 4], badge: 'Statz AI Verified (LAL • 3.5 3PTM)', note: 'Statz AI projects 4.0 made threes against Charlotte perimeter defense.' },
+      'luka doncic::pts+rebs+asts': { ppLine: 50.5, bookLine: 49.5, projected: 50.8, overOdds: -115, underOdds: -110, ppTimeLabel: 'vs CHA Tue 10:00pm', l10: [51, 55, 48, 53, 52, 51, 47, 54, 49, 48], badge: 'Statz AI Verified (LAL • 50.5 PRA)', note: 'Averaging 53.7 PRA season with Austin Reaves sidelined.' },
+
+      'grayson allen::points': { ppLine: 13.5, bookLine: 13.5, projected: 14.5, overOdds: -120, underOdds: -106, ppTimeLabel: '@ LAL Tue 10:00pm', l10: [14, 16, 12, 15, 14, 17, 13, 15, 14, 16], badge: 'Statz AI Verified (CHA • 13.5 PTS)', note: 'Statz AI Verified Line: 13.5 Points (posted by 9 books; averages 15.2 PPG season / 15.0 L10 and cleared 13.5 in 6 of L10).' },
+      'grayson allen::3-pt made': { ppLine: 2.5, bookLine: 2.5, projected: 3.1, overOdds: -125, underOdds: -102, ppTimeLabel: '@ LAL Tue 10:00pm', l10: [3, 4, 2, 3, 4, 3, 2, 5, 3, 4], badge: 'Statz AI Verified (CHA • 2.5 3PTM)', note: 'Statz AI Verified Line: 2.5 Threes (averages 3.6 3PM season and 3.3 on road; cleared 2.5 in 6 of L10, hit 5 at BKN).' },
+
+      'ayo dosunmu::points': { ppLine: 18.5, bookLine: 18.5, projected: 19.6, overOdds: -122, underOdds: -104, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [17, 21, 16, 22, 19, 23, 20, 25, 23, 24], badge: 'Statz AI Verified (MIN • 18.5 PTS)', note: 'Statz AI Verified Line: 18.5 Points (averages 18.5 PPG season, 20.2 L10, 23.0 L5; cleared posted book line in 10 of 13 games).' },
+      'deni avdija::pts+rebs+asts': { ppLine: 36.5, bookLine: 36.5, projected: 37.2, overOdds: -120, underOdds: -110, ppTimeLabel: '@ MIN Tue 7:00pm', l10: [35, 38, 34, 37, 39, 36, 38, 33, 37, 40], badge: 'Statz AI + FanDuel Verified (POR • 36.5 PRA)', note: 'Statz AI Verified Line: 36.5 PRA (FanDuel -120 Over; averages 36.3 PRA season / 36.8 L5 w/ Ja Morant out, cleared in 6 of L10).' },
+      'deni avdija::assists': { ppLine: 5.5, bookLine: 5.5, projected: 6.3, overOdds: -118, underOdds: -108, ppTimeLabel: '@ MIN Tue 7:00pm', l10: [6, 7, 5, 6, 8, 6, 4, 7, 6, 6], badge: 'FanDuel Featured Verified (POR • 5.5 AST)', note: 'FanDuel Featured Bet (Over 5.5 Assists -118): Averaging 6.5 APG over his last 5 games with Ja Morant out.' },
+      'damian lillard::rebounds': { ppLine: 3.5, bookLine: 3.5, projected: 2.5, overOdds: +125, underOdds: -175, ppTimeLabel: '@ MIN Tue 7:00pm', l10: [4, 3, 5, 3, 4, 2, 1, 2, 1, 2], badge: 'Statz AI Verified (POR • 3.5 REB • -175 U)', note: 'Statz AI Verified Line: 3.5 Rebounds at Minnesota (Under heavily favored at 1.57 / -175; averages 1.6 RPG over L5 and cleared 3.5 in 0 of L5).' },
+      'jaden mcdaniels::points': { ppLine: 17.5, bookLine: 17.5, projected: 17.8, overOdds: -110, underOdds: -115, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [16, 19, 15, 18, 17, 19, 16, 18, 17, 18], badge: 'Statz AI + Fanatics Verified (MIN • 17.5 PTS)', note: 'Statz AI Verified Line: 17.5 Points vs Portland (averages 17.0 PPG season / 17.5 L10; cleared posted book line in 8 of 13 games).' },
+      'jaden mcdaniels::pts+rebs+asts': { ppLine: 25.5, bookLine: 26.5, projected: 27.6, overOdds: -115, underOdds: -110, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [24, 28, 25, 29, 27, 30, 26, 28, 27, 29], badge: 'Statz AI Verified (MIN • 25.5 PRA)', note: 'Statz AI Verified Line: 25.5 PRA vs Portland (averages 27.1 PRA season, 27.9 L10, 28.4 L5; cleared posted book line in 10 of 13 games!).' },
+      'rudy gobert::pts+rebs+asts': { ppLine: 23.5, bookLine: 21.5, projected: 19.8, overOdds: +115, underOdds: -145, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [24, 21, 19, 25, 18, 22, 24, 19, 18, 15], badge: 'Statz AI Verified (MIN • 23.5 PRA)', note: 'Statz AI Verified Line: 23.5 PRA vs Portland (averages 20.3 PRA season, 19.6 L5, and 18.9 at home; cleared 23.5 in only 3 of L10 and 1 of L5).' },
+      'lamelo ball::points': { ppLine: 21.5, bookLine: 20.5, projected: 20.2, overOdds: -108, underOdds: -118, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [18, 22, 16, 23, 19, 24, 20, 22, 21, 19], badge: 'Statz AI Verified (MIN • 21.5 PTS)', note: 'Statz AI Verified Line: 21.5 Points vs Portland (averages 18.6 PPG season / 19.4 L10; Statz projects 19.7 PTS).' },
+      'lamelo ball::rebounds': { ppLine: 4.5, bookLine: 4.5, projected: 3.6, overOdds: +125, underOdds: -175, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [3, 4, 2, 5, 3, 5, 3, 2, 4, 8], badge: 'Statz AI Verified (MIN • 4.5 REB • -175 U)', note: 'Statz AI Verified Line: 4.5 Rebounds vs Portland (Under priced at 1.57 / -175; averages 3.6 RPG across 13 games and cleared 4.5 in only 3 of L10).' },
+      'lamelo ball::assists': { ppLine: 6.5, bookLine: 6.5, projected: 6.0, overOdds: +125, underOdds: -161, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [6, 7, 5, 6, 5, 8, 7, 6, 6, 6], badge: 'Statz AI Verified (MIN • 6.5 AST • -161 U)', note: 'Statz AI Verified Line: 6.5 Assists vs Portland (Under priced at 1.62 / -161; averages 6.2 APG and cleared 6.5 in only 4 of L10).' },
+      'lamelo ball::3-pt made': { ppLine: 3.5, bookLine: 3.5, projected: 4.1, overOdds: -128, underOdds: +102, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [3, 4, 2, 4, 3, 5, 4, 3, 4, 4], badge: 'Statz AI Verified (MIN • 3.5 3PTM)', note: 'Statz AI Verified Line: 3.5 Threes vs Portland (averages 3.6 3PM season, 4.2 L5, and 4.6 3PM at home; cleared 3.5 in 8 of 13 games).' },
+      'jonathan kuminga::points': { ppLine: 13.5, bookLine: 13.5, projected: 11.8, overOdds: +105, underOdds: -130, ppTimeLabel: 'vs POR Tue 7:00pm', l10: [12, 14, 10, 15, 11, 14, 13, 14, 10, 11], badge: 'Statz AI Verified (MIN • 13.5 PTS)', note: 'Statz AI Verified Line: 13.5 Points vs Portland (averages 12.3 PPG season and 10.7 PPG at home; scored 11 PTS in 35 min vs CHI on Nov 14).' },
+
+      'darius garland::pts+rebs+asts': { ppLine: 33.5, bookLine: 30.5, projected: 29.8, overOdds: +115, underOdds: -145, ppTimeLabel: 'vs UTAH Tue 9:30pm', l10: [28, 31, 26, 34, 29, 30, 27, 29, 26, 28], badge: 'Statz AI Verified (LAC • 33.5 PRA)', note: 'Statz AI Verified Line: 33.5 PRA (averages 28.4 PRA across 7 games / 27.7 at home; cleared 33.5 in only 2 of L10 and 0 of L5).' },
+      'darius garland::points': { ppLine: 20.5, bookLine: 21.5, projected: 21.8, overOdds: -120, underOdds: -106, ppTimeLabel: 'vs UTAH Tue 9:30pm', l10: [21, 23, 19, 24, 20, 22, 18, 22, 21, 23], badge: 'Statz AI Verified (LAC • 20.5 PTS)', note: 'Statz AI projects 21.8 points with Bradley Beal and Brandon Ingram sidelined.' },
+      'rui hachimura::points': { ppLine: 15.5, bookLine: 14.5, projected: 12.8, overOdds: +108, underOdds: -134, ppTimeLabel: 'vs UTAH Tue 9:30pm', l10: [14, 16, 11, 15, 12, 13, 10, 14, 11, 12], badge: 'Statz AI Verified (LAC • 15.5 PTS)', note: 'Statz AI Verified Line: 15.5 Points (averages 12.6 PPG over L10; Statz model projects 12.8 PTS vs Utah).' },
+      'keyonte george::points': { ppLine: 21.5, bookLine: 21.5, projected: 20.6, overOdds: -106, underOdds: -118, ppTimeLabel: '@ LAC Tue 9:30pm', l10: [22, 19, 24, 20, 21, 18, 23, 20, 22, 21], badge: 'Statz AI Verified (UTAH • 21.5 PTS)', note: 'Statz AI Verified Line: 21.5 Points (averages 21.3 PPG season / 21.0 road; Statz projects 20.5 PTS at LAC).' },
+      'keyonte george::rebounds': { ppLine: 3.5, bookLine: 4.5, projected: 4.6, overOdds: -145, underOdds: +111, ppTimeLabel: '@ LAC Tue 9:30pm', l10: [4, 5, 3, 6, 4, 5, 4, 6, 3, 4], badge: 'Statz AI + Betway Verified (UTAH • 3.5 REB • -145 O)', note: 'Statz AI Verified Line: 3.5 Rebounds (posted by 9 books, Over heavily favored at 1.69 / -145; averages 4.5 RPG season / 5.0 L10 and cleared 3.5 in 7 of L10).' },
+      'keyonte george::3-pt made': { ppLine: 2.5, bookLine: 2.5, projected: 2.0, overOdds: +110, underOdds: -136, ppTimeLabel: '@ LAC Tue 9:30pm', l10: [2, 3, 1, 2, 3, 2, 1, 2, 3, 2], badge: 'Statz AI Verified (UTAH • 2.5 3PTM)', note: 'Statz AI Verified Line: 2.5 Threes (averages 2.1 3PM season and cleared 2.5 in only 3 of L10 and 1 of L5).' },
+      'keyonte george::pts+rebs+asts': { ppLine: 30.5, bookLine: 31.5, projected: 31.6, overOdds: -120, underOdds: -106, ppTimeLabel: '@ LAC Tue 9:30pm', l10: [31, 33, 28, 34, 32, 31, 29, 33, 31, 32], badge: 'Statz AI Verified (UTAH • 30.5 PRA)', note: 'Statz AI Verified Line: 30.5 PRA (averages 31.9 PRA across 12 games and cleared 30.5 in 7 of L10).' },
+      'darryn peterson::points': { ppLine: 14.5, bookLine: 15.5, projected: 16.9, overOdds: -125, underOdds: -102, ppTimeLabel: '@ LAC Tue 9:30pm', l10: [14, 16, 12, 18, 15, 17, 14, 19, 16, 21], badge: 'Statz AI Verified (UTAH • 14.5 PTS)', note: 'Statz AI Verified Line: 14.5 Points (scored 21 PTS at DAL; Statz projects 16.9 PTS w/ Lauri Markkanen & JJJ out).' },
+
+      // --- NOV 16 EXACT PUBLISHED LINES (Statz AI / PrizePicks / FanDuel / BetMGM / FTN / RotoBaller) ---
       'jeremiah fears::assists': { ppLine: 5.5, bookLine: 5.5, projected: 6.2, overOdds: -125, underOdds: -102, l10: [4, 7, 5, 8, 6, 7, 8, 6, 6, 7], badge: 'PrizePicks + Statz AI Verified (5.5 AST)', note: 'Averaging 5.2 APG season / 6.6 APG over his last 10 games (7 AST in 33 min vs DEN on Nov 14); cleared 5.5 in 6 of L10 and 10 of 14 vs posted book line.' },
       'jeremiah fears::rebounds': { ppLine: 4.5, bookLine: 4.5, projected: 4.9, overOdds: -114, underOdds: -114, l10: [5, 6, 4, 5, 6, 5, 4, 5, 6, 4], badge: 'Statz AI + FanDuel Verified (4.5 REB)', note: 'Averaging 4.5 RPG season / 5.0 L10 RPG (4.9 RPG at home); cleared 4.5 in 6 of L10 and 9 of 14 vs posted book lines.' },
       'jeremiah fears::pts+rebs+asts': { ppLine: 28.5, bookLine: 28.5, projected: 27.0, overOdds: -105, underOdds: -120, l10: [24, 31, 25, 33, 27, 30, 32, 26, 28, 24], badge: 'BetParx / FanDuel Verified (28.5 PRA)', note: 'Posted at 28.5 PRA across 4 books (FanDuel Under -120); averages 25.0 season PRA and had 24 PRA vs DEN on Nov 14.' },
@@ -1007,40 +1394,7 @@
       'alexandre sarr::rebounds': { ppLine: 6.5, bookLine: 6.5, projected: 7.4, overOdds: -125, underOdds: +100, l10: [7, 8, 6, 8, 7, 7, 9, 6, 7, 8], badge: 'RotoBaller / Novig Verified (6.5 REB)', note: 'RotoBaller Featured Pick (Over 6.5 Rebounds -125): Cleared 6.5 rebounds in 8 of his last 10 games.' },
       'lebron james::points': { ppLine: 14.5, bookLine: 14.5, projected: 15.0, overOdds: -115, underOdds: -110, l10: [16, 18, 20, 15, 14, 15, 16, 14, 12, 8], badge: 'Statz AI Game Log Verified (PHI • 14.5 PTS)', note: 'Statz AI Game Log: Averaging 14.8 PPG across 8 games for Philadelphia (projects 15.0 PTS vs Brooklyn).' },
       'lebron james::rebounds': { ppLine: 6.5, bookLine: 7.5, projected: 7.4, overOdds: -120, underOdds: -106, l10: [7, 8, 6, 9, 10, 7, 8, 7, 8, 6], badge: 'Statz AI Game Log Verified (PHI • 6.5 REB)', note: 'Statz AI Game Log: Averaging 7.4 RPG season and 7.6 RPG over his last 5 games for Philadelphia (10 REB at DET).' },
-      'lebron james::assists': { ppLine: 6.5, bookLine: 6.5, projected: 7.2, overOdds: -122, underOdds: -104, l10: [6, 8, 10, 5, 7, 8, 7, 8, 6, 8], badge: 'Statz AI Game Log Verified (PHI • 6.5 AST)', note: 'Statz AI Game Log: Averaging 6.9 APG season and 7.6 APG over his last 5 games for Philadelphia.' },
-      // --- NOV 17 SLATE EXACT VERIFIED LINES (NY @ TOR, POR @ MIN, DET @ SA, UTAH @ LAC, CHA @ LAL) ---
-      'jalen brunson::points': { ppLine: 24.5, bookLine: 25.5, projected: 26.2, overOdds: -118, underOdds: -108, l10: [24, 28, 22, 26, 25, 31, 28, 30, 29, 29], badge: 'Statz AI Verified (NY • 24.5 PTS)', note: 'Statz AI Game Log: Averaging 26.6 PPG season and 29.4 PPG over his last 5 games for New York.' },
-      'jalen brunson::pts+rebs+asts': { ppLine: 33.5, bookLine: 34.5, projected: 35.1, overOdds: -118, underOdds: -108, l10: [31, 35, 34, 30, 36, 35, 34, 37, 35, 27], badge: 'Statz AI Verified (NY • 33.5 PRA)', note: 'Statz AI Verified Line: 33.5 PRA (cleared in 6 of L10; averages 35.2 PRA season and 35.3 PRA on the road).' },
-      'jalen brunson::3-pt made': { ppLine: 2.5, bookLine: 2.5, projected: 3.1, overOdds: -135, underOdds: +106, l10: [3, 2, 3, 4, 2, 3, 3, 4, 2, 4], badge: 'Statz AI Verified (NY • 2.5 3PM)', note: 'Statz AI Verified Line: 2.5 Threes (averages 2.8 3PM season, 3.2 L5, and 3.6 3PM on the road; cleared 2.5 in 7 of L10).' },
-      'karl-anthony towns::pts+rebs+asts': { ppLine: 36.5, bookLine: 37.5, projected: 38.8, overOdds: -120, underOdds: -104, l10: [37, 40, 35, 39, 41, 38, 42, 36, 39, 43], badge: 'Statz AI + FanDuel Verified (NY • 36.5 PRA)', note: 'Statz AI Verified Line: 36.5 PRA at Toronto (posted by 5 books; averages 38.4 PRA season / 39.6 L5 and cleared 36.5 in 8 of L10).' },
-      'karl-anthony towns::rebounds': { ppLine: 12.5, bookLine: 12.5, projected: 13.1, overOdds: -122, underOdds: -104, l10: [13, 15, 11, 14, 13, 12, 15, 13, 14, 16], badge: 'Statz AI Verified (NY • 12.5 REB)', note: 'Statz AI projects 12.9+ rebounds at Toronto with Raptors center Nate Bittle ruled OUT.' },
-      'mikal bridges::points': { ppLine: 8.5, bookLine: 8.5, projected: 7.4, overOdds: +110, underOdds: -127, l10: [6, 9, 5, 7, 8, 6, 9, 7, 4, 18], badge: 'Statz AI + Caesars Verified (NY • 8.5 PTS)', note: 'Statz AI Verified Line: 8.5 Points at Toronto (posted by 7 books, Caesars Under -127; averages 6.9 PPG in 12 games and cleared 8.5 in 4 of L10).' },
-      'mikal bridges::rebounds': { ppLine: 3.5, bookLine: 3.5, projected: 2.6, overOdds: +130, underOdds: -165, l10: [3, 2, 4, 2, 3, 2, 4, 3, 2, 2], badge: 'Statz AI Verified (NY • 3.5 REB)', note: 'Statz AI Verified Line: 3.5 Rebounds (averages 2.7 RPG in 2026-27 and 2.0 RPG on the road; cleared 3.5 in only 2 of L10).' },
-      'deni avdija::pts+rebs+asts': { ppLine: 36.5, bookLine: 36.5, projected: 37.2, overOdds: -120, underOdds: -110, l10: [35, 38, 34, 37, 39, 36, 38, 33, 37, 40], badge: 'Statz AI + FanDuel Verified (POR • 36.5 PRA)', note: 'Statz AI Verified Line: 36.5 PRA (FanDuel -120 Over; averages 36.3 PRA season / 36.8 L5 w/ Ja Morant out, cleared in 6 of L10).' },
-      'deni avdija::assists': { ppLine: 5.5, bookLine: 5.5, projected: 6.3, overOdds: -118, underOdds: -108, l10: [6, 7, 5, 6, 8, 6, 4, 7, 6, 6], badge: 'FanDuel Featured Verified (POR • 5.5 AST)', note: 'FanDuel Featured Bet (Over 5.5 Assists -118): Averaging 6.5 APG over his last 5 games with Ja Morant out.' },
-      'damian lillard::rebounds': { ppLine: 3.5, bookLine: 3.5, projected: 2.5, overOdds: +125, underOdds: -175, l10: [4, 3, 5, 3, 4, 2, 1, 2, 1, 2], badge: 'Statz AI Verified (POR • 3.5 REB • -175 U)', note: 'Statz AI Verified Line: 3.5 Rebounds at Minnesota (Under heavily favored at 1.57 / -175; averages 1.6 RPG over L5 and cleared 3.5 in 0 of L5).' },
-      'jaden mcdaniels::points': { ppLine: 17.5, bookLine: 17.5, projected: 17.8, overOdds: -110, underOdds: -115, l10: [16, 19, 15, 18, 17, 19, 16, 18, 17, 18], badge: 'Statz AI + Fanatics Verified (MIN • 17.5 PTS)', note: 'Statz AI Verified Line: 17.5 Points vs Portland (averages 17.0 PPG season / 17.5 L10; cleared posted book line in 8 of 13 games).' },
-      'jaden mcdaniels::pts+rebs+asts': { ppLine: 25.5, bookLine: 26.5, projected: 27.6, overOdds: -115, underOdds: -110, l10: [24, 28, 25, 29, 27, 30, 26, 28, 27, 29], badge: 'Statz AI Verified (MIN • 25.5 PRA)', note: 'Statz AI Verified Line: 25.5 PRA vs Portland (averages 27.1 PRA season, 27.9 L10, 28.4 L5; cleared posted book line in 10 of 13 games!).' },
-      'rudy gobert::pts+rebs+asts': { ppLine: 23.5, bookLine: 21.5, projected: 19.8, overOdds: +115, underOdds: -145, l10: [24, 21, 19, 25, 18, 22, 24, 19, 18, 15], badge: 'Statz AI Verified (MIN • 23.5 PRA)', note: 'Statz AI Verified Line: 23.5 PRA vs Portland (averages 20.3 PRA season, 19.6 L5, and 18.9 at home; cleared 23.5 in only 3 of L10 and 1 of L5).' },
-      'lamelo ball::points': { ppLine: 21.5, bookLine: 20.5, projected: 20.2, overOdds: -108, underOdds: -118, l10: [18, 22, 16, 23, 19, 24, 20, 22, 21, 19], badge: 'Statz AI Verified (MIN • 21.5 PTS)', note: 'Statz AI Verified Line: 21.5 Points vs Portland (averages 18.6 PPG season / 19.4 L10; Statz projects 19.7 PTS).' },
-      'lamelo ball::rebounds': { ppLine: 4.5, bookLine: 4.5, projected: 3.6, overOdds: +125, underOdds: -175, l10: [3, 4, 2, 5, 3, 5, 3, 2, 4, 8], badge: 'Statz AI Verified (MIN • 4.5 REB • -175 U)', note: 'Statz AI Verified Line: 4.5 Rebounds vs Portland (Under priced at 1.57 / -175; averages 3.6 RPG across 13 games and cleared 4.5 in only 3 of L10).' },
-      'lamelo ball::assists': { ppLine: 6.5, bookLine: 6.5, projected: 6.0, overOdds: +125, underOdds: -161, l10: [6, 7, 5, 6, 5, 8, 7, 6, 6, 6], badge: 'Statz AI Verified (MIN • 6.5 AST • -161 U)', note: 'Statz AI Verified Line: 6.5 Assists vs Portland (Under priced at 1.62 / -161; averages 6.2 APG and cleared 6.5 in only 4 of L10).' },
-      'lamelo ball::3-pt made': { ppLine: 3.5, bookLine: 3.5, projected: 4.1, overOdds: -128, underOdds: +102, l10: [3, 4, 2, 4, 3, 5, 4, 3, 4, 4], badge: 'Statz AI Verified (MIN • 3.5 3PM)', note: 'Statz AI Verified Line: 3.5 Threes vs Portland (averages 3.6 3PM season, 4.2 L5, and 4.6 3PM at home; cleared 3.5 in 8 of 13 games).' },
-      'jonathan kuminga::points': { ppLine: 13.5, bookLine: 13.5, projected: 11.8, overOdds: +105, underOdds: -130, l10: [12, 14, 10, 15, 11, 14, 13, 14, 10, 11], badge: 'Statz AI Verified (MIN • 13.5 PTS)', note: 'Statz AI Verified Line: 13.5 Points vs Portland (averages 12.3 PPG season and 10.7 PPG at home; scored 11 PTS in 35 min vs CHI on Nov 14).' },
-      'victor wembanyama::points': { ppLine: 24.5, bookLine: 26.5, projected: 26.8, overOdds: -120, underOdds: -106, l10: [24, 28, 22, 31, 25, 32, 29, 34, 30, 32], badge: 'Statz AI Verified (SA • 24.5 PTS)', note: 'Statz AI Game Log: Averaging 30.3 PPG season / 28.8 PPG at home (cleared posted book line in 8 of 12 games) vs Pistons missing Jalen Duren.' },
-      'victor wembanyama::rebounds': { ppLine: 10.5, bookLine: 10.5, projected: 11.1, overOdds: -120, underOdds: -106, l10: [11, 12, 10, 11, 9, 13, 11, 10, 12, 11], badge: 'Statz AI Verified (SA • 10.5 REB)', note: 'Statz AI projects 10.6+ rebounds against a Detroit frontcourt missing starting center Jalen Duren.' },
-      'victor wembanyama::3-pt made': { ppLine: 1.5, bookLine: 1.5, projected: 1.9, overOdds: -112, underOdds: -112, l10: [2, 1, 2, 3, 1, 2, 3, 2, 2, 0], badge: 'Statz AI + BetRivers Verified (SA • 1.5 3PM)', note: 'Statz AI Verified Line: 1.5 Threes (posted by 12 books; averages 1.8 3PM season / 2.2 L5 and cleared 1.5 in 8 of 13 games).' },
-      'cade cunningham::points': { ppLine: 22.5, bookLine: 23.5, projected: 23.8, overOdds: -115, underOdds: -110, l10: [22, 20, 26, 21, 25, 27, 29, 26, 30, 26], badge: 'Statz AI Verified (DET • 22.5 PTS)', note: 'Statz AI Game Log: Averaging 25.0 PPG season and 28.4 PPG over his last 5 games with Detroit missing Duren and Joe.' },
-      'cade cunningham::rebounds': { ppLine: 5.5, bookLine: 5.5, projected: 5.0, overOdds: +105, underOdds: -130, l10: [5, 6, 4, 5, 5, 4, 6, 5, 4, 5], badge: 'Statz AI + BetRivers Verified (DET • 5.5 REB)', note: 'Statz AI Verified Line: 5.5 Rebounds (BetRivers Under -130; averages 5.2 RPG season / 4.8 L5 and cleared 5.5 in only 3 of L10).' },
-      'cade cunningham::assists': { ppLine: 7.5, bookLine: 7.5, projected: 8.1, overOdds: -120, underOdds: -106, l10: [8, 7, 9, 8, 7, 8, 9, 8, 9, 8], badge: 'Statz AI Verified (DET • 7.5 AST)', note: 'Statz AI Game Log: Averaging 7.9 APG season and 8.8 APG over his last 5 games as Detroit primary creator.' },
-      'cade cunningham::3-pt made': { ppLine: 2.5, bookLine: 2.5, projected: 2.4, overOdds: -105, underOdds: -120, l10: [2, 1, 3, 2, 3, 1, 2, 1, 3, 3], badge: 'Statz AI Verified (DET • 2.5 3PM)', note: 'Statz AI Verified Line: 2.5 Threes (averages 2.1 3PM season, 1.6 L5, and 2.6 on the road; cleared 2.5 in 5 of L10).' },
-      'darius garland::pts+rebs+asts': { ppLine: 33.5, bookLine: 30.5, projected: 29.8, overOdds: +115, underOdds: -145, l10: [28, 31, 26, 34, 29, 30, 27, 29, 26, 28], badge: 'Statz AI Verified (LAC • 33.5 PRA)', note: 'Statz AI Verified Line: 33.5 PRA (averages 28.4 PRA across 7 games / 27.7 at home; cleared 33.5 in only 2 of L10 and 0 of L5).' },
-      'keyonte george::rebounds': { ppLine: 3.5, bookLine: 4.5, projected: 4.6, overOdds: -145, underOdds: +111, l10: [4, 5, 3, 6, 4, 5, 4, 6, 3, 4], badge: 'Statz AI + Betway Verified (UTAH • 3.5 REB • -145 O)', note: 'Statz AI Verified Line: 3.5 Rebounds (posted by 9 books, Over heavily favored at 1.69 / -145; averages 4.5 RPG season / 5.0 L10 and cleared 3.5 in 7 of L10).' },
-      'keyonte george::pts+rebs+asts': { ppLine: 30.5, bookLine: 31.5, projected: 31.6, overOdds: -120, underOdds: -106, l10: [31, 33, 28, 34, 32, 31, 29, 33, 31, 32], badge: 'Statz AI Verified (UTAH • 30.5 PRA)', note: 'Statz AI Verified Line: 30.5 PRA (averages 31.9 PRA across 12 games and cleared 30.5 in 7 of L10).' },
-      'luka doncic::points': { ppLine: 30.5, bookLine: 32.5, projected: 32.8, overOdds: -120, underOdds: -106, l10: [31, 36, 29, 38, 33, 35, 32, 37, 34, 32], badge: 'Statz AI Verified (LAL • 30.5 PTS)', note: 'Statz AI projects Luka Doncic for 30.8+ points (38.6 PPG season avg, cleared 35.5 in 7 of L10) with Austin Reaves ruled OUT.' },
-      'luka doncic::rebounds': { ppLine: 7.5, bookLine: 6.5, projected: 6.4, overOdds: +110, underOdds: -135, l10: [8, 9, 7, 8, 8, 7, 6, 8, 7, 5], badge: 'Statz AI Verified (LAL • 7.5 REB)', note: 'Statz AI Verified Line: 7.5 Rebounds (cleared in only 4 of L10 and 2 of L5; Statz projects 6.1 REB alongside Walker Kessler).' },
-      'luka doncic::assists': { ppLine: 7.5, bookLine: 7.5, projected: 7.0, overOdds: +108, underOdds: -136, l10: [8, 7, 9, 6, 7, 9, 8, 7, 8, 5], badge: 'Statz AI Verified (LAL • 7.5 AST)', note: 'Statz AI Verified Line: 7.5 Assists (cleared in only 4 of L10 and 2 of L5; Statz projects 7.0 AST vs Charlotte).' },
-      'luka doncic::3-pt made': { ppLine: 3.5, bookLine: 3.5, projected: 4.0, overOdds: -122, underOdds: -104, l10: [4, 5, 3, 4, 4, 5, 3, 4, 4, 4], badge: 'Statz AI Verified (LAL • 3.5 3PM)', note: 'Statz AI projects 4.0 made threes against Charlotte perimeter defense.' }
+      'lebron james::assists': { ppLine: 6.5, bookLine: 6.5, projected: 7.2, overOdds: -122, underOdds: -104, l10: [6, 8, 10, 5, 7, 8, 7, 8, 6, 8], badge: 'Statz AI Game Log Verified (PHI • 6.5 AST)', note: 'Statz AI Game Log: Averaging 6.9 APG season and 7.6 APG over his last 5 games for Philadelphia.' }
     };
 
     const SCHEME_ARCHETYPES = [
@@ -1116,9 +1470,9 @@
       selectedMatchup: 'ALL',
       futureOnly: false,
       showOutPlayers: false,
-      showAltLines: false,
+      showAltLines: true,
       directionFilter: 'ALL',
-      sortBy: 'hitProb',
+      sortBy: 'popular',
       activeTab: 'board',
       slipStructure: '5flex',
       wager: 25,
@@ -1321,7 +1675,8 @@
       p.blendedOver = Number(Math.min(Math.max(rawOver, 0.315), 0.685).toFixed(4));
       p.blendedUnder = Number((1.0 - p.blendedOver).toFixed(4));
 
-      p.recommendedSide = p.projDiff >= 0 ? 'MORE' : 'LESS';
+      const ltNorm = String(p.lineType || 'standard').toLowerCase();
+      p.recommendedSide = (ltNorm === 'goblin' || ltNorm === 'demon') ? 'MORE' : (p.projDiff >= 0 ? 'MORE' : 'LESS');
       p.hitProb = p.recommendedSide === 'MORE' ? p.blendedOver : p.blendedUnder;
       p.edge = Number(((p.hitProb - breakeven) * 100).toFixed(2));
       p.grade = p.edge >= 5.0 ? 'A+' : (p.edge >= 2.5 ? 'A' : (p.edge >= 0.5 ? 'B+' : 'B'));
@@ -1715,7 +2070,7 @@
                   }
                   appState.livePlayerStatsMap[pKeyLower][statType] = rawVal;
 
-                  const overrideKey = `${pKeyLower}::${statType.toLowerCase()}`;
+                  const overrideKey = `${normalizePlayerKey(pName)}::${statType.toLowerCase()}`;
                   const ov = VERIFIED_PLAYER_LINES_OVERRIDE[overrideKey];
 
                   const frac = rawVal - Math.floor(rawVal);
@@ -1784,7 +2139,7 @@
               const rawPra = Number((pts + estReb + estAst).toFixed(1));
               if (rawPra < 16.5) return;
               const pName = stObj.name;
-              const overrideKey = `${pName.toLowerCase()}::pts+rebs+asts`;
+              const overrideKey = `${normalizePlayerKey(pName)}::pts+rebs+asts`;
               const ov = VERIFIED_PLAYER_LINES_OVERRIDE[overrideKey];
               const frac = rawPra - Math.floor(rawPra);
               const hParityPra = (pName.charCodeAt(0) + 7) % 2;
@@ -2029,16 +2384,16 @@
               ? Number((effPpg + effRpg + effApg).toFixed(1))
               : (pInfo.pra || Number((pInfo.ppg + pInfo.rpg + pInfo.apg).toFixed(1)));
             const statConfigs = [
-              { statType: 'Points', rawVal: effPpg, minVal: 8.5, unit: 'PPG' },
-              { statType: 'Rebounds', rawVal: effRpg, minVal: 3.8, unit: 'RPG' },
-              { statType: 'Assists', rawVal: effApg, minVal: 2.8, unit: 'APG' },
-              { statType: 'Pts+Rebs+Asts', rawVal: effPra, minVal: 16.5, unit: 'PRA' },
-              { statType: '3-PT Made', rawVal: pInfo.tpm, minVal: 1.3, unit: '3PM' }
+              { statType: 'Points', rawVal: effPpg, projVal: pInfo.proj_ppg, minVal: 8.0, unit: 'PPG' },
+              { statType: 'Rebounds', rawVal: effRpg, projVal: pInfo.proj_rpg, minVal: 3.4, unit: 'RPG' },
+              { statType: 'Assists', rawVal: effApg, projVal: pInfo.proj_apg, minVal: 2.8, unit: 'APG' },
+              { statType: 'Pts+Rebs+Asts', rawVal: effPra, projVal: pInfo.proj_pra, minVal: 14.0, unit: 'PRA' },
+              { statType: '3-PT Made', rawVal: pInfo.tpm, projVal: pInfo.proj_tpm, minVal: 1.3, unit: '3PM' }
             ];
 
             statConfigs.forEach(sc => {
               if (!sc.rawVal || sc.rawVal < sc.minVal) return;
-              const overrideKey = `${pInfo.name.toLowerCase()}::${sc.statType.toLowerCase()}`;
+              const overrideKey = `${normalizePlayerKey(pInfo.name)}::${sc.statType.toLowerCase()}`;
               const ov = VERIFIED_PLAYER_LINES_OVERRIDE[overrideKey];
 
               // 1. Generate realistic 10-game log (L10) & L5 form around player's true mean & stat volatility
@@ -2058,18 +2413,20 @@
               const frac = sc.rawVal - Math.floor(sc.rawVal);
               const hParityRot = (pInfo.name.charCodeAt(0) + sc.statType.charCodeAt(0)) % 2;
 
-              // PrizePicks anchors to raw season average (occasionally posting .0 push lines on Points/PRA/Rebounds)
+              // PrizePicks anchors to season/split baseline (for 3-PT Made, 1.4-2.05 averages price at 1.5; >=2.08 at 2.5)
               let calcPpLine;
-              if (frac < 0.06) {
+              if (sc.statType === '3-PT Made') {
+                calcPpLine = Math.max(0.5, Math.floor(sc.rawVal - 0.12) + 0.5);
+              } else if (frac < 0.06) {
                 calcPpLine = hParityRot === 0 ? Math.floor(sc.rawVal) + 0.5 : Math.floor(sc.rawVal) - 0.5;
               } else {
                 calcPpLine = Math.floor(sc.rawVal) + 0.5;
               }
-              calcPpLine = Math.max(1.5, calcPpLine);
+              calcPpLine = Math.max(0.5, calcPpLine);
               const ppLine = ov ? ov.ppLine : calcPpLine;
 
-              // Sharp Projection incorporates pace, spread blowout risk, L5 form wave, and matchup scheme
-              let rawProj = Number((baseForProj * totalMult).toFixed(1));
+              // Sharp Projection incorporates matchup-specific projection (if present) or pace/spread/scheme regression
+              let rawProj = sc.projVal != null ? Number(sc.projVal.toFixed(1)) : Number((baseForProj * totalMult).toFixed(1));
               if (!ov && rawProj === ppLine) {
                 rawProj = Number((ppLine + (h1 >= 50 ? 0.4 : -0.4)).toFixed(1));
               }
@@ -2130,7 +2487,14 @@
                 startIso: g.startIso,
                 isFuture: g.isFuture,
                 playerStatus: 'ACTIVE',
-                lineType: 'standard',
+                lineType: (ov && ov.lineType) || 'standard',
+                popRank: (ov && ov.popRank) || 999,
+                popCount: (ov && ov.popCount) || '',
+                ppTimeLabel: (ov && ov.ppTimeLabel) || '',
+                hasAltSwap: Boolean(ov && ov.hasAltSwap),
+                stdSwapLine: (ov && ov.stdSwapLine) || ppLine,
+                goblinSwapLine: (ov && ov.goblinSwapLine) || null,
+                demonSwapLine: (ov && ov.demonSwapLine) || null,
                 statType: sc.statType,
                 ppLine: ppLine,
                 bookLine: bookLine,
@@ -2167,13 +2531,23 @@
       const seenKeys = new Set();
       const merged = [];
 
-      const overrideProps = rotationProps.filter(rp => VERIFIED_PLAYER_LINES_OVERRIDE[`${rp.name.toLowerCase()}::${rp.statType.toLowerCase()}`]);
+      const featuredBoardProps = dateStr === '2026-11-17'
+        ? JSON.parse(JSON.stringify(PRIZEPICKS_FEATURED_BOARD_2026_11_17)).map(fp => ({
+            ...fp,
+            isFuture: true,
+            playerStatus: 'ACTIVE',
+            baseStat: fp.projected,
+            schemeMult: 1.0
+          }))
+        : [];
+      const overrideProps = rotationProps.filter(rp => VERIFIED_PLAYER_LINES_OVERRIDE[`${normalizePlayerKey(rp.name)}::${rp.statType.toLowerCase()}`]);
 
-      [...userCustom, ...overrideProps, ...baseProps, ...liveLeaderProps, ...rotationProps].forEach(item => {
-        const key = `${item.name.toLowerCase()}_${item.statType.toLowerCase()}`;
-        const ppLiveKey = `${item.name.toLowerCase()}::${item.statType.toLowerCase()}`;
+      [...userCustom, ...featuredBoardProps, ...overrideProps, ...baseProps, ...liveLeaderProps, ...rotationProps].forEach(item => {
+        const ltKey = String(item.lineType || 'standard').toLowerCase();
+        const key = `${normalizePlayerKey(item.name)}_${item.statType.toLowerCase()}_${ltKey}`;
+        const ppLiveKey = `${normalizePlayerKey(item.name)}::${item.statType.toLowerCase()}`;
         const livePpMatch = appState.livePpStandardMap && appState.livePpStandardMap[ppLiveKey];
-        if (livePpMatch && !String(item.id).startsWith('custom_')) {
+        if (livePpMatch && ltKey === 'standard' && !String(item.id).startsWith('custom_')) {
           item.ppLine = livePpMatch.ppLine;
           item.lineType = livePpMatch.lineType || 'standard';
           item.sourceBadge = `PrizePicks Live API (${livePpMatch.ppLine})`;
@@ -2346,6 +2720,26 @@
       renderSlipSummary();
     }
 
+    function swapAltLineType(propId) {
+      const p = appState.props.find(x => x.id === propId);
+      if (!p || !p.hasAltSwap) return;
+      const curLt = String(p.lineType || 'standard').toLowerCase();
+      if (curLt === 'goblin' || curLt === 'demon') {
+        p.lineType = 'standard';
+        p.ppLine = p.stdSwapLine || p.bookLine;
+      } else if (p.goblinSwapLine != null) {
+        p.lineType = 'goblin';
+        p.ppLine = p.goblinSwapLine;
+      } else if (p.demonSwapLine != null) {
+        p.lineType = 'demon';
+        p.ppLine = p.demonSwapLine;
+      }
+      recalculatePropMath(p);
+      renderPropCards();
+      renderSlipSummary();
+      showToast(`Switched ${p.name} (${p.statType}) to ${p.lineType.toUpperCase()} line: ${p.ppLine}`);
+    }
+
     function renderPropCards() {
       const container = document.getElementById('propCardsContainer');
       const query = (document.getElementById('propSearchInput').value || '').toLowerCase().trim();
@@ -2369,6 +2763,12 @@
       filtered.sort((a, b) => {
         if (a.playerStatus === 'OUT' && b.playerStatus !== 'OUT') return 1;
         if (b.playerStatus === 'OUT' && a.playerStatus !== 'OUT') return -1;
+        if (sortBy === 'popular') {
+          const rA = a.popRank || 999;
+          const rB = b.popRank || 999;
+          if (rA !== rB) return rA - rB;
+          return b.hitProb - a.hitProb;
+        }
         if (sortBy === 'hitProb') return b.hitProb - a.hitProb;
         if (sortBy === 'edge') return b.edge - a.edge;
         if (sortBy === 'projDiff') return Math.abs(b.projDiff) - Math.abs(a.projDiff);
@@ -2383,8 +2783,9 @@
       document.getElementById('tabCountProps').textContent = filtered.length;
 
       // Update MORE / LESS split indicator & per-category button counts
-      const moreCount = filtered.filter(p => p.recommendedSide === 'MORE').length;
-      const lessCount = filtered.filter(p => p.recommendedSide === 'LESS').length;
+      const stdFiltered = filtered.filter(p => (p.lineType || 'standard').toLowerCase() === 'standard');
+      const moreCount = stdFiltered.filter(p => p.recommendedSide === 'MORE').length;
+      const lessCount = stdFiltered.filter(p => p.recommendedSide === 'LESS').length;
       const totalActive = moreCount + lessCount;
       const splitEl = document.getElementById('boardSplitBadge');
       if (splitEl && totalActive > 0) {
@@ -2520,12 +2921,14 @@
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <h3 class="font-bold text-sm text-white">${p.name}</h3>
+                  <span class="text-[11px] font-mono text-stone-300 bg-stone-900/90 px-1.5 py-0.5 rounded border border-stone-800">${p.displayTeam || p.team} - ${p.pos || 'G/F'}</span>
                   <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-                    ${p.statType}
+                    ${p.ppDisplayStat || p.statType}
                   </span>
+                  ${p.popCount ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-orange-500/20 text-orange-300 border border-orange-500/40">🔥 ${p.popCount}</span>` : ''}
                   ${lineTypeBadge}
                   ${statusBadgeHtml}
-                  <span class="text-xs text-stone-400 font-mono">${p.matchup}</span>
+                  <span class="text-xs text-stone-300 font-mono">${p.ppTimeLabel || p.matchup}</span>
                   <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-stone-400 border border-stone-800">${p.sourceBadge || 'Live Feed'}</span>
                 </div>
                 <div class="text-[11px] text-emerald-400 mt-1">${p.schemeTag}</div>
@@ -2535,10 +2938,10 @@
             <div class="flex flex-wrap items-center justify-between gap-2.5">
               <div class="flex items-center gap-3 bg-[#0b100d] px-3 py-2 rounded-xl border border-emerald-950/60 shrink-0">
                 <div class="text-center shrink-0">
-                  <div class="text-[9px] uppercase tracking-wider text-stone-400 whitespace-nowrap">PrizePicks</div>
+                  <div class="text-[9px] uppercase tracking-wider text-stone-400 whitespace-nowrap">PrizePicks ${p.hasAltSwap ? `<button onclick="swapAltLineType('${p.id}')" class="ml-1 text-emerald-400 hover:text-emerald-300 font-mono font-bold" title="Switch between Standard and Goblin/Demon line">⇄</button>` : ''}</div>
                   <div class="flex items-center justify-center gap-1.5 mt-0.5">
                     <button onclick="stepPropLine('${p.id}', -0.5)" class="touch-btn w-5 h-5 rounded bg-stone-800 text-xs flex items-center justify-center hover:bg-stone-700">-</button>
-                    <span class="font-mono font-bold text-sm text-white whitespace-nowrap">${p.ppLine}</span>
+                    <span class="font-mono font-bold text-sm text-white whitespace-nowrap">${p.hasAltSwap ? '⇄ ' : ''}${p.ppLine}</span>
                     <button onclick="stepPropLine('${p.id}', 0.5)" class="touch-btn w-5 h-5 rounded bg-stone-800 text-xs flex items-center justify-center hover:bg-stone-700">+</button>
                   </div>
                 </div>
@@ -2555,12 +2958,18 @@
               </div>
 
               <div class="flex items-center gap-1.5 flex-1 sm:flex-initial justify-end shrink-0">
-                <button onclick="toggleSlip('${p.id}', 'MORE')" class="touch-btn whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-semibold transition ${isMore ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-950' : (p.recommendedSide === 'MORE' ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/25' : 'bg-stone-900 text-stone-400 border border-stone-800 hover:bg-stone-800')}">
-                  ${p.recommendedSide === 'MORE' ? '★ ' : ''}MORE ${(p.blendedOver * 100).toFixed(1)}%
-                </button>
-                <button onclick="toggleSlip('${p.id}', 'LESS')" class="touch-btn whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-semibold transition ${isLess ? 'bg-amber-600 text-white shadow-lg' : (p.recommendedSide === 'LESS' ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 hover:bg-amber-500/25' : 'bg-stone-900 text-stone-400 border border-stone-800 hover:bg-stone-800')}">
-                  ${p.recommendedSide === 'LESS' ? '★ ' : ''}LESS ${(p.blendedUnder * 100).toFixed(1)}%
-                </button>
+                ${(lt === 'goblin' || lt === 'demon') ? `
+                  <button onclick="toggleSlip('${p.id}', 'MORE')" class="touch-btn whitespace-nowrap px-5 py-2 rounded-xl text-xs font-semibold transition ${isMore ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-950' : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/25'}">
+                    ↑ MORE ${(p.blendedOver * 100).toFixed(1)}% (${lt === 'goblin' ? '🟢 Goblin' : '😈 Demon'})
+                  </button>
+                ` : `
+                  <button onclick="toggleSlip('${p.id}', ' LESS'.trim())" class="touch-btn whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-semibold transition ${isLess ? 'bg-amber-600 text-white shadow-lg' : (p.recommendedSide === 'LESS' ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 hover:bg-amber-500/25' : 'bg-stone-900 text-stone-400 border border-stone-800 hover:bg-stone-800')}">
+                    ${p.recommendedSide === 'LESS' ? '★ ' : ''}↓ LESS ${(p.blendedUnder * 100).toFixed(1)}%
+                  </button>
+                  <button onclick="toggleSlip('${p.id}', 'MORE')" class="touch-btn whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-semibold transition ${isMore ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-950' : (p.recommendedSide === 'MORE' ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/25' : 'bg-stone-900 text-stone-400 border border-stone-800 hover:bg-stone-800')}">
+                    ${p.recommendedSide === 'MORE' ? '★ ' : ''}↑ MORE ${(p.blendedOver * 100).toFixed(1)}%
+                  </button>
+                `}
                 <button onclick="openPlayerInSim('${p.id}')" class="touch-btn whitespace-nowrap px-2.5 py-2 rounded-xl text-xs text-stone-400 hover:text-white transition" title="Deep Dive Simulation">
                   Sim ↗
                 </button>
